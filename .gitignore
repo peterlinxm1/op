@@ -1,0 +1,4 @@
+router/openwrt/
+router/out/
+router/tmp/
+.DS_Store
