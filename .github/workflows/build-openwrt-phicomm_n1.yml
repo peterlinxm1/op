@@ -126,7 +126,6 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
-
     - name: Organize files
       id: organize
       if: env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
@@ -135,7 +134,6 @@ jobs:
         rm -rf packages
         echo "::set-env name=UploadOriginalFirmware::$PWD"
         echo "::set-output name=status::success"
-        
  
     - name: Upload firmware directory for Original_Armvirt
       uses: actions/upload-artifact@master
@@ -144,7 +142,6 @@ jobs:
         name: OpenWrt_firmware_original_armvirt_phicomm_n1${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.UploadOriginalFirmware }}       
         
-
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
@@ -185,9 +182,6 @@ jobs:
       with:
         name: ${{ env.firmware_3 }}
         path: ${{ env.UploadFirmwareFolder_3 }}
-
-
-
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
