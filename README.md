@@ -1,15 +1,11 @@
 # op
 
-[![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/ophub/op/blob/master/LICENSE)
-![GitHub Stars](https://img.shields.io/github/stars/ophub/op.svg?style=flat-square&label=Stars&logo=github)
-![GitHub Forks](https://img.shields.io/github/forks/ophub/op.svg?style=flat-square&label=Forks&logo=github)
-
 Automatically Build OpenWrt Firmware Using GitHub Actions. Currently supported router models are: 
 - [X64 Virtual Machine](https://github.com/ophub/op/tree/master/router/x64)
 - [Linksys WRT1900ACS v1 (shelby), v2 (shelby)](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs_v2)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
 
-### Tips
+## Tips
 
 This is just a simple fork from the code base of authors such as P3TERX, please go to the official code base for specific usage. 
 
