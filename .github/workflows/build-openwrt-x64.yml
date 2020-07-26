@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: Build x64-OpenWrt
+name: Build X64 virtual machine OpenWrt Firmware
 
 on:
   repository_dispatch:
