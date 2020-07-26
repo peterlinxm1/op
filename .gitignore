@@ -1,4 +1,4 @@
-router/openwrt/
-router/out/
-router/tmp/
+router/phicomm_n1/openwrt/
+router/phicomm_n1/out/
+router/phicomm_n1/tmp/
 .DS_Store
