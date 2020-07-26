@@ -8,9 +8,8 @@ Build OpenWrt using GitHub Actions
 
 ### Tips
 
-It may take a long time to create a `.config` file and build the OpenWrt firmware. Thus, before create repository to build your own firmware, you may check out if others have already built it which meet your needs by simply [search `Actions-Openwrt` in GitHub](https://github.com/search?q=Actions-openwrt).
+This is just a simple fork of the code base of authors such as mop, please go to the official code base for specific usage. [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt) & [tuanqing's mknop](https://github.com/tuanqing/mknop)
 
-Add some meta info of your built firmware (such as firmware architecture and installed packages) to your repository introduction, this will save others' time.
 
 ## Acknowledgments
 
