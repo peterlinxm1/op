@@ -12,7 +12,7 @@ This is just a simple fork of the code base of authors such as mop, please go to
 
 - [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 - [tuanqing's mknop](https://github.com/tuanqing/mknop)
-
+- [KFERMercer's OpenWrt-CI](https://github.com/KFERMercer/OpenWrt-CI)
 
 ## Acknowledgments
 
@@ -26,6 +26,7 @@ This is just a simple fork of the code base of authors such as mop, please go to
 - [Cisco](https://www.cisco.com/)
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [Lean's OpenWrt](https://github.com/coolsnowwolf/lede)
+- [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
 - [Cowtransfer](https://cowtransfer.com)
 - [WeTransfer](https://wetransfer.com/)
 - [Mikubill/transfer](https://github.com/Mikubill/transfer)
