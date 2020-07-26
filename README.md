@@ -4,7 +4,7 @@
 ![GitHub Stars](https://img.shields.io/github/stars/ophub/op.svg?style=flat-square&label=Stars&logo=github)
 ![GitHub Forks](https://img.shields.io/github/forks/ophub/op.svg?style=flat-square&label=Forks&logo=github)
 
-Build OpenWrt using GitHub Actions
+Build OpenWrt using GitHub Actions.
 Currently supported router models are: X64 virtual machine,Linksys WRT1900ACS v1 (shelby), v2 (shelby),Phicomm n1.
 
 ### Tips
