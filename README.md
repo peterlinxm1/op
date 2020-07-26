@@ -9,8 +9,9 @@ Build OpenWrt using GitHub Actions
 ### Tips
 
 This is just a simple fork of the code base of authors such as mop, please go to the official code base for specific usage. 
-[P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
-[tuanqing's mknop](https://github.com/tuanqing/mknop)
+
+- [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
+- [tuanqing's mknop](https://github.com/tuanqing/mknop)
 
 
 ## Acknowledgments
