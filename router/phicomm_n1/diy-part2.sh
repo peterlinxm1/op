@@ -26,7 +26,7 @@
 # install to lede
 #cd ../../
 
-patches="router/phicomm_n1/patches"
+patches="../router/phicomm_n1/patches"
 echo "patching feeds luci"
 git apply $patches/luci/*.patch --directory=feeds/luci
 echo "patching luci-theme-bootstrap-mod"
