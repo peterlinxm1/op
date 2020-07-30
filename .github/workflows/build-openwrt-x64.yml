@@ -16,7 +16,7 @@ on:
     branches:
       - master
     paths:
-      - 'router/x64/.config'
+      - 'router/x64/.config--'
     schedule:
       - cron: 0 4 * * 5
 #  watch:
