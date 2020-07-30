@@ -6,7 +6,7 @@
 # Lisence: MIT
 # Author: P3TERX
 # Blog: https://p3terx.com
-# 此页脚本在更新与安装 feeds 前执行
+# before feeds
 #=============================================================
 
 # Uncomment a feed source
