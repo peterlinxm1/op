@@ -14,8 +14,6 @@ This is just a simple fork from the code base of authors such as P3TERX, please 
 - [KFERMercer's OpenWrt-CI](https://github.com/KFERMercer/OpenWrt-CI)
 
 - [GitHub Actions](https://github.com/features/actions)
-- [tmate](https://github.com/tmate-io/tmate)
-- [mxschmitt/action-tmate](https://github.com/mxschmitt/action-tmate)
 - [csexton/debugger-action](https://github.com/csexton/debugger-action)
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [Lean's OpenWrt](https://github.com/coolsnowwolf/lede)
