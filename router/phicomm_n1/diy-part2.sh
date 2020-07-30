@@ -26,11 +26,12 @@
 # install to lede
 #cd ../../
 
-patches="../router/phicomm_n1/patches"
+
+svn co https://github.com/ophub/op/trunk/router/phicomm_n1/lede-mod
 echo "patching feeds luci"
-git apply $patches/luci/*.patch --directory=feeds/luci
+git apply lede-mod/luci/*.patch --directory=feeds/luci
 echo "patching luci-theme-bootstrap-mod"
-git apply $patches/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
+git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
 
 
 zzz="package/lean/default-settings/files/zzz-default-settings"
