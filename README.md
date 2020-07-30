@@ -7,7 +7,7 @@ Automatically Build OpenWrt Firmware Using GitHub Actions. Currently supported r
 
 ## Acknowledgments & Tips
 
-This is just a simple fork from the code base of authors such as P3TERX, please go to the official code base for specific usage. 
+This is just a simple fork from the code base of authors such as P3TERX, Please go to the official code base for specific usage. 
 
 - [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 - [tuanqing's mknop](https://github.com/tuanqing/mknop)
