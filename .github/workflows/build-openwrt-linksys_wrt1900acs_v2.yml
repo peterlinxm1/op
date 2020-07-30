@@ -16,7 +16,7 @@ on:
     branches:
       - master
     paths:
-      - 'router/linksys_wrt1900acs_v2/.config'
+      - 'router/linksys_wrt1900acs_v2/.config--'
     schedule:
       - cron: 0 4 * * 5
 #  watch:
