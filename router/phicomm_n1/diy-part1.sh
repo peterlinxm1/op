@@ -5,7 +5,7 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 # Lisence: MIT
 # Author: P3TERX
-# 此页脚本在更新与安装 feeds 前执行
+# before feeds
 #=============================================================
 
 
