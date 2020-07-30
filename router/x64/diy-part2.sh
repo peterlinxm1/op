@@ -6,7 +6,7 @@
 # Lisence: MIT
 # Author: P3TERX
 # Blog: https://p3terx.com
-# 此页脚本在更新与安装 feeds 后执行
+# later feeds
 #============================================================
 
 # Modify default IP（192.168.1.1改为192.168.31.4）
