@@ -6,7 +6,6 @@
 # Lisence: MIT
 # Author: P3TERX
 # Blog: https://p3terx.com
-# later feeds
 #============================================================
 
 # Modify default IP（FROM 192.168.1.1 CHANGE TO 192.168.31.4）
