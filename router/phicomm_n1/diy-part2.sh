@@ -9,7 +9,7 @@
 # later feeds
 #============================================================
 
-# Modify default IP（192.168.1.1改为192.168.31.4）
+# Modify default IP（FROM 192.168.1.1 CHANGE TO 192.168.31.4）
 # sed -i 's/192.168.1.1/192.168.31.4/g' package/base-files/files/bin/config_generate
 
 
