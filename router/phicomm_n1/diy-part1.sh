@@ -10,8 +10,7 @@
 
 # Mydiy program/luci-app/theme（use to /.config luci-app&theme）
 # install to lede/package
-git clone https://github.com/tuanqing/install-program \
-    package/install-program
+git clone https://github.com/tuanqing/install-program package/install-program
 svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstrap-mod \
     package/luci-theme-bootstrap-mod
 
