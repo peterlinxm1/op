@@ -6,7 +6,6 @@
 # Lisence: MIT
 # Author: P3TERX
 # Blog: https://p3terx.com
-# before feeds
 #=============================================================
 
 # Uncomment a feed source
