@@ -16,7 +16,7 @@ on:
     branches:
       - master
     paths:
-      - 'router/phicomm_n1/.config--'
+      - 'router/phicomm_n1/.config'
     schedule:
       - cron: 0 4 * * 5
 #  watch:
