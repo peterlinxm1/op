@@ -32,7 +32,7 @@ env:
   DIY_P2_SH: router/phicomm_n1/diy-part2.sh
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
-  TMP_PATH: router/phicomm_n1/openwrt
+  OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
   MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
@@ -147,7 +147,7 @@ jobs:
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
-        cp openwrt/bin/targets/*/*/*.tar.gz $TMP_PATH
+        cp openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
         sudo rm -rf $OUT_PATH
         sudo $MAKE_FILE -d
           
