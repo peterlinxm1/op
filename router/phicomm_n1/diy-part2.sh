@@ -32,6 +32,7 @@ git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mo
 
 
 zzz="package/lean/default-settings/files/zzz-default-settings"
+
 sed -i 's/samba/samba4/' $zzz
 sed -i 's#openwrt.proxy.ustclug.org#mirrors.bfsu.edu.cn\\/openwrt#' $zzz
 sed -i "/openwrt_luci/i sed -i '/Lienol/d' /etc/opkg/distfeeds.conf" $zzz
@@ -42,19 +43,16 @@ brcmfmac-firmware-43430-sdio brcmfmac-firmware-43455-sdio kmod-brcmfmac wpad \
 kmod-fs-ext4 kmod-fs-vfat kmod-fs-exfat dosfstools e2fsprogs antfs-mount \
 kmod-usb-storage kmod-usb-storage-extras kmod-usb-storage-uas \
 kmod-usb-net kmod-usb-net-asix-ax88179 kmod-usb-net-rtl8150 kmod-usb-net-rtl8152 \
-blkid lsblk parted fdisk cfdisk losetup resize2fs tune2fs pv unzip \
-lscpu htop iperf3 curl lm-sensors install-program 
+blkid lsblk parted fdisk losetup lscpu htop iperf3 curl \
+lm-sensors install-program 
 "
+
 sed -i '/FEATURES+=/ { s/cpiogz //; s/ext4 //; s/ramdisk //; s/squashfs //; }' \
     target/linux/armvirt/Makefile
 for x in $packages; do
-    sed -i "/DEFAULT_PACKAGES/ s/$/ $x/" target/linux/armvirt/Makefile
+    sed -i "/DEFAULT_PACKAGES/ s/$/ $x/" \
+        target/linux/armvirt/Makefile
 done
 
-rm -f package/lean/shadowsocksr-libev/patches/0002-Revert-verify_simple-and-auth_simple.patch
-sed -i '383,393 d' package/lean/shadowsocksr-libev/patches/0001-Add-ss-server-and-ss-check.patch
-sed -i 's/PKG_RELEASE:=5/PKG_RELEASE:=6/' package/lean/shadowsocksr-libev/Makefile
-sed -i '/PKG_SOURCE_VERSION:=/d' package/lean/shadowsocksr-libev/Makefile
-sed -i '/PKG_SOURCE_URL/a PKG_SOURCE_VERSION:=4799b312b8244ec067b8ae9ba4b85c877858976c' \
-    package/lean/shadowsocksr-libev/Makefile
+
 
