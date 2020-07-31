@@ -7,7 +7,6 @@
 # Author: P3TERX
 #=============================================================
 
-
 # Mydiy program/luci-app/theme（use to /.config luci-app&theme）install to lede/package
 git clone https://github.com/ophub/op/trunk/router/phicomm_n1/install-program package/install-program
 svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstrap-mod package/luci-theme-bootstrap-mod
@@ -17,3 +16,4 @@ svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstr
 
 #other
 rm -rf package/lean/{samba4,luci-app-samba4,luci-app-ttyd}
+
