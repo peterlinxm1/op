@@ -13,7 +13,6 @@ This is just a simple fork from the code base of authors such as P3TERX, Please 
 - [tuanqing's mknop](https://github.com/tuanqing/mknop)
 - [KFERMercer's OpenWrt-CI](https://github.com/KFERMercer/OpenWrt-CI)
 
-
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [Lean's OpenWrt](https://github.com/coolsnowwolf/lede)
 - [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
