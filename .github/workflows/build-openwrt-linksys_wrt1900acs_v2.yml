@@ -20,8 +20,8 @@ on:
       - 'router/linksys_wrt1900acs_v2/.config'
   schedule:
     - cron: 0 0 * * 6
-#  watch:
-#    types: started
+  watch:
+    types: started
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
