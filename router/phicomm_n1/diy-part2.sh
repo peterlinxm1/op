@@ -13,7 +13,7 @@
 
 
 
-# install to lede/package/openwrt-packages(mkdirFolder)
+# install to openwrt/package/openwrt-packages(mkdirFolder)
 #cd package
 #mkdir openwrt-packages
 #cd openwrt-packages
@@ -23,16 +23,10 @@
 # git clone https://github.com/fw876/helloworld.git
 # ==========luci-theme-url==========
 #git clone https://github.com/openwrt-develop/luci-theme-atmaterial.git
-# install to lede
-#cd ../../
-
 
 svn co https://github.com/ophub/op/trunk/router/phicomm_n1/lede-mod
-echo "patching feeds luci"
 git apply lede-mod/luci/*.patch --directory=feeds/luci
-echo "patching luci-theme-bootstrap-mod"
 git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
-
 
 zzz="package/lean/default-settings/files/zzz-default-settings"
 sed -i 's/samba/samba4/' $zzz
