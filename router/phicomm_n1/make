@@ -3,7 +3,7 @@
 tmp_path="router/phicomm_n1/tmp"
 out_path="router/phicomm_n1/out"
 armbian="router/phicomm_n1/armbian"
-openwrt="router/phicomm_n1/openwrt"
+openwrt_original_path="router/phicomm_n1/openwrt"
 device="phicomm-n1" # don't modify it
 image_name='$device-v$kernel-openwrt-firmware'
 
@@ -38,7 +38,7 @@ cleanup() {
 }
 
 extract_openwrt() {
-    local firmware="$openwrt/$firmware"
+    local firmware="$openwrt_original_path/$firmware"
     local suffix="${firmware##*.}"
     mount="$tmp_path/mount"
     root_comm="$tmp_path/root_comm"
@@ -169,8 +169,8 @@ get_firmwares() {
     i=0
     IFS=$'\n'
 
-    [ -d "$openwrt" ] && {
-        for x in $(ls $openwrt); do
+    [ -d "$openwrt_original_path" ] && {
+        for x in $(ls $openwrt_original_path); do
             firmwares[i++]=$x
         done
     }
