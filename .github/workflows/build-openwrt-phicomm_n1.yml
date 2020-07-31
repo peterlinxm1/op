@@ -147,6 +147,7 @@ jobs:
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
+        sudo rm -rf $OUT_PATH
         cp openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_TMP_PATH
         sudo $MAKE_FILE -d
           
