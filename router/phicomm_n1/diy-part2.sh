@@ -30,7 +30,7 @@
 # git apply lede-mod/luci/*.patch --directory=feeds/luci
 # git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
 
-patches="lede-mod/patches"
+patches="$GITHUB_WORKSPACE/router/phicomm_n1/lede-mod/patches"
 git apply $patches/luci/*.patch --directory=feeds/luci
 git apply $patches/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
 
