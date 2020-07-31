@@ -19,7 +19,7 @@ on:
     paths:
       - 'router/x64/.config'
     schedule:
-      - cron: 0 7 * * 5
+      - cron: '0 4 * * 5'
 #  watch:
 #    types: started
 
