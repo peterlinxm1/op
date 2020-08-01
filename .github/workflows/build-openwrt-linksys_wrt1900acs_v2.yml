@@ -19,7 +19,7 @@ on:
     paths:
       - 'router/linksys_wrt1900acs_v2/.config'
   schedule:
-    - cron: 0 0 * * 6
+    - cron: 0 0 * * 5
   watch:
     types: started
 
