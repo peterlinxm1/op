@@ -172,7 +172,7 @@ jobs:
         name: ${{ env.firmware_1 }}
         path: ${{ env.UploadFirmwareFolder_1 }}
 
-    - name: Upload firmware directory @ kernel 4.19.106
+    - name: Upload firmware directory @ kernel 4.19.134
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
