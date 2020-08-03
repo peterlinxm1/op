@@ -186,6 +186,13 @@ jobs:
         name: ${{ env.firmware_3 }}
         path: ${{ env.UploadFirmwareFolder_3 }}
 
+    - name: Upload firmware directory @ kernel 5.7.7
+      uses: actions/upload-artifact@master
+      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      with:
+        name: ${{ env.firmware_4 }}
+        path: ${{ env.UploadFirmwareFolder_4 }}
+
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
