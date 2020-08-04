@@ -15,7 +15,7 @@
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
 
 
-# Mydiy program/luci-app/theme（use to /.config luci-app&theme）install to lede/package
+# Add program/luci-app/theme（use to /.config luci-app&theme）install to openwrt/package
 svn co https://github.com/ophub/op/trunk/router/phicomm_n1/install-program package/install-program
 svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstrap-mod \
     package/luci-theme-bootstrap-mod
