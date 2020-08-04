@@ -31,6 +31,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/etc/config/
 	$(INSTALL_BIN) ./files/n1-install $(1)/usr/bin/
+	$(INSTALL_BIN) ./files/n1-update $(1)/usr/bin/
 	$(INSTALL_CONF) ./files/fstab $(1)/etc/config/
 endef
 
