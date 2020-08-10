@@ -140,7 +140,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_original_armvirt_phicomm_n1${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_firmware_original_armvirt_64${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.UploadOriginalFirmware }}       
         
     - name: Build firmware for N1
