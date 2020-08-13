@@ -1,44 +1,41 @@
 #!/bin/sh
 
 die() {
-    echo -e "\033[31mError:\033[0m $1" && exit 1
+    echo -e "\033[1;31mError:\033[0m $1" && exit 1
 }
 
 emmc=$(lsblk | grep -oE 'mmcblk[0-9]' | sort | uniq)
 dev_emmc="/dev/$emmc"
-
-echo "emmc: $dev_emmc"
-echo ""
 
 if [ $(blkid | grep -E 'BOOT_EMMC|ROOT_EMMC|DATA' | wc -l) != 3 ]; then
     die "you have never installed a OS to emmc, please boot with usb and run n1-install to install at first!"
 fi
 
 image="/tmp/upgrade/*.img"
-[ -f $image ] || die "no upgrade image in /tmp/upgrade!!"
+[ -f $image ] || die "no upgrade image found in /tmp/upgrade!!"
 
-echo "start upgrade form $(ls /tmp/upgrade | grep '.img$')..."
+echo "start upgrade from $(ls /tmp/upgrade | grep '.img$')..."
 
 loop=$(losetup -P -f --show $image)
-[ $loop ] || die "create loop device failed!!"
+[ "$loop" ] || die "create loop device failed!!"
 
 mnt_loop="/mnt/$(echo $loop | grep -oE 'loop[0-9]+')"
-[ -d ${mnt_loop}p2 ] || {
-    mkdir -p ${mnt_loop}p1 ${mnt_loop}p2
-    mount -t vfat ${loop}p1 ${mnt_loop}p1
-    mount -t ext4 ${loop}p2 ${mnt_loop}p2
-}
-
 uuid=$(blkid ${loop}p2 | awk '{ print $3 }' | cut -d '"' -f 2)
-uenv="${mnt_loop}p1/uEnv.txt"
 
-if [ $uuid ]; then
-    sed -i "s/LABEL=ROOTFS/UUID=$uuid/" $uenv
+[ -d ${mnt_loop}p1 ] || mkdir -p ${mnt_loop}p1
+[ -d ${mnt_loop}p2 ] || mkdir -p ${mnt_loop}p2
+[ $(ls ${mnt_loop}p1 | wc -l) = 0 ] && mount -t vfat ${loop}p1 ${mnt_loop}p1
+[ $(ls ${mnt_loop}p2 | wc -l) = 0 ] && mount -t ext4 ${loop}p2 ${mnt_loop}p2
+
+if [ "$uuid" ]; then
+    sed -i "s/LABEL=ROOTFS/UUID=$uuid/" ${mnt_loop}p1/uEnv.txt
 else
-    sed -i 's/ROOTFS/ROOT_EMMC/' $uenv
+    sed -i 's/ROOTFS/ROOT_EMMC/' ${mnt_loop}p1/uEnv.txt
 fi
 
-echo && read -p "do you want to save configuration [Y/n]? " yn
+cp ${mnt_loop}p2/etc/config/fstab ${mnt_loop}p2/etc/config/fstab.bak
+
+echo && read -p "do you want to save configuration? [Y/n] " yn
 case $yn in
 n | N) yn='n' ;;
 *) yn='y' ;;
@@ -50,14 +47,17 @@ esac
     tar -xzf $backup -C ${mnt_loop}p2
 }
 
-fstab="${mnt_loop}p2/etc/config/fstab"
-sed -i "s/'BOOT'/'BOOT_EMMC'/" $fstab
-if [ $uuid ]; then
-    sed -i -e '/ROOTFS/ s/label/uuid/' $fstab
-    sed -i "s/ROOTFS/$uuid/" $fstab
-else
-    sed -i 's/ROOTFS/ROOT_EMMC/' $fstab
-fi
+(
+    cd ${mnt_loop}p2/etc/config
+    cp fstab.bak fstab
+    sed -i "s/'BOOT'/'BOOT_EMMC'/" fstab
+    if [ "$uuid" ]; then
+        sed -i -e '/ROOTFS/ s/label/uuid/' fstab
+        sed -i "s/ROOTFS/$uuid/" fstab
+    else
+        sed -i 's/ROOTFS/ROOT_EMMC/' fstab
+    fi
+)
 
 cat >${mnt_loop}p2/etc/init.d/resizefs <<-EOF
 #!/bin/sh /etc/rc.common
@@ -65,8 +65,8 @@ cat >${mnt_loop}p2/etc/init.d/resizefs <<-EOF
 START=99
 
 boot() {
-    /usr/sbin/resize2fs /dev/mmcblk1p2
     # mount -o rw,remount /
+    /usr/sbin/resize2fs /dev/mmcblk1p2
 }
 EOF
 
@@ -76,43 +76,46 @@ chmod +x ${mnt_loop}p2/etc/init.d/resizefs
     ln -s ../init.d/resizefs S99resizefs
 )
 
+macaddr=$(uuidgen | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\)\(..\).*$/fc:\1:\2:\3:\4:\5/')
+[ "$macaddr" ] && {
+    (
+        cd ${mnt_loop}p2/lib/firmware/brcm
+        sdio="brcmfmac43455-sdio.phicomm,n1.txt"
+        [ -f $sdio ] || ln -s brcmfmac43455-sdio.txt $sdio
+        sed -i "s/macaddr=b8:27:eb:74:f2:6c/macaddr=$macaddr/" $sdio
+    )
+}
+
 rm -f ${mnt_loop}p2/usr/bin/n1-install
 tune2fs -L "ROOT_EMMC" ${loop}p2 >/dev/null
 
-# umount -f ${loop}p*
-# losetup -d $loop
-
 echo -e "
-###############################
-          upgrading...
-
-    !!! \033[31mdo not poweroff\033[0m !!!
-###############################
+----------------------------
+       \033[41m FBI WARNNING \033[0m
+  !!! do not power off !!!
+----------------------------
 "
 
 (
     cd ${mnt_loop}p1
-    tar -czf boot.tar.gz *
+    tar -cf boot.tar *
 )
 
 echo "upgrading boot..."
-grep -w '/boot' /proc/mounts | grep $dev_emmc || {
+grep -w '/boot' /proc/mounts | grep -q $dev_emmc || {
     umount -f /boot 2>/dev/null
     mount -t vfat ${dev_emmc}p1 /boot
 }
 rm -rf /boot/*
-# cp -r ${mnt_loop}p1/* /boot && sync
-boottgz="${mnt_loop}p1/boot.tar.gz"
-pv -rpt $boottgz | (
+boottar="${mnt_loop}p1/boot.tar"
+pv -rpt $boottar | (
     cd /boot
-    tar -xzf -
+    tar -xf -
 )
 echo ""
 
 echo "upgrading rootfs..."
-echo '1' >/proc/sys/kernel/sysrq
-echo 'u' >/proc/sysrq-trigger || umount /
-pv -rpt ${loop}p2 | dd of=${dev_emmc}p2 conv=sync 2>/dev/null
+pv -rpt ${loop}p2 | dd of=${dev_emmc}p2 conv=fsync 2>/dev/null
 echo ""
 
 echo "done, will reboot your device now!"
