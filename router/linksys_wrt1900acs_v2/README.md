@@ -21,7 +21,7 @@ Upload to `/tmp/upload/`, in the `system menu` > `TTYD terminal` > enter the com
 This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters.
 
 
-Linksys WRT1900 ACS firmware compilation parameters:
+# Linksys WRT1900 ACS firmware compilation parameters
 - Target System (marvell EBU Armada)
 - Subtarget (Marvell Armada 37x/38x/XP)
 - Target Profile (Linksys WRT1900ACS (Shelby))
@@ -29,7 +29,7 @@ Linksys WRT1900 ACS firmware compilation parameters:
 
 
 
-Other version firmware code:
+## Other version firmware code
 - WRT1900AC v1: mamba
 - WRT1900AC v2: cobra
 - WRT1200AC: caiman
@@ -37,7 +37,7 @@ Other version firmware code:
 
 
 
-Firmware information:
+# Firmware information:
 - Default IP: 192.168.1.1
 - Default username: root
 - Default password: password
