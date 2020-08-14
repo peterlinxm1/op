@@ -22,24 +22,30 @@ This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be m
 
 
 # Firmware compilation parameters
-- Target System (marvell EBU Armada)
-- Subtarget (Marvell Armada 37x/38x/XP)
-- Target Profile (Linksys WRT1900ACS (Shelby))
-- Target Images --> squashfs
+| Option | Value |
+| Target System | marvell EBU Armada |
+| Subtarget | Marvell Armada 37x/38x/XP |
+| Target Profile | Linksys WRT1900ACS (Shelby) |
+| Target Images | squashfs |
 
 
 
 Other version firmware code
-- WRT1900AC v1: mamba
-- WRT1900AC v2: cobra
-- WRT1200AC: caiman
-- WRT1900ACS: shelby
+| Model | Code |
+| ---- | ---- |
+| WRT1900AC v1 | mamba |
+| WRT1900AC v2 | cobra |
+| WRT1200AC | caiman |
+| WRT1900ACS | shelby |
 
 
 
 # Firmware information
-- Default IP: 192.168.1.1
-- Default username: root
-- Default password: password
-- Default WIFI name: OpenWrt
-- Default WIFI password: none
+
+| Name | Value |
+| ---- | ---- |
+| Default IP | 192.168.1.1 |
+| Default username | root |
+| Default password | password |
+| Default WIFI name | OpenWrt |
+| Default WIFI password | none |
