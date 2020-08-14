@@ -19,7 +19,7 @@ on:
     paths:
       - 'router/phicomm_n1/.config'
   schedule:
-    - cron: '0 0 * * 5'
+    - cron: '1 0 * * 5'
   watch:
     types: started
 
