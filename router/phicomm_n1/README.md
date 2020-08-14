@@ -8,20 +8,20 @@ The firmware supports USB hard disk booting. You can also flash the firmware in 
 Writing method: `log in to openwrt` > `system menu` > `TTYD terminal` > input command: 
 ```shell script
 n1-install
-reboot     #Pull out the USB hard disk, and then enter the reboot command to restart
+reboot       #Pull out the USB hard disk, and then enter the reboot command to restart
 ```
 you can input the firmware in the USB hard disk to the EMMC partition of Phicomm N1.
 
 Update method: `log in to openwrt` > `system menu` > `file transfer` > upload to /tmp/upgrade/xxx.img, enter the `system menu` > `TTYD terminal` > input command: 
 ```shell script
 n1-update
-reboot     #Pull out the USB hard disk, and then enter the reboot command to restart
+reboot       #Pull out the USB hard disk, and then enter the reboot command to restart
 ```
 
 Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network -> Firewall -> Custom Rules):
 ```shell script
-iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
-  iptables -t nat -I POSTROUTING -o  br-lan -j MASQUERADE  #If the interface is bridged.
+iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE        #If the interface is eth0.
+iptables -t nat -I POSTROUTING -o  br-lan -j MASQUERADE     #If the interface is bridged.
 ```
 
 
