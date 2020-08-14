@@ -7,13 +7,13 @@ The firmware supports USB hard disk booting. You can also flash the firmware in 
 
 Writing method: `Sign in to openwrt` > `system menu` > `TTYD terminal` > input command: 
 ```shell script
-n1-install
+n1-install.sh
 reboot       #Pull out the USB hard disk, and then enter the reboot command to restart
 ```
 
 Update method: `Sign in to openwrt` > `system menu` > `file transfer` > upload to /tmp/upgrade/xxx.img, enter the `system menu` > `TTYD terminal` > input command: 
 ```shell script
-n1-update
+n1-update.sh
 reboot       #Pull out the USB hard disk, and then enter the reboot command to restart
 ```
 
