@@ -16,6 +16,13 @@ Update method: `Sign in to openwrt` > `system menu` > `file transfer` > upload t
 n1-update.sh
 reboot       #Pull out the USB hard disk, and then enter the reboot command to restart
 ```
+If the partition fails and cannot be written, you can restore the bootloader, restart it, and run the relevant command again.
+How to restore bootloader:
+```shell script
+cd root
+dd if=/root/u-boot-2015-phicomm-n1.bin  of=/dev/mmcblk1
+reboot
+```
 
 Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network -> Firewall -> Custom Rules):
 ```shell script
