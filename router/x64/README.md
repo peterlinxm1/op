@@ -6,6 +6,15 @@ You can download the OpwnWrt for X64 Virtual Machine firmware from [Actions](htt
 The firmware can be followed to [ESXI](https://www.vmware.com/products/esxi-and-esx.html), [Synology Virtual Machine Manager](https://www.synology.cn/en-global/dsm/feature/virtual_machine_manager) and other virtual host systems, as well as various physical hosts of x64 architecture. For specific installation methods, please refer to the installation instructions of each system.
 
 
+# Firmware compilation parameters
+
+| Option | Value |
+| ---- | ---- |
+| Target System | x86 |
+| Subtarget | x64 64bit |
+| Target Profile | Generic |
+| Target Images | squashfs |
+
 # Firmware information:
 
 | Name | Value |
