@@ -31,6 +31,7 @@ iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is
 | Target Profile | Default |
 | Target Images | squashfs |
 | Utilities  ---> |  <*> install-program |
+| LuCI -> Applications | in the file: .config |
 
 # Firmware information
 
