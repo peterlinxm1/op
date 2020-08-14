@@ -14,6 +14,7 @@ The firmware can be followed to [ESXI](https://www.vmware.com/products/esxi-and-
 | Subtarget | x64 64bit |
 | Target Profile | Generic |
 | Target Images | squashfs |
+| LuCI -> Applications | in the file: .config |
 
 # Firmware information
 
