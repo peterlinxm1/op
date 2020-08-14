@@ -14,7 +14,7 @@ Log in to openwrt > `system menu` > `file transfer` > `upload`, and upload [the 
 Upload to `/tmp/upload/`, in the `system menu` > `TTYD terminal` > enter the commands in sequence:`cd /tmp/upload` `sysupgrade -F -n -v FW_WRT1900ACSV2_2.0.3.201002_prod.img` `reboot`
 
 
-This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters
+This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters.
 
 
 Linksys WRT1900 ACS V2 firmware compilation parameters:
@@ -23,12 +23,15 @@ Linksys WRT1900 ACS V2 firmware compilation parameters:
 - Target Profile (Linksys WRT1900ACS (Shelby))
 - Target Images --> squashfs
 
+
 Other version firmware code:
 - WRT1900AC v1: mamba
 - WRT1900AC v2: cobra
 - WRT1200AC: caiman
 - WRT1900ACS: shelby
 
+
+Firmware information:
 - Default IP: 192.168.1.1
 - Default username: root
 - Default password: password
