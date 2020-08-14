@@ -15,7 +15,7 @@ The firmware can be followed to [ESXI](https://www.vmware.com/products/esxi-and-
 | Target Profile | Generic |
 | Target Images | squashfs |
 
-# Firmware information:
+# Firmware information
 
 | Name | Value |
 | ---- | ---- |
