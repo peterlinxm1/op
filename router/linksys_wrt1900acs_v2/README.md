@@ -1,3 +1,6 @@
+# OpenWrt for Linksys WRT1900ACS Firmware instructions
+
+
 You can download the OpwnWrt for Linksys WRT1900ACS firmware from [Actions](https://github.com/ophub/op/actions). Such as `Build Linksys WRT1900ACS v1 & v2 (shelby) OpenWrt Firmware`. Unzip to get the IMG file.
 
 Installation method: Log in to the Linksys WRT1900ACS management center. `Access Router` (default password admin) > `connectivity` > `Basic` > `Manual` - `Choose File`, select the decompressed firmware: `openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`, click `install`, wait for the installation to complete, the router will automatically restart and enter OpenWrt system.
@@ -18,7 +21,7 @@ Upload to `/tmp/upload/`, in the `system menu` > `TTYD terminal` > enter the com
 This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters.
 
 
-Linksys WRT1900 ACS V2 firmware compilation parameters:
+Linksys WRT1900 ACS firmware compilation parameters:
 - Target System (marvell EBU Armada)
 - Subtarget (Marvell Armada 37x/38x/XP)
 - Target Profile (Linksys WRT1900ACS (Shelby))
