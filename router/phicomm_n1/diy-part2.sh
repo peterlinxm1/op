@@ -35,10 +35,10 @@ git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mo
 
 zzz="package/lean/default-settings/files/zzz-default-settings"
 
-sed -i 's/samba/samba4/' $zzz
+# sed -i 's/samba/samba4/' $zzz
 sed -i 's#openwrt.proxy.ustclug.org#mirrors.bfsu.edu.cn\\/openwrt#' $zzz
-sed -i "/openwrt_luci/i sed -i '/Lienol/d' /etc/opkg/distfeeds.conf" $zzz
-sed -i "/openwrt_luci/i sed -i '/helloworld/d' /etc/opkg/distfeeds.conf" $zzz
+# sed -i "/openwrt_luci/i sed -i '/Lienol/d' /etc/opkg/distfeeds.conf" $zzz
+# sed -i "/openwrt_luci/i sed -i '/helloworld/d' /etc/opkg/distfeeds.conf" $zzz
 
 packages=" \
 brcmfmac-firmware-43430-sdio brcmfmac-firmware-43455-sdio kmod-brcmfmac wpad \
