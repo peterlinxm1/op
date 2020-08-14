@@ -25,4 +25,4 @@ This is just a simple fork from the code base of authors such as P3TERX, Please 
 
 ## License
 
-[OP](https://github.com/ophub/op/blob/main/LICENSE) © OPHUB
+[OP](https://github.com/ophub/op/blob/master/LICENSE) © OPHUB
