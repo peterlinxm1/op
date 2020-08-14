@@ -14,7 +14,7 @@ fw_setenv boot_part 1     #Enter the command, you can switch to the one partitio
 reboot                    #enter the restart command to enter the firmware.
 ````
 
-Due to the dual-partition design mechanism of Linksys WRT1900ACS, the contents of another partition will be overwritten every time the firmware is installed (rather than the partition where the currently logged-in firmware is installed), so every time you install or update OpenWrt, `please switch to the official firmware partition first. Refer to the installation method to install`.
+Due to the dual-partition design mechanism of Linksys WRT1900ACS, the contents of another partition will be overwritten every time the firmware is installed (rather than the partition where the currently logged-in firmware is installed), so every time you install or update OpenWrt, `*** please switch to the official firmware partition first. Refer to the installation method to install ***`.
 
 If you accidentally install both partitions as OpenWrt and want to restore one partition to the original firmware, you can restore it by referring to the following method:
 
