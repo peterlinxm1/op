@@ -22,7 +22,9 @@ This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be m
 
 
 # Firmware compilation parameters
+
 | Option | Value |
+| ---- | ---- |
 | Target System | marvell EBU Armada |
 | Subtarget | Marvell Armada 37x/38x/XP |
 | Target Profile | Linksys WRT1900ACS (Shelby) |
