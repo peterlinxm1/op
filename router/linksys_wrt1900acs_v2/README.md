@@ -29,7 +29,7 @@ This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be m
 
 
 
-## Other version firmware code
+Other version firmware code
 - WRT1900AC v1: mamba
 - WRT1900AC v2: cobra
 - WRT1200AC: caiman
