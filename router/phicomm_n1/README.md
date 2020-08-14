@@ -13,8 +13,8 @@ Writing method: log in to openwrt> system menu> TTYD terminal> input command: 'n
 Update method: log in to openwrt> system menu> file transfer> upload to /tmp/upgrade/xxx.img and use the command 'n1-update' to update the firmware.
 
 
-Default IP: 192.168.1.1
-Default username: root
-Default password: password
-Default WIFI name: OpenWrt
-Default WIFI password: none
+- Default IP: 192.168.1.1
+- Default username: root
+- Default password: password
+- Default WIFI name: OpenWrt
+- Default WIFI password: none
