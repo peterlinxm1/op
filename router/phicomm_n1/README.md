@@ -21,7 +21,7 @@ reboot       #Pull out the USB hard disk, and then enter the reboot command to r
 Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network -> Firewall -> Custom Rules):
 ```shell script
 iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE        #If the interface is eth0.
-iptables -t nat -I POSTROUTING -o  br-lan -j MASQUERADE     #If the interface is bridged.
+iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is br-lan bridged.
 ```
 
 
