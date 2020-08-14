@@ -8,7 +8,7 @@
 #=============================================================
 
 # Uncomment a feed source
-#sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 #sed -i 's/\"#src-git\"/\"src-git\"/g' feeds.conf.default
 
 # Add a feed source
