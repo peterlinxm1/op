@@ -37,7 +37,7 @@ Other version firmware code
 
 
 
-# OpenWrt for Linksys WRT1900 ACS Firmware information:
+# OpenWrt for Linksys WRT1900 ACS Firmware information
 - Default IP: 192.168.1.1
 - Default username: root
 - Default password: password
