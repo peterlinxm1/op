@@ -7,7 +7,7 @@ Installation method: Log in to the Linksys WRT1900ACS management center. `Access
 
 Since Linksys WRT1900ACS has dual partitions, it is recommended that you keep the original firmware and install OpenWrt. The two partitions can be switched freely.
 
-Enter the following command to view the partition(You can view it from OpenWrt system menu > TTYD terminal, or Using SSH tools such as PuTTY): 
+Enter the following command to view the partition (You can view it from OpenWrt system menu > TTYD terminal, or Using SSH tools such as PuTTY): 
 ```shell script
 fw_printenv boot_part     #if it displays: boot_part=2, it means the current firmware is in the second partition. 
 fw_setenv boot_part 1     #Enter the command, you can switch to the one partition,  
