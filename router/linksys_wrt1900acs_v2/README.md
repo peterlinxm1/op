@@ -11,7 +11,8 @@ Due to the dual-partition design mechanism of Linksys WRT1900ACS, the contents o
 If you accidentally install both partitions as OpenWrt and want to restore one partition to the original firmware, you can restore it by referring to the following method:
 
 Log in to openwrt > `system menu` > `file transfer` > `upload`, and upload [the original firmware file of Linksys wrt1900 ACS](https://www.linksys.com/us/support-article?articleNum=165487) as [FW_WRT1900ACSV2_2.0.3.201002_prod.img](https://downloads.linksys.com/support/assets/firmware/FW_WRT1900ACSV2_2.0.3.201002_prod.img), 
-Upload to `/tmp/upload/`, in the `system menu` > `TTYD terminal` > enter the commands in sequence:`cd /tmp/upload` `sysupgrade -F -n -v FW_WRT1900ACSV2_2.0.3.201002_prod.img` `reboot`
+Upload to `/tmp/upload/`, in the `system menu` > `TTYD terminal` > enter the commands in sequence:`cd /tmp/upload` , `sysupgrade -F -n -v FW_WRT1900ACSV2_2.0.3.201002_prod.img` , `reboot`
+
 
 
 This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters.
@@ -24,11 +25,13 @@ Linksys WRT1900 ACS V2 firmware compilation parameters:
 - Target Images --> squashfs
 
 
+
 Other version firmware code:
 - WRT1900AC v1: mamba
 - WRT1900AC v2: cobra
 - WRT1200AC: caiman
 - WRT1900ACS: shelby
+
 
 
 Firmware information:
