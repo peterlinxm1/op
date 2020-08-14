@@ -22,9 +22,6 @@ reboot
 ````
 
 
-This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters.
-
-
 # Firmware compilation parameters
 
 | Option | Value |
@@ -36,7 +33,8 @@ This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be m
 
 
 
-Other version firmware code
+This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters. Other version firmware code:
+
 | Model | Code |
 | ---- | ---- |
 | WRT1900AC v1 | mamba |
