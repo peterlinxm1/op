@@ -22,7 +22,15 @@ Note: If used as a bypass gateway, you can add custom firewall rules as needed (
 iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE        #If the interface is eth0.
 iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is br-lan bridged.
 ```
+# Firmware compilation parameters
 
+| Option | Value |
+| ---- | ---- |
+| Target System | QEMU ARM Virtual Machine |
+| Subtarget | ARMv8 multiplatform |
+| Target Profile | Default |
+| Target Images | squashfs |
+| Utilities  ---> |  <*> install-program |
 
 # Firmware information
 
