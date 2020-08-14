@@ -10,7 +10,7 @@ Writing method: `log in to openwrt` > `system menu` > `TTYD terminal` > input co
 Update method: `log in to openwrt` > `system menu` > `file transfer` > upload to /tmp/upgrade/xxx.img, enter the `system menu` > `TTYD terminal` and use the command `n1-update` to update the firmware.
 
 
-# Firmware information:
+# Firmware information
 - Default IP: 192.168.1.1
 - Default username: root
 - Default password: password
