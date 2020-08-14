@@ -7,8 +7,11 @@ The firmware can be followed to [ESXI](https://www.vmware.com/products/esxi-and-
 
 
 # Firmware information:
-- Default IP: 192.168.1.1
-- Default username: root
-- Default password: password
-- Default WIFI name: OpenWrt
-- Default WIFI password: none
+
+| Name | Value |
+| ---- | ---- |
+| Default IP | 192.168.1.1 |
+| Default username | root |
+| Default password | password |
+| Default WIFI name | OpenWrt |
+| Default WIFI password | none |
