@@ -10,7 +10,6 @@ Writing method: `log in to openwrt` > `system menu` > `TTYD terminal` > input co
 n1-install
 reboot       #Pull out the USB hard disk, and then enter the reboot command to restart
 ```
-you can input the firmware in the USB hard disk to the EMMC partition of Phicomm N1.
 
 Update method: `log in to openwrt` > `system menu` > `file transfer` > upload to /tmp/upgrade/xxx.img, enter the `system menu` > `TTYD terminal` > input command: 
 ```shell script
