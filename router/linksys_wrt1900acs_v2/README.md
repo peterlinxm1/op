@@ -35,6 +35,7 @@ reboot
 | Subtarget | Marvell Armada 37x/38x/XP |
 | Target Profile | Linksys WRT1900ACS (Shelby) |
 | Target Images | squashfs |
+| LuCI -> Applications | in the file: .config |
 
 
 
