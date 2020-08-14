@@ -10,10 +10,7 @@ Writing method: `log in to openwrt` > `system menu` > `TTYD terminal` > input co
 Update method: `log in to openwrt` > `system menu` > `file transfer` > upload to /tmp/upgrade/xxx.img, enter the `system menu` > `TTYD terminal` and use the command `n1-update` to update the firmware.
 
 
-Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network -> Firewall -> Custom Rules):
-`iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE`
-You can also try (when there is a bridge)
-`iptables -t nat -I POSTROUTING -o  br-lan -j MASQUERADE`
+Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network -> Firewall -> Custom Rules):`iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE` ,You can also try (when there is a bridge): `iptables -t nat -I POSTROUTING -o  br-lan -j MASQUERADE`
 
 
 # Firmware information
