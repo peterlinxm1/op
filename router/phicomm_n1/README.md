@@ -18,7 +18,6 @@ reboot       #Pull out the USB hard disk, and then enter the reboot command to r
 ```
 If the partition fails and cannot be written, you can restore the bootloader, restart it, and run the relevant command again.
 ```shell script
-cd root
 dd if=/root/u-boot-2015-phicomm-n1.bin of=/dev/mmcblk1
 reboot
 ```
