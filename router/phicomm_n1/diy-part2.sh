@@ -32,7 +32,6 @@ svn co https://github.com/ophub/op/trunk/router/phicomm_n1/lede-mod
 git apply lede-mod/luci/*.patch --directory=feeds/luci
 git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
 
-
 zzz="package/lean/default-settings/files/zzz-default-settings"
 # sed -i 's/samba/samba4/' $zzz
 sed -i 's#openwrt.proxy.ustclug.org#mirrors.bfsu.edu.cn\\/openwrt#' $zzz
@@ -54,6 +53,4 @@ for x in $packages; do
     sed -i "/DEFAULT_PACKAGES/ s/$/ $x/" \
         target/linux/armvirt/Makefile
 done
-
-
 
