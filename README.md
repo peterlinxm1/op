@@ -1,6 +1,7 @@
 # OP Introduction
 
-Automatically Build OpenWrt Firmware Using GitHub Actions. Currently supported router models are: 
+The latest version of the firmware is automatically compiled every Friday at 0:00 UTC, and automatically generated using GitHub Actions, which can be downloaded in [Action](https://github.com/ophub/op/actions). For detailed information about each firmware, please refer to the description of each model. The currently supported router models are: 
+
 - [X64 Virtual Machine](https://github.com/ophub/op/tree/master/router/x64)
 - [Linksys WRT1900ACS v1 & v2 (shelby)](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs_v2)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
