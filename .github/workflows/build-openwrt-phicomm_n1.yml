@@ -19,7 +19,7 @@ on:
     paths:
       - 'router/phicomm_n1/.config'
   schedule:
-    - cron: '1 5 * * 6'
+    - cron: '0 0 * * 5'
   watch:
     types: started
 
@@ -38,7 +38,7 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_ORIGINALFIRMWARE: true
   UPLOAD_N1FIRMWARE: true
-  UPLOAD_COWTRANSFER: true
+  UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
