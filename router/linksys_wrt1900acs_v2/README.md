@@ -5,7 +5,7 @@ You can download the OpwnWrt for Linksys WRT1900ACS firmware from [Actions](http
 
 Installation method: Sign in to the Linksys WRT1900ACS management center. `Access Router` (default password admin) > `connectivity` > `Basic` > `Manual` - `Choose File`, select the decompressed firmware: `openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`, click `install`, wait for the installation to complete, the router will automatically restart and enter OpenWrt system.
 
-Since Linksys WRT1900ACS has dual partitions, it is recommended that you keep the original firmware and install OpenWrt. The two partitions can be switched freely.
+Since Linksys WRT1900ACS has dual partitions, it is recommended that you keep the original firmware on one partition and install OpenWrt firmware on the other partition. These two partitions can be switched freely.
 
 Enter the following command to view the partition (You can view it from OpenWrt `system menu` > `TTYD terminal`, or Using SSH tools such as `PuTTY` or `MAC Terminal`...): 
 ```shell script
