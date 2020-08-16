@@ -6,6 +6,60 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 - [Linksys WRT1900ACS v1 & v2 (shelby)](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs_v2)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
 
+# Usage
+
+```shell script
+   ├── .github
+   │   └── workflows                        
+   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically build the workflow of OpenWrt firmware for linksys_wrt1900acs       
+   │   │   ├── build-openwrt-phicomm_n1.yml            
+   │   │   ├── build-openwrt-x64.yml            
+   │   └── .gitkeep
+   ├── router
+   │   ├── linksys_wrt1900acs_v2                        
+   │   │   ├── .config            
+   │   │   ├── README.md            
+   │   │   ├── diy-part1.sh            
+   │   │   └── diy-part2.sh            
+   │   └── x64                        
+   │   │   ├── .config            
+   │   │   ├── README.md            
+   │   │   ├── diy-part1.sh            
+   │   │   ├── diy-part2.sh
+   │   └── phicomm_n1                        
+   │       ├── .config            
+   │       ├── README.md            
+   │       ├── diy-part1.sh            
+   │       ├── diy-part2.sh            
+   │       ├── make 
+   │       └── armbian 
+   │           ├── phicomm-n1
+   │           │   ├── boot-common.tar.gz            
+   │           │   ├── firmware.tar.gz 
+   │           │   ├── kernel 
+   │           │   │   ├── 4.18.7   
+   │           │   │   ├── 4.19.106                  
+   │           │   │   └── 5.4.50   
+   │           │   └── root
+   │           │       └── .gitkeep  
+   │           install-program 
+   │           ├── Makefile            
+   │           ├── files
+   │           │   ├── fstab 
+   │           │   ├── n1-install.sh                      
+   │           │   ├── n1-update.sh
+   │           │   └── u-boot-2015-phicomm-n1.bin 
+   │           lede-mod           
+   │           ├── bootstrap
+   │           │   └── 0001-css.patch 
+   │           └── luci
+   │               └── 0001-overview-add-cpu-info.patch 
+   ├── .gitignore
+   ├── LICENSE            
+   └── README.md
+   
+```
+
 ## Acknowledgments & Tips
 
 This is just a simple fork from the code base of authors such as P3TERX, Please go to the official code base for specific usage. 
