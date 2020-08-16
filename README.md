@@ -23,12 +23,12 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    │   │   ├── README.md            
    │   │   ├── diy-part1.sh                                # OpenWrt DIY script part 1 (Before Update feeds)
    │   │   └── diy-part2.sh                                # OpenWrt DIY script part 2 (After Update feeds)
-   │   └── x64                        
+   │   └── x64                                             # X64 Virtual Machine related code files
    │   │   ├── .config            
    │   │   ├── README.md            
    │   │   ├── diy-part1.sh            
    │   │   ├── diy-part2.sh
-   │   └── phicomm_n1                        
+   │   └── phicomm_n1                                      # PHICOMM N1 related code files
    │       ├── .config            
    │       ├── README.md            
    │       ├── diy-part1.sh            
