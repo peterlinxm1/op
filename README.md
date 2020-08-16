@@ -60,7 +60,36 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    └── README.md
    
 ```
-* work­flow file related environment variable description:
+* .github/workflow file related environment variable description:
+
+env:
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: .config
+  DIY_P1_SH: diy-part1.sh
+  DIY_P2_SH: diy-part2.sh
+  SSH_ACTIONS: false
+  UPLOAD_BIN_DIR: false
+  UPLOAD_FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  TZ: Asia/Shanghai
+
+| Environment variable | Features |
+| ---- | ---- |
+| REPO_URL | Source code warehouse address |
+| REPO_BRANCH | Source branch |
+| FEEDS_CONF | Custom feeds.conf.default file name |
+| CONFIG_FILE | Custom .config file name |
+| DIY_P1_SH | Custom diy-part1.sh file name |
+| DIY_P2_SH | Custom diy-part2.sh file name |
+| SSH_ACTIONS | SSH connection Actions. function。Default false |
+| UPLOAD_BIN_DIR | Upload the bin directory (all ipk files and firmware). Default false |
+| UPLOAD_FIRMWARE | Upload firmware catalog. Default true |
+| UPLOAD_COWTRANSFER | Upload the firmware to CowTransfer.com. Default false |
+| UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
+| TZ | Time zone setting |
 
 
 ## Acknowledgments & Tips
