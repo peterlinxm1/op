@@ -8,7 +8,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 
 # Usage
 
-* Catalog description
+* Catalog description:
 ```shell script **
    ├── .github
    │   └── workflows                        
@@ -60,6 +60,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    └── README.md
    
 ```
+* work­flow file related environment variable description:
 
 
 ## Acknowledgments & Tips
