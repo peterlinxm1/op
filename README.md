@@ -48,8 +48,8 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    │           ├── Makefile            
    │           ├── files
    │           │   ├── fstab 
-   │           │   ├── n1-install.sh                       # Install script(command: n1-install.sh)
-   │           │   ├── n1-update.sh                        # update script(command: n1-update.sh)
+   │           │   ├── n1-install.sh                       # Install script
+   │           │   ├── n1-update.sh                        # update script
    │           │   └── u-boot-2015-phicomm-n1.bin          # Recovery emmc partition script
    │           lede-mod                                    # Openwrt firmware custom modification file
    │           ├── bootstrap                               # For luci-theme
