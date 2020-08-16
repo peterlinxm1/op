@@ -86,9 +86,10 @@ Just put the `feeds.conf.default` file into the root directory of the warehouse,
 
 Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Ac­tions` virtual server environment. You can directly perform the `make menuconfig` operation to generate the compilation configuration, or any customized operation. After triggering the workflow, wait for the `SSH connection to Actions` step to be executed on the `Actions` page, and the following message will appear. Copy the SSH connection command and paste it into the terminal for execution, or copy the link to open it in the browser and use the web terminal. (The web terminal may encounter a black screen, just press `Ctrl+C`). After completion, press the shortcut key `Ctrl+D` or execute the `exit` command to exit, and the subsequent compilation work will proceed automatically.
 
-## Acknowledgments & Tips
+Tips:The code fork comes from the code bases of authors such as P3TERX, tuanqing and coolsnowwolf... I only did a simple router adaptability debugging. After fork, you can customize it by modifying .yml, .config, diy-part1.sh, diy-part2.sh... etc. For more advanced usage, please go to the original author's code base to learn.
 
-This is just a simple fork from the code base of authors such as P3TERX, Please go to the official code base for specific usage. 
+## Acknowledgments
+
 
 - [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 - [tuanqing's mknop](https://github.com/tuanqing/mknop)
