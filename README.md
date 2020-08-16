@@ -47,7 +47,7 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
  │       ├── build-openwrt-x64.yml                     # For X64 Virtual Machine
  │       └── build-openwrt-phicomm_n1.yml              # For PHICOMM N1
  │
- ├── router                                            # Related model router Openwrt firmware codes 
+ ├── router                                            # Related router Openwrt firmware codes 
  │   ├── linksys_wrt1900acs_v2                         # Linksys WRT1900ACS related code files
  │   │   ├── .config                                   # config luci-app, luci-theme and other
  │   │   ├── diy-part1.sh                              # OpenWrt DIY script part 1 (Before Update feeds)
