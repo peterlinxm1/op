@@ -44,25 +44,25 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
    ├── .github
    │   └── workflows                        
    │       ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Build OpenWrt Firmware for Linksys WRT1900ACS
-   │       ├── build-openwrt-phicomm_n1.yml                # Build OpenWrt Firmware for PHICOMM N1
-   │       └── build-openwrt-x64.yml                       # Build OpenWrt Firmware for X64 Virtual Machine
-   ├── router
+   │       ├── build-openwrt-x64.yml                       # Build OpenWrt Firmware for X64 Virtual Machine
+   │       └── build-openwrt-phicomm_n1.yml                # Build OpenWrt Firmware for PHICOMM N1
+   ├── router                                              # Related model router Openwrt firmware codes 
    │   ├── linksys_wrt1900acs_v2                           # Linksys WRT1900ACS related code files
    │   │   ├── .config                                     # For configuration, luci-app, luci-theme and other
-   │   │   ├── README.md                                   # Instructions for Linksys WRT1900ACS firmware
    │   │   ├── diy-part1.sh                                # OpenWrt DIY script part 1 (Before Update feeds)
    │   │   └── diy-part2.sh                                # OpenWrt DIY script part 2 (After Update feeds)
+   │   │   ├── README.md                                   # Instructions for Linksys WRT1900ACS firmware
    │   ├── x64                                             # x64 Virtual Machine related code files
    │   │   ├── .config            
-   │   │   ├── README.md                                   # Instructions for x64 Virtual Machine firmware
    │   │   ├── diy-part1.sh            
    │   │   └── diy-part2.sh
+   │   │   ├── README.md                                   # Instructions for x64 Virtual Machine firmware
    │   └── phicomm_n1                                      # PHICOMM N1 related code files
    │       ├── .config            
-   │       ├── README.md                                   # Instructions for PHICOMM N1 firmware
    │       ├── diy-part1.sh            
    │       ├── diy-part2.sh            
    │       ├── make                                        # OpenWrt Firmware for PHICOMM N1 build script
+   │       ├── README.md                                   # Instructions for PHICOMM N1 firmware
    │       └── armbian                                     # armbian related files
    │           ├── phicomm-n1
    │           │   ├── boot-common.tar.gz                  # Public startup file
@@ -85,7 +85,6 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
    │           │   └── 0001-css.patch
    │           └── luci                                    # For luci-app
    │               └── 0001-overview-add-cpu-info.patch 
-   ├── .gitignore
    ├── LICENSE                                             # LICENSE for OP
    └── README.md                                           # Instructions for OP
    
