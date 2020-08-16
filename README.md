@@ -12,16 +12,16 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 ```shell script **
    ├── .github
    │   └── workflows                        
-   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically Build OpenWrt Firmware for Linksys WRT1900ACS       
+   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically Build OpenWrt Firmware for Linksys WRT1900ACS
    │   │   ├── build-openwrt-phicomm_n1.yml                # Automatically Build OpenWrt Firmware for PHICOMM N1
    │   │   ├── build-openwrt-x64.yml                       # Automatically Build OpenWrt Firmware for X64 Virtual Machine
    │   └── .gitkeep
    ├── router
    │   ├── linksys_wrt1900acs_v2                           # Linksys WRT1900ACS related code files
-   │   │   ├── .config                                     # Generate .config files using Lean's OpenWrt source code(Contains:configuration/luci-app/luci-theme).
+   │   │   ├── .config                                     # For configuration, luci-app, luci-theme and other
    │   │   ├── README.md            
-   │   │   ├── diy-part1.sh            
-   │   │   └── diy-part2.sh            
+   │   │   ├── diy-part1.sh                                # OpenWrt DIY script part 1 (Before Update feeds)
+   │   │   └── diy-part2.sh                                # OpenWrt DIY script part 2 (After Update feeds)
    │   └── x64                        
    │   │   ├── .config            
    │   │   ├── README.md            
@@ -32,28 +32,28 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    │       ├── README.md            
    │       ├── diy-part1.sh            
    │       ├── diy-part2.sh            
-   │       ├── make 
-   │       └── armbian 
+   │       ├── make                                        # OpenWrt Firmware for PHICOMM N1 build script
+   │       └── armbian                                     # armbian related files
    │           ├── phicomm-n1
-   │           │   ├── boot-common.tar.gz            
-   │           │   ├── firmware.tar.gz 
-   │           │   ├── kernel 
+   │           │   ├── boot-common.tar.gz                  # Public startup file
+   │           │   ├── firmware.tar.gz                     # armbian firmware
+   │           │   ├── kernel                              # Custom kernel folder
    │           │   │   ├── 4.18.7   
    │           │   │   ├── 4.19.106                  
    │           │   │   └── 5.4.50   
-   │           │   └── root
+   │           │   └── root                                # Add your custom file
    │           │       └── .gitkeep  
-   │           install-program 
+   │           install-program                             # Install to emmc script for phicomm n1
    │           ├── Makefile            
    │           ├── files
    │           │   ├── fstab 
-   │           │   ├── n1-install.sh                      
-   │           │   ├── n1-update.sh
-   │           │   └── u-boot-2015-phicomm-n1.bin 
-   │           lede-mod           
-   │           ├── bootstrap
-   │           │   └── 0001-css.patch 
-   │           └── luci
+   │           │   ├── n1-install.sh                       # Install script(command: n1-install.sh)
+   │           │   ├── n1-update.sh                        # update script(command: n1-update.sh)
+   │           │   └── u-boot-2015-phicomm-n1.bin          # Recovery emmc partition script(command: dd if=/root/u-boot-2015-phicomm-n1.bin of=/dev/mmcblk1)
+   │           lede-mod                                    # Openwrt firmware custom modification file
+   │           ├── bootstrap                               # For luci-theme
+   │           │   └── 0001-css.patch
+   │           └── luci                                    # For luci-app
    │               └── 0001-overview-add-cpu-info.patch 
    ├── .gitignore
    ├── LICENSE            
