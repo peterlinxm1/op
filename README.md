@@ -70,13 +70,21 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 | CONFIG_FILE | Custom .config file name |
 | DIY_P1_SH | Custom diy-part1.sh file name |
 | DIY_P2_SH | Custom diy-part2.sh file name |
-| SSH_ACTIONS | SSH connection Actions. function。Default false |
+| SSH_ACTIONS | SSH connection Actions function. Default false |
 | UPLOAD_BIN_DIR | Upload the bin directory (all ipk files and firmware). Default false |
 | UPLOAD_FIRMWARE | Upload firmware catalog. Default true |
 | UPLOAD_COWTRANSFER | Upload the firmware to CowTransfer.com. Default false |
 | UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
 | TZ | Time zone setting |
 
+
+There are currently two DIY scripts in the root directory of the warehouse: diy-part1.sh and diy-part2.sh, which are executed before and after the update and installation of feeds. You can write the instructions for modifying the source code into the script, such as modifying the default IP , Host name, theme, add/remove software package, etc. If the additional software package has the same name as the existing software package in the Open­Wrt source code, the software package with the same name in the Open­Wrt source code needs to be deleted, otherwise the packages in Open­Wrt will be compiled first. It will automatically traverse all files in the package directory when compiling.
+
+
+Just put the feeds.conf.default file into the root directory of the warehouse, it will overwrite the relevant files in the Open­Wrt source directory. Create a new files directory under the root directory of the warehouse, and put the customized related files in the same directory structure as OpenWrt, and the OpenWrt configuration will be overwritten during compilation.
+
+
+Set SSH_ACTIONS: true to use tmate to connect to the GitHub Ac­tions virtual server environment. You can directly perform the make menuconfig operation to generate the compilation configuration, or any customized operation. After triggering the workflow, wait for the SSH connection to Actions step to be executed on the Actions page, and the following message will appear.
 
 ## Acknowledgments & Tips
 
