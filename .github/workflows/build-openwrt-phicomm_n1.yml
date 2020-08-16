@@ -190,14 +190,16 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
+
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadOriginalFirmware} 2>&1 | tee cowtransfer.log
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
-        curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
-        curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
@@ -205,14 +207,16 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
+        
+        ./transfer wet -s -p 16 --no-progress ${UploadOriginalFirmware} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
-        curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
-        curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
