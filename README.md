@@ -11,13 +11,13 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 ```shell script
    ├── .github
    │   └── workflows                        
-   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically build the workflow of OpenWrt firmware for linksys_wrt1900acs       
-   │   │   ├── build-openwrt-phicomm_n1.yml            
-   │   │   ├── build-openwrt-x64.yml            
+   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically Build OpenWrt Firmware for Linksys WRT1900ACS       
+   │   │   ├── build-openwrt-phicomm_n1.yml                # Automatically Build OpenWrt Firmware for PHICOMM N1
+   │   │   ├── build-openwrt-x64.yml                       # Automatically Build OpenWrt Firmware for X64 Virtual Machine
    │   └── .gitkeep
    ├── router
-   │   ├── linksys_wrt1900acs_v2                        
-   │   │   ├── .config            
+   │   ├── linksys_wrt1900acs_v2                           # Linksys WRT1900ACS related code files
+   │   │   ├── .config                                     # Generate .config files using Lean's OpenWrt source code(Contains:configuration/luci-app/luci-theme).
    │   │   ├── README.md            
    │   │   ├── diy-part1.sh            
    │   │   └── diy-part2.sh            
