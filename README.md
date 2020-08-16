@@ -64,7 +64,7 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
  │       ├── .config            
  │       ├── diy-part1.sh            
  │       ├── diy-part2.sh            
- │       ├── make                                      # PHICOMM N1 build script
+ │       ├── make                                      # Build script for PHICOMM N1
  │       ├── README.md                                 # Instructions
  │       │
  │       └── armbian                                   # armbian related files
@@ -87,7 +87,7 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
  │           │   │
  │           │   └── root                              # Add your custom files  
  │           │
- │           install-program                           # Install to emmc for phicomm n1
+ │           install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
  │           │
  │           ├── files
