@@ -49,17 +49,17 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
    ├── router
    │   ├── linksys_wrt1900acs_v2                           # Linksys WRT1900ACS related code files
    │   │   ├── .config                                     # For configuration, luci-app, luci-theme and other
-   │   │   ├── README.md            
+   │   │   ├── README.md                                   # Instructions for Linksys WRT1900ACS firmware
    │   │   ├── diy-part1.sh                                # OpenWrt DIY script part 1 (Before Update feeds)
    │   │   └── diy-part2.sh                                # OpenWrt DIY script part 2 (After Update feeds)
-   │   ├── x64                                             # X64 Virtual Machine related code files
+   │   ├── x64                                             # x64 Virtual Machine related code files
    │   │   ├── .config            
-   │   │   ├── README.md            
+   │   │   ├── README.md                                   # Instructions for x64 Virtual Machine firmware
    │   │   ├── diy-part1.sh            
    │   │   └── diy-part2.sh
    │   └── phicomm_n1                                      # PHICOMM N1 related code files
    │       ├── .config            
-   │       ├── README.md            
+   │       ├── README.md                                   # Instructions for PHICOMM N1 firmware
    │       ├── diy-part1.sh            
    │       ├── diy-part2.sh            
    │       ├── make                                        # OpenWrt Firmware for PHICOMM N1 build script
@@ -86,8 +86,8 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
    │           └── luci                                    # For luci-app
    │               └── 0001-overview-add-cpu-info.patch 
    ├── .gitignore
-   ├── LICENSE            
-   └── README.md
+   ├── LICENSE                                             # LICENSE for OP
+   └── README.md                                           # Instructions for OP
    
 ```
 
