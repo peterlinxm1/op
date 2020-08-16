@@ -60,7 +60,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    └── README.md
    
 ```
-* .github/workflow files related environment variable description:
+* .github/workflow/***.yml files related environment variable description:
 
 | Environment variable | Features |
 | ---- | ---- |
