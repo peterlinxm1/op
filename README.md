@@ -68,17 +68,24 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
    │       ├── README.md                                   # Instructions for PHICOMM N1 firmware
    │       │
    │       └── armbian                                     # armbian related files
+   │           ├── boot-common.tar.gz                      # Public startup file
+   │           ├── firmware.tar.gz                         # armbian firmware
+   │           │
    │           ├── phicomm-n1
-   │           │   ├── boot-common.tar.gz                  # Public startup file
-   │           │   ├── firmware.tar.gz                     # armbian firmware
-   │           │   │
    │           │   ├── kernel                              # Custom kernel folder
-   │           │   │   ├── 4.18.7   
-   │           │   │   ├── 4.19.106                  
-   │           │   │   └── 5.4.50   
+   │           │   │   ├── 4.18.7                          # 4.18.7 kernel folder
+   │           │   │   │   ├── kernel.tar.gz               # kernel zip file
+   │           │   │   │   └── modules.tar.gz              # modules zip file
+   │           │   │   │   
+   │           │   │   ├── 4.19.106                        # 4.19.106 kernel folder
+   │           │   │   │   ├── kernel.tar.gz
+   │           │   │   │   └── modules.tar.gz
+   │           │   │   │  
+   │           │   │   └── 5.4.50                          # 5.4.50 kernel folder
+   │           │   │       ├── kernel.tar.gz
+   │           │   │       └── modules.tar.gz
    │           │   │
-   │           │   └── root                                # Add your custom file
-   │           │       └── .gitkeep  
+   │           │   └── root                                # Add your custom files  
    │           │
    │           install-program                             # Install to emmc script for phicomm n1
    │           ├── Makefile            
