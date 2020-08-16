@@ -41,70 +41,70 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
 
 ```shell script
 
-   ├── .github
-   │   └── workflows                        
-   │       ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Build OpenWrt Firmware for Linksys WRT1900ACS
-   │       ├── build-openwrt-x64.yml                       # Build OpenWrt Firmware for X64 Virtual Machine
-   │       └── build-openwrt-phicomm_n1.yml                # Build OpenWrt Firmware for PHICOMM N1
-   │
-   ├── router                                              # Related model router Openwrt firmware codes 
-   │   ├── linksys_wrt1900acs_v2                           # Linksys WRT1900ACS related code files
-   │   │   ├── .config                                     # For configuration, luci-app, luci-theme and other
-   │   │   ├── diy-part1.sh                                # OpenWrt DIY script part 1 (Before Update feeds)
-   │   │   ├── diy-part2.sh                                # OpenWrt DIY script part 2 (After Update feeds)
-   │   │   └── README.md                                   # Instructions for Linksys WRT1900ACS firmware
-   │   │
-   │   ├── x64                                             # x64 Virtual Machine related code files
-   │   │   ├── .config            
-   │   │   ├── diy-part1.sh            
-   │   │   ├── diy-part2.sh
-   │   │   └── README.md                                   # Instructions for x64 Virtual Machine firmware
-   │   │
-   │   └── phicomm_n1                                      # PHICOMM N1 related code files
-   │       ├── .config            
-   │       ├── diy-part1.sh            
-   │       ├── diy-part2.sh            
-   │       ├── make                                        # OpenWrt Firmware for PHICOMM N1 build script
-   │       ├── README.md                                   # Instructions for PHICOMM N1 firmware
-   │       │
-   │       └── armbian                                     # armbian related files
-   │           ├── boot-common.tar.gz                      # Public startup file
-   │           ├── firmware.tar.gz                         # armbian firmware
-   │           │
-   │           ├── phicomm-n1
-   │           │   ├── kernel                              # Custom kernel folder
-   │           │   │   ├── 4.18.7                          # 4.18.7 kernel folder
-   │           │   │   │   ├── kernel.tar.gz               # kernel zip file
-   │           │   │   │   └── modules.tar.gz              # modules zip file
-   │           │   │   │   
-   │           │   │   ├── 4.19.106                        # 4.19.106 kernel folder
-   │           │   │   │   ├── kernel.tar.gz
-   │           │   │   │   └── modules.tar.gz
-   │           │   │   │  
-   │           │   │   └── 5.4.50                          # 5.4.50 kernel folder
-   │           │   │       ├── kernel.tar.gz
-   │           │   │       └── modules.tar.gz
-   │           │   │
-   │           │   └── root                                # Add your custom files  
-   │           │
-   │           install-program                             # Install to emmc script for phicomm n1
-   │           ├── Makefile            
-   │           │
-   │           ├── files
-   │           │   ├── fstab 
-   │           │   ├── n1-install.sh                       # Install script
-   │           │   ├── n1-update.sh                        # update script
-   │           │   └── u-boot-2015-phicomm-n1.bin          # Recovery emmc partition script
-   │           │
-   │           lede-mod                                    # Openwrt firmware custom modification file
-   │           ├── bootstrap                               # For luci-theme
-   │           │   └── 0001-css.patch
-   │           │
-   │           └── luci                                    # For luci-app
-   │               └── 0001-overview-add-cpu-info.patch 
-   │
-   ├── LICENSE                                             # LICENSE for OP
-   └── README.md                                           # Instructions for OP
+ ├── .github
+ │   └── workflows                        
+ │       ├── build-openwrt-linksys_wrt1900acs_v2.yml   # Build OpenWrt Firmware for Linksys WRT1900ACS
+ │       ├── build-openwrt-x64.yml                     # Build OpenWrt Firmware for X64 Virtual Machine
+ │       └── build-openwrt-phicomm_n1.yml              # Build OpenWrt Firmware for PHICOMM N1
+ │
+ ├── router                                            # Related model router Openwrt firmware codes 
+ │   ├── linksys_wrt1900acs_v2                         # Linksys WRT1900ACS related code files
+ │   │   ├── .config                                   # For configuration, luci-app, luci-theme and other
+ │   │   ├── diy-part1.sh                              # OpenWrt DIY script part 1 (Before Update feeds)
+ │   │   ├── diy-part2.sh                              # OpenWrt DIY script part 2 (After Update feeds)
+ │   │   └── README.md                                 # Instructions for Linksys WRT1900ACS firmware
+ │   │
+ │   ├── x64                                           # x64 Virtual Machine related code files
+ │   │   ├── .config            
+ │   │   ├── diy-part1.sh            
+ │   │   ├── diy-part2.sh
+ │   │   └── README.md                                 # Instructions for x64 Virtual Machine firmware
+ │   │
+ │   └── phicomm_n1                                    # PHICOMM N1 related code files
+ │       ├── .config            
+ │       ├── diy-part1.sh            
+ │       ├── diy-part2.sh            
+ │       ├── make                                      # OpenWrt Firmware for PHICOMM N1 build script
+ │       ├── README.md                                 # Instructions for PHICOMM N1 firmware
+ │       │
+ │       └── armbian                                   # armbian related files
+ │           ├── boot-common.tar.gz                    # Public startup file
+ │           ├── firmware.tar.gz                       # armbian firmware
+ │           │
+ │           ├── phicomm-n1
+ │           │   ├── kernel                            # Custom kernel folder
+ │           │   │   ├── 4.18.7                        # 4.18.7 kernel folder
+ │           │   │   │   ├── kernel.tar.gz             # kernel zip file
+ │           │   │   │   └── modules.tar.gz            # modules zip file
+ │           │   │   │   
+ │           │   │   ├── 4.19.106                      # 4.19.106 kernel folder
+ │           │   │   │   ├── kernel.tar.gz
+ │           │   │   │   └── modules.tar.gz
+ │           │   │   │  
+ │           │   │   └── 5.4.50                        # 5.4.50 kernel folder
+ │           │   │       ├── kernel.tar.gz
+ │           │   │       └── modules.tar.gz
+ │           │   │
+ │           │   └── root                              # Add your custom files  
+ │           │
+ │           install-program                           # Install to emmc script for phicomm n1
+ │           ├── Makefile            
+ │           │
+ │           ├── files
+ │           │   ├── fstab 
+ │           │   ├── n1-install.sh                     # Install script
+ │           │   ├── n1-update.sh                      # update script
+ │           │   └── u-boot-2015-phicomm-n1.bin        # Recovery emmc partition script
+ │           │
+ │           lede-mod                                  # Openwrt firmware custom modification file
+ │           ├── bootstrap                             # For luci-theme
+ │           │   └── 0001-css.patch
+ │           │
+ │           └── luci                                  # For luci-app
+ │               └── 0001-overview-add-cpu-info.patch 
+ │
+ ├── LICENSE                                           # LICENSE for OP
+ └── README.md                                         # Instructions for OP
    
 ```
 
