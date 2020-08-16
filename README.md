@@ -9,7 +9,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 # Usage
 
 
-**```shell script
+```shell script
    ├── .github
    │   └── workflows                        
    │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically Build OpenWrt Firmware for Linksys WRT1900ACS       
@@ -59,7 +59,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    ├── LICENSE            
    └── README.md
    
-```**
+```
 
 
 ## Acknowledgments & Tips
