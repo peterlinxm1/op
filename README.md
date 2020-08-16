@@ -50,22 +50,22 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
  ├── router                                            # Related router Openwrt firmware codes 
  │   ├── linksys_wrt1900acs_v2                         # Linksys WRT1900ACS related code files
  │   │   ├── .config                                   # config luci-app, luci-theme and other
- │   │   ├── diy-part1.sh                              # OpenWrt DIY script part 1 (Before Update feeds)
- │   │   ├── diy-part2.sh                              # OpenWrt DIY script part 2 (After Update feeds)
- │   │   └── README.md                                 # Instructions for Linksys WRT1900ACS firmware
+ │   │   ├── diy-part1.sh                              # DIY script part 1(Before Update feeds)
+ │   │   ├── diy-part2.sh                              # DIY script part 2(After Update feeds)
+ │   │   └── README.md                                 # Instructions
  │   │
  │   ├── x64                                           # x64 Virtual Machine related code files
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
  │   │   ├── diy-part2.sh
- │   │   └── README.md                                 # Instructions for x64 Virtual Machine firmware
+ │   │   └── README.md                                 # Instructions
  │   │
  │   └── phicomm_n1                                    # PHICOMM N1 related code files
  │       ├── .config            
  │       ├── diy-part1.sh            
  │       ├── diy-part2.sh            
- │       ├── make                                      # OpenWrt Firmware for PHICOMM N1 build script
- │       ├── README.md                                 # Instructions for PHICOMM N1 firmware
+ │       ├── make                                      # PHICOMM N1 build script
+ │       ├── README.md                                 # Instructions
  │       │
  │       └── armbian                                   # armbian related files
  │           ├── boot-common.tar.gz                    # Public startup file
@@ -87,7 +87,7 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
  │           │   │
  │           │   └── root                              # Add your custom files  
  │           │
- │           install-program                           # Install to emmc script for phicomm n1
+ │           install-program                           # Install to emmc for phicomm n1
  │           ├── Makefile            
  │           │
  │           ├── files
@@ -96,7 +96,7 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
  │           │   ├── n1-update.sh                      # update script
  │           │   └── u-boot-2015-phicomm-n1.bin        # Recovery emmc partition script
  │           │
- │           lede-mod                                  # Openwrt firmware custom modification file
+ │           lede-mod                                  # custom modification file
  │           ├── bootstrap                             # For luci-theme
  │           │   └── 0001-css.patch
  │           │
