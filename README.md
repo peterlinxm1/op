@@ -43,13 +43,13 @@ Tips: The code Fork comes from the code bases of authors such as `coolsnowwolf, 
 
  ├── .github
  │   └── workflows                        
- │       ├── build-openwrt-linksys_wrt1900acs_v2.yml   # Build OpenWrt Firmware for Linksys WRT1900ACS
- │       ├── build-openwrt-x64.yml                     # Build OpenWrt Firmware for X64 Virtual Machine
- │       └── build-openwrt-phicomm_n1.yml              # Build OpenWrt Firmware for PHICOMM N1
+ │       ├── build-openwrt-linksys_wrt1900acs_v2.yml   # For Linksys WRT1900ACS
+ │       ├── build-openwrt-x64.yml                     # For X64 Virtual Machine
+ │       └── build-openwrt-phicomm_n1.yml              # For PHICOMM N1
  │
  ├── router                                            # Related model router Openwrt firmware codes 
  │   ├── linksys_wrt1900acs_v2                         # Linksys WRT1900ACS related code files
- │   │   ├── .config                                   # For configuration, luci-app, luci-theme and other
+ │   │   ├── .config                                   # config luci-app, luci-theme and other
  │   │   ├── diy-part1.sh                              # OpenWrt DIY script part 1 (Before Update feeds)
  │   │   ├── diy-part2.sh                              # OpenWrt DIY script part 2 (After Update feeds)
  │   │   └── README.md                                 # Instructions for Linksys WRT1900ACS firmware
