@@ -6,7 +6,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 - [Linksys WRT1900ACS v1 & v2 (shelby)](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs_v2)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
 
-# Usage
+## Usage
 
 * .github/workflow/***.yml files related environment variable description:
 
