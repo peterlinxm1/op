@@ -60,21 +60,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    └── README.md
    
 ```
-* .github/workflow file related environment variable description:
-
-env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-  FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
-  SSH_ACTIONS: false
-  UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: false
-  TZ: Asia/Shanghai
+* .github/workflow files related environment variable description:
 
 | Environment variable | Features |
 | ---- | ---- |
