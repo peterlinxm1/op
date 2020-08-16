@@ -9,7 +9,8 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 # Usage
 
 * Catalog description:
-```shell script **
+
+```shell script
    ├── .github
    │   └── workflows                        
    │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically Build OpenWrt Firmware for Linksys WRT1900ACS
@@ -77,6 +78,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 | UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
 | TZ | Time zone setting |
 
+* Related script usage instructions:
 
 There are currently two DIY scripts in the root directory of the warehouse: `diy-part1.sh` and `diy-part2.sh`, which are executed before and after the update and installation of `./scripts/feeds update && ./scripts/feeds install`. You can write the instructions for modifying the source code into the script, such as modifying `the default IP , Host name, theme, add/remove software package...`, etc. If the additional software package has the same name as the existing software package in the Open­Wrt source code, the software package with the same name in the Open­Wrt source code needs to be deleted, otherwise the packages in Open­Wrt will be compiled first. It will automatically traverse all files in the `package` directory when compiling.
 
