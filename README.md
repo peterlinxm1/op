@@ -13,9 +13,9 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
 ```shell script
    ├── .github
    │   └── workflows                        
-   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Automatically Build OpenWrt Firmware for Linksys WRT1900ACS
-   │   │   ├── build-openwrt-phicomm_n1.yml                # Automatically Build OpenWrt Firmware for PHICOMM N1
-   │   │   ├── build-openwrt-x64.yml                       # Automatically Build OpenWrt Firmware for X64 Virtual Machine
+   │   │   ├── build-openwrt-linksys_wrt1900acs_v2.yml     # Build OpenWrt Firmware for Linksys WRT1900ACS
+   │   │   ├── build-openwrt-phicomm_n1.yml                # Build OpenWrt Firmware for PHICOMM N1
+   │   │   ├── build-openwrt-x64.yml                       # Build OpenWrt Firmware for X64 Virtual Machine
    │   └── .gitkeep
    ├── router
    │   ├── linksys_wrt1900acs_v2                           # Linksys WRT1900ACS related code files
@@ -50,7 +50,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Frida
    │           │   ├── fstab 
    │           │   ├── n1-install.sh                       # Install script(command: n1-install.sh)
    │           │   ├── n1-update.sh                        # update script(command: n1-update.sh)
-   │           │   └── u-boot-2015-phicomm-n1.bin          # Recovery emmc partition script(command: dd if=/root/u-boot-2015-phicomm-n1.bin of=/dev/mmcblk1)
+   │           │   └── u-boot-2015-phicomm-n1.bin          # Recovery emmc partition script
    │           lede-mod                                    # Openwrt firmware custom modification file
    │           ├── bootstrap                               # For luci-theme
    │           │   └── 0001-css.patch
