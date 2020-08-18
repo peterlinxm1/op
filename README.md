@@ -44,12 +44,12 @@ Tips: The code Fork comes from the code bases of authors such as coolsnowwolf, P
  op
  ├── .github
  │   └── workflows                        
- │       ├── build-openwrt-linksys_wrt1900acs_v2.yml   # Build Linksys WRT1900ACS firmware
+ │       ├── build-openwrt-linksys_wrt1900acs.yml      # Build Linksys WRT1900ACS firmware
  │       ├── build-openwrt-x64.yml                     # Build X64 Virtual Machine firmware
  │       └── build-openwrt-phicomm_n1.yml              # Build PHICOMM N1 firmware
  │
  ├── router                                            # Related router Openwrt firmware codes 
- │   ├── linksys_wrt1900acs_v2                         # Linksys WRT1900ACS related code files
+ │   ├── linksys_wrt1900acs                            # Linksys WRT1900ACS related code files
  │   │   ├── .config                                   # config luci-app, luci-theme and other
  │   │   ├── diy-part1.sh                              # DIY script part 1(Before Update feeds)
  │   │   ├── diy-part2.sh                              # DIY script part 2(After Update feeds)
