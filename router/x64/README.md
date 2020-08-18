@@ -8,13 +8,13 @@ The firmware can be followed to [VMware ESXi](https://www.vmware.com/products/es
 VMware ESXi Install OpenWrt firmware conversion commands:
 ```shell script
 sudo apt-get install qemu               #mac: brew install qemu
-qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.img openwrt-x86-64-generic-combined-ext4.vmdk
+qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-ext4-combined.img openwrt-x86-64-generic-ext4-combined.vmdk
 ```
 
 Parallels Desktop Install OpenWrt firmware conversion commands:
 ```shell script 
 sudo apt-get install qemu               #mac: brew install qemu
-qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.vmdk openwrt-x86-64-generic-combined-ext4.hdd
+qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-ext4-combined.vmdk openwrt-x86-64-generic-ext4-combined.hdd
 ```
 Synology's Virtual Machine Manager Install OpenWrt:
 ```text
