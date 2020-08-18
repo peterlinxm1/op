@@ -1,4 +1,4 @@
-# OpenWrt for x64  Firmware
+# OpenWrt for x64
 
 You can download the OpwnWrt for x64 firmware from [Actions](https://github.com/ophub/op/actions). Such as, `Build x64 Virtual Machine OpenWrt Firmware`, Unzip to get the `***.img` file.
 
