@@ -1,4 +1,9 @@
 #!/bin/bash
+#=================================================
+# https://github.com/ophub/op
+# Description: Automatically Build OpenWrt for PHICOMM N1
+# Function: Use armbian kernel to build openwrt for PHICOMM N1
+#=================================================
 
 tmp_path="router/phicomm_n1/tmp"
 out_path="router/phicomm_n1/out"
