@@ -22,7 +22,7 @@ dd if=/root/u-boot-2015-phicomm-n1.bin of=/dev/mmcblk1
 reboot
 ```
 
-Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network -> Firewall -> Custom Rules):
+Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network → Firewall → Custom Rules):
 ```shell script
 iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE        #If the interface is eth0.
 iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is br-lan bridged.
