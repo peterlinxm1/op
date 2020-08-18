@@ -18,7 +18,7 @@ qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.vmdk openwr
 ````
 Synology Virtual Machine Manager Install OpenWrt:
 ```
-Login in to Synology: Virtual Machine Manager → Image → Add → Upload the img image (openwrt-x86-64-generic-squashfs-combined.img)
+Login in to Synology: Virtual Machine Manager → Image → Add → Upload the .img file (openwrt-x86-64-generic-squashfs-combined.img)
 ```
 
 # Firmware compilation parameters
