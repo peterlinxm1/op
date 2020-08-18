@@ -1,11 +1,9 @@
 #!/bin/bash
-#=============================================================
-# https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part1.sh
-# Description: OpenWrt DIY script part 1 (Before Update feeds)
-# Lisence: MIT
-# Author: P3TERX
-#=============================================================
+#=================================================
+# https://github.com/ophub/op
+# Description: Automatically Build OpenWrt for Linksys WRT1900ACS
+# Function: Diy script (Before Update feeds, Modify the default IP, hostname, theme, add/remove software packages, etc.)
+#=================================================
 
 # Uncomment a feed source
 sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
