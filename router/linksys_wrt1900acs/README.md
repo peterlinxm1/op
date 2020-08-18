@@ -3,9 +3,12 @@
 
 You can download the OpwnWrt for Linksys WRT1900ACS firmware from [Actions](https://github.com/ophub/op/actions). Such as ` Build OpenWrt for Linksys WRT1900ACS `. Unzip to get the `***.img` file.
 
-Installation method: Sign in to the Linksys WRT1900ACS management center (default ip: 192.168.1.1): `Access Router` (default password: admin) > `connectivity` > `Basic` > `Manual` - `Choose File`, select the decompressed firmware: `openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`, click `install`, wait for the installation to complete, the router will automatically restart and enter OpenWrt system.
+Install OpenWrt: Login to Linksys WebUI (Default IP: 192.168.1.1; Password: admin). `Access Router` (default password: admin) → `connectivity` → `Basic` → `Manual` - `Choose File`, select Install img file: `openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`, click `install`, wait for the installation to complete, the router will automatically restart and enter OpenWrt system.
 
-Since Linksys WRT1900ACS has dual partitions, it is recommended that you keep the original firmware on one partition and install OpenWrt firmware on the other partition. These two partitions can be switched freely.
+Upgrading OpenWrt: 1. Login to the OpenWrt WebUI (Default IP: 192.168.1.1). 2. `System` → `Backup/Flash Firmware` → `Flash New Firmware Image` → Choose File
+Select Sysupgrade bin file: ` openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin `. 3.Untick Keep Settings, then select Flash Image.
+
+The WRT AC series of routers uses a dual firmware flash layout. This means that two separate firmware partitions are included on the device and are flashed in an alternating fashion. If booting from the primary partition, the secondary (or alternate) partition will be flashed on next sysupgrade. The reverse logic is also true. See the Flash Layout section for more details. It is recommended that you keep the original firmware in one of the partitions and install the OPENWRT firmware in the other partition. If necessary, you can switch to the firmware of different partitions.
 
 Enter the following command to view the partition (You can view it from OpenWrt `system menu` > `TTYD terminal`, or Using SSH tools such as `PuTTY` or `MAC Terminal`, etc.): 
 ```shell script
