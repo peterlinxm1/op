@@ -109,7 +109,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
 ```
 ## Tips
 
-The code Fork comes from the code bases of authors such as coolsnowwolf, P3TERX & tuanqing, etc.  I only did a simple router adaptability debugging. After `Fork`, you can customize it by modifying ` ***.yml, .config, diy-part1.sh, diy-part2.sh `, etc. For more advanced usage, please go to the original author's code base to learn.
+The code Fork comes from the code bases of authors such as coolsnowwolf, P3TERX & tuanqing, etc.  I only did a simple router adaptability debugging. After `Fork`, you can customize it by modifying ` ***.yml, .config, diy-part1.sh, diy-part2.sh `, etc. For more advanced usage, please go to the original author's github to learn.
 
 ## Acknowledgments
 
