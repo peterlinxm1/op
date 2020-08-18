@@ -1,4 +1,4 @@
-# OpenWrt for Phicomm-N1 Firmware instructions
+# OpenWrt for Phicomm-N1 Firmware
 
 
 You can download the OpwnWrt for Phicomm N1 firmware from [Actions](https://github.com/ophub/op/actions). From the `Build Phicomm N1 OpenWrt Firmware`, Such as `***-phicomm-n1-v5.4.50-openwrt-firmware or other kernel versions.` Unzip to get the `***.img` file. Then write the IMG file to the USB hard disk through software such as [balenaEtcher](https://www.balena.io/etcher/).
