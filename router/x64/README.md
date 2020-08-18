@@ -14,7 +14,7 @@ qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.img openwrt
 Parallels Desktop  firmware conversion commands:
 ````shell script 
 sudo apt-get install qemu
-qemu-img convert -f vmdk -O raw openwrt-x86-64-generic-combined-ext4.vmdk openwrt-x86-64-generic-combined-ext4.hdd
+qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.vmdk openwrt-x86-64-generic-combined-ext4.hdd
 ````
 
 
