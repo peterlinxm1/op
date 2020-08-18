@@ -5,13 +5,13 @@ You can download the OpwnWrt for Phicomm N1 firmware from [Actions](https://gith
 
 The firmware supports USB hard disk booting. You can also flash the firmware in the USB hard disk into the EMMC partition of Phicomm N1, and start using it from N1.
 
-Writing method: `Sign in to openwrt` > `system menu` > `TTYD terminal` > input command: 
+Writing method: `Login in to openwrt` → `system menu` → `TTYD terminal` → input command: 
 ```shell script
 n1-install.sh
 reboot          #Pull out the USB hard disk, and then enter the reboot command to restart.
 ```
 
-Update method: `Sign in to openwrt` > `system menu` > `file transfer` > upload to `/tmp/upgrade/xxx.img`, enter the `system menu` > `TTYD terminal` > input command: 
+Update method: `Login in to openwrt` → `system menu` → `file transfer` → upload to `/tmp/upgrade/xxx.img`, enter the `system menu` → `TTYD terminal` → input command: 
 ```shell script
 n1-update.sh
 reboot          #Pull out the USB hard disk, and then enter the reboot command to restart.
