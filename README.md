@@ -3,7 +3,7 @@
 The latest version of the OpenWrt firmware is automatically compiled every Friday at 0:00 UTC, Build OpenWrt using GitHub Actions, which can be downloaded in [Action](https://github.com/ophub/op/actions). For detailed information about each firmware, please refer to the README.md file of each model. The currently supported router models are: 
 
 - [Linksys WRT1900ACS v1 & v2 (shelby)](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs_v2)
-- [X64 Virtual Machine](https://github.com/ophub/op/tree/master/router/x64)
+- [X64](https://github.com/ophub/op/tree/master/router/x64)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
 
 ## Usage
@@ -55,7 +55,7 @@ Tips: The code Fork comes from the code bases of authors such as coolsnowwolf, P
  │   │   ├── diy-part2.sh                              # DIY script part 2(After Update feeds)
  │   │   └── README.md                                 # Instructions
  │   │
- │   ├── x64                                           # x64 Virtual Machine related code files
+ │   ├── x64                                           # x64 related code files
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
  │   │   ├── diy-part2.sh
