@@ -40,17 +40,7 @@ reboot
 | Target Images | squashfs |
 | LuCI -> Applications | in the file: .config |
 
-
-
-This firmware only supports WRT1900ACS v1 & v2 (shelby), other versions can be modified and compiled by referring to the firmware parameters. Other version firmware code:
-
-| Model | Code |
-| ---- | ---- |
-| WRT1900AC v1 | mamba |
-| WRT1900AC v2 | cobra |
-| WRT1200AC | caiman |
-| WRT1900ACS | shelby |
-
+This firmware supports WRT1900ACS v1 & v2 (shelby).
 
 
 # Firmware information
