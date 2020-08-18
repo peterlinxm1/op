@@ -6,16 +6,16 @@ You can download the OpwnWrt for x64 firmware from [Actions](https://github.com/
 The firmware can be followed to [VMware ESXi](https://www.vmware.com/products/esxi-and-esx.html), [Parallels Desktop](http://www.parallels.cn/products/desktop/), [Synology Virtual Machine Manager](https://www.synology.cn/en-global/dsm/feature/virtual_machine_manager) and other virtual host systems, as well as various physical hosts of x64 architecture. For specific installation methods, please refer to the installation instructions of each system.
 
 VMware ESXi Install OpenWrt firmware conversion commands:
-````shell 
+```shell script
 sudo apt-get install qemu
 qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.img openwrt-x86-64-generic-combined-ext4.vmdk
-````
+```
 
 Parallels Desktop Install OpenWrt firmware conversion commands:
-````shell script 
+```shell script 
 sudo apt-get install qemu
 qemu-img convert -f raw -O vmdk openwrt-x86-64-generic-combined-ext4.vmdk openwrt-x86-64-generic-combined-ext4.hdd
-````
+```
 Synology Virtual Machine Manager Install OpenWrt:
 ```text
 Login in to Synology: Virtual Machine Manager → Image → Add → Upload the .img file (openwrt-x86-64-generic-squashfs-combined.img)
