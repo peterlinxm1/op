@@ -3,7 +3,7 @@
 
 You can download the OpwnWrt for Linksys WRT1900ACS firmware from [Actions](https://github.com/ophub/op/actions). Such as ` Build OpenWrt for Linksys WRT1900ACS `. Unzip to get the `***.img` file.
 
-Install OpenWrt: Login to Linksys WebUI (Default IP: 192.168.1.1; Password: admin). `Access Router` (default password: admin) → `connectivity` → `Basic` → `Manual` - `Choose File`, select Install img file: `openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`, click `install`, wait for the installation to complete, the router will automatically restart and enter OpenWrt system.
+Install OpenWrt: 1. Login to Linksys WebUI (Default IP: 192.168.1.1; Password: admin). 2. `Access Router` (default password: admin) → `connectivity` → `Basic` → `Manual` - `Choose File`, select Install img file: `openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-factory.img`, click `install`, 3. wait for the installation to complete, the router will automatically restart and enter OpenWrt system.
 
 Upgrading OpenWrt: 1. Login to the OpenWrt WebUI (Default IP: 192.168.1.1). 2. `System` → `Backup/Flash Firmware` → `Flash New Firmware Image` → Choose File
 Select Sysupgrade bin file: ` openwrt-mvebu-cortexa9-linksys_wrt1900acs-squashfs-sysupgrade.bin `. 3.Untick Keep Settings, then select Flash Image.
