@@ -15,7 +15,7 @@ on:
     branches:
       - master
     paths:
-      - 'router/linksys_wrt1900acs_v2/.config'
+      - 'router/linksys_wrt1900acs/.config'
   schedule:
     - cron: '0 0 * * 5'
   watch:
@@ -25,9 +25,9 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: router/linksys_wrt1900acs_v2/.config
-  DIY_P1_SH: router/linksys_wrt1900acs_v2/diy-part1.sh
-  DIY_P2_SH: router/linksys_wrt1900acs_v2/diy-part2.sh
+  CONFIG_FILE: router/linksys_wrt1900acs/.config
+  DIY_P1_SH: router/linksys_wrt1900acs/diy-part1.sh
+  DIY_P2_SH: router/linksys_wrt1900acs/diy-part2.sh
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
