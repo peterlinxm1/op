@@ -1,4 +1,4 @@
-# OpenWrt for Linksys WRT1900ACS Firmware instructions
+# OpenWrt for Linksys WRT1900ACS Firmware
 
 
 You can download the OpwnWrt for Linksys WRT1900ACS firmware from [Actions](https://github.com/ophub/op/actions). Such as `Build Linksys WRT1900ACS v1 & v2 (shelby) OpenWrt Firmware`. Unzip to get the `***.img` file.
