@@ -4,7 +4,6 @@
 # Function: Install to emmc script for PHICOMM N1
 #=================================================
 
-
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=install-program
@@ -45,3 +44,4 @@ define Package/$(PKG_NAME)/install
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
+
