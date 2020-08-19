@@ -1,3 +1,10 @@
+#=================================================
+# https://github.com/ophub/op
+# Description: Automatically Build OpenWrt for PHICOMM N1
+# Function: Install to emmc script for PHICOMM N1
+#=================================================
+
+
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=install-program
