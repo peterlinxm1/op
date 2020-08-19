@@ -23,11 +23,11 @@ svn co https://github.com/ophub/op/trunk/router/phicomm_n1/install-program packa
 # svn co https://github.com/project-openwrt/openwrt/trunk/package/ctcgfw/luci-theme-edge package/luci-theme-edge
 # svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-argon-dark-mod package/luci-theme-argon-dark-mod
 # svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-argon-light-mod package/luci-theme-argon-light-mod
-svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstrap-mod package/luci-theme-bootstrap-mod
+# svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstrap-mod package/luci-theme-bootstrap-mod
 
-svn co https://github.com/ophub/op/trunk/router/phicomm_n1/lede-mod
-git apply lede-mod/luci/*.patch --directory=feeds/luci
-git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
+# svn co https://github.com/ophub/op/trunk/router/phicomm_n1/lede-mod
+# git apply lede-mod/luci/*.patch --directory=feeds/luci
+# git apply lede-mod/bootstrap/*.patch --directory=package/luci-theme-bootstrap-mod
 
 zzz="package/lean/default-settings/files/zzz-default-settings"
 # sed -i 's/samba/samba4/' $zzz
