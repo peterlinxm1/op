@@ -76,10 +76,6 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │           │   │   ├── 4.18.7                        # 4.18.7 kernel folder
  │           │   │   │   ├── kernel.tar.gz             # kernel zip file
  │           │   │   │   └── modules.tar.gz            # modules zip file
- │           │   │   │   
- │           │   │   ├── 4.19.106                      # 4.19.106 kernel folder
- │           │   │   │   ├── kernel.tar.gz
- │           │   │   │   └── modules.tar.gz
  │           │   │   │  
  │           │   │   └── 5.4.50                        # 5.4.50 kernel folder
  │           │   │       ├── kernel.tar.gz
