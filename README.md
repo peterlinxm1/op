@@ -90,18 +90,11 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │           install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
  │           │
- │           ├── files
- │           │   ├── fstab 
- │           │   ├── n1-install.sh                     # Install script
- │           │   ├── n1-update.sh                      # update script
- │           │   └── u-boot-2015-phicomm-n1.bin        # Recovery emmc partition script
- │           │
- │           lede-mod                                  # custom modification file
- │           ├── bootstrap                             # For luci-theme
- │           │   └── 0001-css.patch
- │           │
- │           └── luci                                  # For luci-app
- │               └── 0001-overview-add-cpu-info.patch 
+ │           └── files
+ │               ├── fstab 
+ │               ├── n1-install.sh                     # Install script
+ │               ├── n1-update.sh                      # update script
+ │               └── u-boot-2015-phicomm-n1.bin        # Recovery emmc partition script
  │
  ├── LICENSE                                           # LICENSE for OP
  └── README.md                                         # Instructions for OP
