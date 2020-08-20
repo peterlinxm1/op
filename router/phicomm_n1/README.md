@@ -8,13 +8,13 @@ The firmware supports USB hard disk booting. You can also Install the OpenWrt fi
 Install OpenWrt: `Login in to openwrt` → `system menu` → `TTYD terminal` → input command: 
 ```shell script
 n1-install.sh
-reboot          #Pull out the USB hard disk, and then enter the reboot command to restart.
+# Wait for the installation to complete. remove the USB hard disk, unplug/plug in the power again, and reboot into EMMC.
 ```
 
 Upgrading OpenWrt: `Login in to openwrt` → `system menu` → `file transfer` → upload to `/tmp/upgrade/xxx.img`, enter the `system menu` → `TTYD terminal` → input command: 
 ```shell script
 n1-update.sh
-reboot          #Pull out the USB hard disk, and then enter the reboot command to restart.
+reboot          #Enter the reboot command to restart.
 ```
 If the partition fails and cannot be written, you can restore the bootloader, restart it, and run the relevant command again.
 ```shell script
