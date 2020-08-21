@@ -5,10 +5,10 @@
 # Function: Use armbian kernel to build openwrt for PHICOMM N1
 #=================================================
 
-tmp_path="router/phicomm_n1/tmp"
-out_path="router/phicomm_n1/out"
-armbian_original_path="router/phicomm_n1/armbian"
-openwrt_original_path="router/phicomm_n1/openwrt"
+tmp_path="router/phicomm_n1_test/tmp"
+out_path="router/phicomm_n1_test/out"
+armbian_original_path="router/phicomm_n1_test/armbian"
+openwrt_original_path="router/phicomm_n1_test/openwrt"
 device="phicomm-n1" # don't modify it
 image_name='$device-v$kernel-openwrt-firmware'
 
