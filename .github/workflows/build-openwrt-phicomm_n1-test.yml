@@ -113,7 +113,7 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        sudo $MAKE_FILE -d
+        sudo $MAKE_FILE -d -s 512 -k 5.7.15
           
         i=0
         cd $OUT_PATH
