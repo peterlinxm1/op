@@ -17,6 +17,7 @@ on:
     paths:
       - 'router/phicomm_n1/.config'
       - 'router/phicomm_n1/makeopt'
+      - 'github/workflows/build-openwrt-phicomm_n1-test.yml'
   schedule:
     - cron: '0 0 * * 5'
   watch:
