@@ -8,7 +8,7 @@
 tmp_path="router/phicomm_n1/tmp"
 out_path="router/phicomm_n1/out"
 armbian_original_path="router/phicomm_n1/armbian"
-openwrt_original_path="router/phicomm_n1/opt"
+openwrt_original_path="router/phicomm_n1/openwrt"
 device="phicomm-n1" # don't modify it
 image_name='$device-v$kernel-openwrt-firmware'
 
