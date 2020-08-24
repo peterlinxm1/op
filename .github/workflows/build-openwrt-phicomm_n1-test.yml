@@ -17,7 +17,7 @@ on:
     paths:
       - 'router/phicomm_n1/.config'
       - 'router/phicomm_n1/makeopt'
-      - 'github/workflows/build-openwrt-phicomm_n1-test.yml'
+      - '.github/workflows/build-openwrt-phicomm_n1-test.yml'
   schedule:
     - cron: '0 0 * * 5'
   watch:
@@ -105,33 +105,12 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Compile the firmware
-      id: compile
-      run: |
-        cd openwrt
-        echo -e "$(nproc) thread compile"
-        echo "::set-output name=status::success"
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
 
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
-      uses: actions/upload-artifact@master
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
 
-    - name: Organize files
-      id: organize
-      if: env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
-      run: |
-        echo "::set-env name=UploadOriginalFirmware::$PWD"
-        echo "::set-output name=status::success"
  
     
         
@@ -139,8 +118,10 @@ jobs:
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
+        chmod +x $MAKE_FILE
+        cd openwrt
         sudo rm -rf $OUT_PATH
-        sudo $MAKE_FILE -d
+        sudo $GITHUB_WORKSPACE/$MAKE_FILE -d
           
         i=0
         cd $OUT_PATH
