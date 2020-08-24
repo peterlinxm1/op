@@ -109,17 +109,13 @@ jobs:
       run: df -hT
 
 
- 
-    
-        
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         chmod +x $MAKE_FILE
-        cd openwrt
         sudo rm -rf $OUT_PATH
-        sudo $GITHUB_WORKSPACE/$MAKE_FILE -d
+        sudo $MAKE_FILE -d
           
         i=0
         cd $OUT_PATH
