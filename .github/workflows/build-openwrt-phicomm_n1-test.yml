@@ -16,6 +16,7 @@ on:
       - master
     paths:
       - 'router/phicomm_n1/.config'
+      - 'router/phicomm_n1/makeopt'
   schedule:
     - cron: '0 0 * * 5'
   watch:
