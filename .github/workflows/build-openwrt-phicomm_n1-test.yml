@@ -104,15 +104,51 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Compile the firmware
+      id: compile
+      run: |
+        cd openwrt
+        echo -e "$(nproc) thread compile"
+#       make -j$(nproc) || make -j1 || make -j1 V=s
+        echo "::set-output name=status::success"
+#        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+#        [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
+#        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
+
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
 
+    - name: Upload bin directory
+      uses: actions/upload-artifact@master
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      with:
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin
+
+    - name: Organize files
+      id: organize
+      if: env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
+      run: |
+#        cd openwrt/bin/targets/*/*
+#        rm -rf packages
+        echo "::set-env name=UploadOriginalFirmware::$PWD"
+        echo "::set-output name=status::success"
+ 
+#    - name: Upload firmware directory for Original_Armvirt
+#      uses: actions/upload-artifact@master
+#      if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
+#      with:
+#        name: OpenWrt_firmware_original_armvirt_64${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+#        path: ${{ env.UploadOriginalFirmware }}       
+        
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         sudo rm -rf $OUT_PATH
+ #       mkdir -p $OPENWRT_ORGANIZE_PATH
+ #       cp openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
         sudo $MAKE_FILE -d
           
         i=0
@@ -142,13 +178,6 @@ jobs:
         name: ${{ env.firmware_2 }}
         path: ${{ env.UploadFirmwareFolder_2 }}
 
-    - name: Upload firmware directory @ kernel 5.7.15
-      uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      with:
-        name: ${{ env.firmware_3 }}
-        path: ${{ env.UploadFirmwareFolder_3 }}
-
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
@@ -159,9 +188,7 @@ jobs:
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        
+
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
@@ -171,7 +198,5 @@ jobs:
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
