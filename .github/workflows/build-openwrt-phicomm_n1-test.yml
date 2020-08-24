@@ -103,11 +103,9 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
-
 
     - name: Build firmware for N1
       id: buildn1firmware
@@ -154,9 +152,7 @@ jobs:
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadOriginalFirmware} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"    
+        curl -fsSL git.io/file-transfer | sh 
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee cowtransfer.log
@@ -168,13 +164,10 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${UploadOriginalFirmware} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        
         
