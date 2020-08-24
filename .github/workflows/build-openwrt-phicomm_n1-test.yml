@@ -15,8 +15,6 @@ on:
     branches:
       - master
     paths:
-      - 'router/phicomm_n1/.config'
-      - 'router/phicomm_n1/makeopt'
       - '.github/workflows/build-openwrt-phicomm_n1-test.yml'
   schedule:
     - cron: '0 0 * * 5'
@@ -33,7 +31,7 @@ env:
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
-  MAKE_FILE: router/phicomm_n1/makeopt
+  MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_ORIGINALFIRMWARE: true
