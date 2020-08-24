@@ -113,7 +113,7 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        sudo $MAKE_FILE -d -s 512 -k 5.7.15
+        sudo $MAKE_FILE -d -s 512 -k 5.4.60
           
         i=0
         cd $OUT_PATH
@@ -128,26 +128,13 @@ jobs:
         done
         echo "::set-output name=status::success"
 
-    - name: Upload firmware directory @ kernel 4.18.7
+    - name: Upload firmware directory @ kernel 5.4.60
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
         name: ${{ env.firmware_1 }}
         path: ${{ env.UploadFirmwareFolder_1 }}
 
-    - name: Upload firmware directory @ kernel 5.4.50
-      uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      with:
-        name: ${{ env.firmware_2 }}
-        path: ${{ env.UploadFirmwareFolder_2 }}
-
-    - name: Upload firmware directory @ kernel 5.7.15
-      uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      with:
-        name: ${{ env.firmware_3 }}
-        path: ${{ env.UploadFirmwareFolder_3 }}
     
     - name: Upload firmware to cowtransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
@@ -155,10 +142,7 @@ jobs:
         curl -fsSL git.io/file-transfer | sh 
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+
         
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
@@ -166,8 +150,5 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+
         
