@@ -1,4 +1,4 @@
-![OPhub logo](/logo.svg)
+![OPhub logo](/logo.png)
 
 
 # Automatically Build OpenWrt
