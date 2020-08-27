@@ -37,7 +37,7 @@ reboot
 | ---- | ---- |
 | Target System | marvell EBU Armada |
 | Subtarget | Marvell Armada 37x/38x/XP |
-| Target Profile | Linksys WRT32X) |
+| Target Profile | Linksys WRT32X |
 | Target Images | squashfs |
 | LuCI -> Applications | in the file: .config |
 
