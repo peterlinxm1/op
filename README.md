@@ -59,12 +59,18 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │   │   ├── diy-part2.sh                              # DIY script part 2(After Update feeds)
  │   │   └── README.md                                 # Instructions
  │   │
- │   ├── linksys_wrt32x                                # Linksys WRT32X related code files
+ │   ├── linksys_wrt3200acm                            # Linksys WRT3200ACM related code files
  │   │   ├── .config
  │   │   ├── diy-part1.sh
  │   │   ├── diy-part2.sh
  │   │   └── README.md
  │   │
+ │   ├── linksys_wrt32x                                # Linksys WRT32X related code files
+ │   │   ├── .config
+ │   │   ├── diy-part1.sh
+ │   │   ├── diy-part2.sh
+ │   │   └── README.md
+ │   │ 
  │   ├── x64                                           # x64 related code files
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
