@@ -91,7 +91,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │           │   │       ├── kernel.tar.gz
  │           │   │       └── modules.tar.gz
  │           │   │
- │           │   └── root                              # Add your custom files(/etc/config/*)
+ │           │   └── root                              # Add your custom files(ROOTFS Partition)
  │           │
  │           install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
