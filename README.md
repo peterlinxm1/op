@@ -58,18 +58,24 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │   │   ├── diy-part2.sh                              # DIY script part 2(After Update feeds)
  │   │   └── README.md                                 # Instructions
  │   │
+ │   ├── linksys_wrt32x                                # Linksys WRT32X related code files
+ │   │   ├── .config
+ │   │   ├── diy-part1.sh
+ │   │   ├── diy-part2.sh
+ │   │   └── README.md
+ │   │
  │   ├── x64                                           # x64 related code files
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
  │   │   ├── diy-part2.sh
- │   │   └── README.md                                 # Instructions
+ │   │   └── README.md
  │   │
  │   └── phicomm_n1                                    # PHICOMM N1 related code files
  │       ├── .config            
  │       ├── diy-part1.sh            
  │       ├── diy-part2.sh            
  │       ├── make                                      # Build script for PHICOMM N1
- │       ├── README.md                                 # Instructions
+ │       ├── README.md
  │       │
  │       └── armbian                                   # armbian related files
  │           ├── boot-common.tar.gz                    # Public startup file
@@ -85,7 +91,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │           │   │       ├── kernel.tar.gz
  │           │   │       └── modules.tar.gz
  │           │   │
- │           │   └── root                              # Add your custom files  
+ │           │   └── root                              # Add your custom files(/etc/config/*)
  │           │
  │           install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
