@@ -1,7 +1,7 @@
 #!/bin/bash
 #=================================================
 # https://github.com/ophub/op
-# Description: Automatically Build OpenWrt for Linksys WRT1900ACS
+# Description: Automatically Build OpenWrt for Linksys WRT3200ACM
 # Function: Diy script (Before Update feeds, Modify the default IP, hostname, theme, add/remove software packages, etc.)
 #=================================================
 
