@@ -29,6 +29,6 @@ blkid lsblk parted fdisk cfdisk losetup resize2fs tune2fs pv unzip lscpu htop ip
 "
 sed -i '/FEATURES+=/ { s/cpiogz //; s/ext4 //; s/ramdisk //; s/squashfs //; }' target/linux/armvirt/Makefile
 for x in $packages; do
-  sed -i "/DEFAULT_PACKAGES/ s/$/ $x/" target/linux/armvirt/Makefile
+    sed -i "/DEFAULT_PACKAGES/ s/$/ $x/" target/linux/armvirt/Makefile
 done
 
