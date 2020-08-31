@@ -79,7 +79,7 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        sudo $MAKE_FILE -d -s 512 -k 5.4.50
+        sudo $MAKE_FILE -d -s 512 -k 4.19.134
           
         i=0
         cd $OUT_PATH
