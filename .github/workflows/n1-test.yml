@@ -31,7 +31,7 @@ env:
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
-  OPENWRT_ORGANIZE_FILES: https://github.com/ophub/op/suites/1109575313/artifacts/15586197
+  OPENWRT_ORGANIZE_FILES: https://wetransfer.com/downloads/497f5d8810668b5273449d8be74ff4e920200828014309/65bf60
   MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
