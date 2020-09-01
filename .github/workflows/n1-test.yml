@@ -83,7 +83,8 @@ jobs:
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         pip install requests
         git clone https://github.com/superalex/py-wetransfer.git $OPENWRT_ORGANIZE_PATH
-        python wetransfer.py -u $OPENWRT_ORGANIZE_FILES
+        cd py-wetransfer
+        python ./wetransfer.py -u $OPENWRT_ORGANIZE_FILES
         # curl -fsSL git.io/file-transfer | sh
         # ./transfer --no-progress ${OPENWRT_ORGANIZE_FILES} 2>&1
         for x in $(ls .); do
