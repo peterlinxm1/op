@@ -85,6 +85,7 @@ jobs:
         ./transfer ${OPENWRT_ORGANIZE_FILES} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log)"
         for x in $(ls .); do
+          echo -e " [ \033[1;32m$x\033[0m ] "
           cd $x && cp *.tar.gz ../
           cd ../
         done
