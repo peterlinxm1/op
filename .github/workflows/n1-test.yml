@@ -80,23 +80,7 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
-
-        git clone https://github.com/iamleot/transferwee.git $OPENWRT_ORGANIZE_PATH
-        cd transferwee
-        sudo ./transferwee download $OPENWRT_ORGANIZE_FILES
-        for x in $(ls .); do
-          echo -e " [ \033[1;32m$x\033[0m ] "
-          cd $x && cp *.tar.gz $OPENWRT_ORGANIZE_PATH
-          cd ../
-        done
-        
-
-        # mkdir -p temp
-        # unzip -o *.zip -d $OPENWRT_ORGANIZE_PATH/temp/ 
-        # cd $OPENWRT_ORGANIZE_PATH/temp/ && cp *.tar.gz $OPENWRT_ORGANIZE_PATH
-      
-        sudo $MAKE_FILE -d
+        sudo $MAKE_FILE -d -s 512 -k 5.4.60
           
         i=0
         cd $OUT_PATH
