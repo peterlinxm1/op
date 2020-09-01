@@ -82,11 +82,10 @@ jobs:
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         curl -fsSL git.io/file-transfer | sh
-        ./transfer ${OPENWRT_ORGANIZE_FILES} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log)"
+        ./transfer --no-progress ${OPENWRT_ORGANIZE_FILES} 2>&1
         for x in $(ls .); do
           echo -e " [ \033[1;32m$x\033[0m ] "
-          cd $x && cp *.tar.gz ../
+          cd $x && cp *.tar.gz $OPENWRT_ORGANIZE_PATH
           cd ../
         done
         
