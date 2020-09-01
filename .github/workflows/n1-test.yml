@@ -81,12 +81,9 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
-        pip install requests
-        git clone https://github.com/predat/wetransferpy.git $OPENWRT_ORGANIZE_PATH
-        cd $OPENWRT_ORGANIZE_PATH/wetransferpy
-        sudo wetranfer-download -u $OPENWRT_ORGANIZE_FILES
-        # curl -fsSL git.io/file-transfer | sh
-        # ./transfer --no-progress ${OPENWRT_ORGANIZE_FILES} 2>&1
+
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer $OPENWRT_ORGANIZE_FILES
         for x in $(ls .); do
           echo -e " [ \033[1;32m$x\033[0m ] "
           cd $x && cp *.tar.gz $OPENWRT_ORGANIZE_PATH
