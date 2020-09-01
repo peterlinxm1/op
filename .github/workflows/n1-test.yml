@@ -81,6 +81,7 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
+        pip install requests
         git clone https://github.com/superalex/py-wetransfer.git $OPENWRT_ORGANIZE_PATH
         python wetransfer.py -u $OPENWRT_ORGANIZE_FILES
         # curl -fsSL git.io/file-transfer | sh
