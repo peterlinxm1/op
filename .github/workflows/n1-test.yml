@@ -83,6 +83,12 @@ jobs:
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         curl -fsSL git.io/file-transfer | sh
         ./transfer ${OPENWRT_ORGANIZE_FILES} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log)"
+        for x in $(ls .); do
+          cd $x && cp *.tar.gz ../
+          cd ../
+        done
+        
 
         # mkdir -p temp
         # unzip -o *.zip -d $OPENWRT_ORGANIZE_PATH/temp/ 
