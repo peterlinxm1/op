@@ -31,7 +31,7 @@ env:
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
-  OPENWRT_ORGANIZE_FILES: https://wetransfer.com/downloads/497f5d8810668b5273449d8be74ff4e920200828014309/65bf60
+  OPENWRT_ORGANIZE_FILES: https://we.tl/t-f1hsz0oTsr
   MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
@@ -82,10 +82,9 @@ jobs:
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         pip install requests
-        git clone https://github.com/superalex/py-wetransfer.git $OPENWRT_ORGANIZE_PATH
-        cd $OPENWRT_ORGANIZE_PATH/py-wetransfer && cp wetransfer.py $OPENWRT_ORGANIZE_PATH
-        cd $OPENWRT_ORGANIZE_PATH
-        python wetransfer.py -u $OPENWRT_ORGANIZE_FILES
+        git clone https://github.com/predat/wetransferpy.git $OPENWRT_ORGANIZE_PATH
+        cd $OPENWRT_ORGANIZE_PATH/wetransferpy
+        sudo wetranfer-download -u $OPENWRT_ORGANIZE_FILES
         # curl -fsSL git.io/file-transfer | sh
         # ./transfer --no-progress ${OPENWRT_ORGANIZE_FILES} 2>&1
         for x in $(ls .); do
