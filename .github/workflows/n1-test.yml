@@ -82,7 +82,7 @@ jobs:
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         curl -fsSL git.io/file-transfer | sh
-        ./transfer env.OPENWRT_ORGANIZE_FILES 2>&1 | tee wetransfer.log
+        ./transfer ${OPENWRT_ORGANIZE_FILES} 2>&1 | tee wetransfer.log
         sudo $MAKE_FILE -d -s 512 -k 4.19.134
           
         i=0
