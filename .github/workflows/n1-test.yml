@@ -77,10 +77,10 @@ jobs:
     - name: Download openwrt firmware
       id: downfireware
       run: |
-        mkdir -p $OPENWRT_ORGANIZE_PATH
+        mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         #git clone https://github.com/codesnas/test.git
         #cp test/*.tar.gz $OPENWRT_ORGANIZE_PATH
-        curl -O ${{ env.OPENWRT_ORGANIZE_FILES }}
+        curl -c -O ${{ env.OPENWRT_ORGANIZE_FILES }}
       
     - name: Build firmware for N1
       id: buildn1firmware
