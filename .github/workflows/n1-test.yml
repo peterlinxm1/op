@@ -82,7 +82,8 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH $DOWN_PATH
         mkdir -p $DOWN_PATH
-        sudo $MAKE_FILE -d -s 512 -k 5.4.60
+        sudo $MAKE_FILE -d
+        # sudo $MAKE_FILE -d -s 512 -k 5.4.60
           
         i=0
         cd $OUT_PATH
