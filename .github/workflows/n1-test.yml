@@ -31,7 +31,6 @@ env:
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
-  OPENWRT_ORGANIZE_FILES: https://downloads.openwrt.org/releases/19.07.3/targets/armvirt/64/openwrt-19.07.3-armvirt-64-default-rootfs.tar.gz
   MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
@@ -81,11 +80,10 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH
-        git clone https://github.com/codesnas/test.git
-        cp test/*.tar.gz $OPENWRT_ORGANIZE_PATH
-        sudo $MAKE_FILE -d
-        # sudo $MAKE_FILE -d -s 512 -k 5.4.60
-          
+        git clone https://github.com/codesnas/lede-mod.git
+        cp lede-mod/makefile/*.tar.gz $OPENWRT_ORGANIZE_PATH
+        
+        sudo $MAKE_FILE -d          
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
