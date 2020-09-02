@@ -15,7 +15,7 @@ on:
     branches:
       - master
     paths:
-      - '.github/workflows/n1-test.yml'
+      - '.github/workflows/test.yml'
   # schedule:
     # - cron: '0 0 * * 5'
   # watch:
