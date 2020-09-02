@@ -138,7 +138,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_original_armvirt_64${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_firmware_original_armvirt_64${{ env.FILE_DATE }}
         path: ${{ env.UploadOriginalFirmware }}       
         
     - name: Build firmware for N1
@@ -168,7 +168,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_phicomm_n1${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
 
     - name: Upload firmware to cowtransfer
