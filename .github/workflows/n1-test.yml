@@ -30,7 +30,6 @@ env:
   DIY_P2_SH: router/phicomm_n1/diy-part2.sh
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
-  DOWN_PATH: router/phicomm_n1/down
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
   OPENWRT_ORGANIZE_FILES: https://we.tl/t-f1hsz0oTsr
   MAKE_FILE: router/phicomm_n1/make
@@ -80,8 +79,7 @@ jobs:
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         chmod +x $MAKE_FILE
-        sudo rm -rf $OUT_PATH $DOWN_PATH
-        mkdir -p $DOWN_PATH
+        sudo rm -rf $OUT_PATH
         sudo $MAKE_FILE -d
         # sudo $MAKE_FILE -d -s 512 -k 5.4.60
           
@@ -97,7 +95,6 @@ jobs:
           cd ../
         done
         
-        cd $DOWN_PATH && cp $OUT_PATH/*.img.gz $DOWN_PATH
         echo "::set-env name=DOWN_N1_FILE::$PWD"
         echo "::set-output name=status::success"
         
