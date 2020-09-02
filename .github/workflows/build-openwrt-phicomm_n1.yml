@@ -161,28 +161,16 @@ jobs:
           echo "::set-env name=firmware_$i::$filename"
           cd ../
         done
+        echo "::set-env name=DOWN_PHICOMM_N1_FILENAME::Phicomm-N1-Openwrt-Firmware-${{ env.FILE_DATE }}"
+        echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
         echo "::set-output name=status::success"
 
-    - name: Upload firmware directory @ kernel 4.19.134
+    - name: Upload firmware directory
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ env.firmware_1 }}
-        path: ${{ env.UploadFirmwareFolder_1 }}
-
-    - name: Upload firmware directory @ kernel 5.4.50
-      uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      with:
-        name: ${{ env.firmware_2 }}
-        path: ${{ env.UploadFirmwareFolder_2 }}
-
-    - name: Upload firmware directory @ kernel 5.4.60
-      uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      with:
-        name: ${{ env.firmware_3 }}
-        path: ${{ env.UploadFirmwareFolder_3 }}
+        name: OpenWrt_firmware_original_armvirt_64${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.UploadOriginalFirmware }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
@@ -190,11 +178,7 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadOriginalFirmware} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"    
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         
     - name: Upload firmware to WeTransfer
@@ -203,10 +187,6 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${UploadOriginalFirmware} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_1} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_2} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${UploadFirmwareFolder_3} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
