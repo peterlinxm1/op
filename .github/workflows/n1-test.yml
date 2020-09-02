@@ -88,16 +88,8 @@ jobs:
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
         done
-        echo "::set-env name=DOWN_PHICOMM_N1_FILENAME::OpenWrt_firmware_phicomm_n1_$(date +"%Y%m%d%H%M")"
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
         echo "::set-output name=status::success"
-        
-    - name: Upload firmware directory
-      uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      with:
-        name: ${{ env.DOWN_PHICOMM_N1_FILENAME }}
-        path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
         
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
