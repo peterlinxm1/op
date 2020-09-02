@@ -161,7 +161,6 @@ jobs:
           echo "::set-env name=firmware_$i::$filename"
           cd ../
         done
-        echo "::set-env name=DOWN_PHICOMM_N1_FILENAME::Phicomm-N1-Openwrt-Firmware-${{ env.FILE_DATE }}"
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
         echo "::set-output name=status::success"
 
