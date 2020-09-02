@@ -77,9 +77,10 @@ jobs:
     - name: Download openwrt firmware
       id: downfireware
       run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer ${{ env.OPENWRT_ORGANIZE_FILES }}
+        # curl -fsSL git.io/file-transfer | sh
+        # ./transfer ${{ env.OPENWRT_ORGANIZE_FILES }}
         mkdir -p $OPENWRT_ORGANIZE_PATH
+        svn co https://github.com/codesnas/mknop/trunk/openwrt/openwrt-armvirt-64-default-rootfs.tar.gz $OPENWRT_ORGANIZE_PATH
         cp *.tar.gz $OPENWRT_ORGANIZE_PATH/openwrt-rootfs.tar.gz
       
     - name: Build firmware for N1
