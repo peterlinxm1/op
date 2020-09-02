@@ -94,21 +94,20 @@ jobs:
           echo "::set-env name=firmware_$i::$filename"
           cd ../
         done
-        
-        echo "::set-env name=DOWN_N1_FILE::$PWD"
+        echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
         echo "::set-output name=status::success"
         
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ env.firmware_1 }}
-        path: ${{ env.UploadFirmwareFolder_1 }}
+        name: OpenWrt_firmware_phicomm_n1_$(date +"%Y%m%d%H%M")
+        path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
         
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${DOWN_N1_FILE} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
