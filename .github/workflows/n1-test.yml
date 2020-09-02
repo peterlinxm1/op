@@ -74,6 +74,15 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
+    - name: Download openwrt firmware
+      id: downfireware
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer ${OPENWRT_ORGANIZE_FILES} 2>&1 | tee wetransferdown.log
+        echo "::warning file=wetransfer.com::$(cat wetransferdown.log | grep https)"
+        mkdir -p $OPENWRT_ORGANIZE_PATH
+        cp *.tar.gz $OPENWRT_ORGANIZE_PATH/openwrt-rootfs.tar.gz
+      
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
