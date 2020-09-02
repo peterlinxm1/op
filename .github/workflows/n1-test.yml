@@ -77,10 +77,9 @@ jobs:
     - name: Download openwrt firmware
       id: downfireware
       run: |
+        mkdir -p $OPENWRT_ORGANIZE_PATH && cd $OPENWRT_ORGANIZE_PATH
         curl -fsSL git.io/file-transfer | sh
         ./transfer ${{ env.OPENWRT_ORGANIZE_FILES }}
-        mkdir -p $OPENWRT_ORGANIZE_PATH
-        cp *.tar.gz $OPENWRT_ORGANIZE_PATH/openwrt-rootfs.tar.gz
       
     - name: Build firmware for N1
       id: buildn1firmware
