@@ -94,7 +94,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_phicomm_n1_$(date "+%y.%m.%d-%H%M%S")
+        name: OpenWrt_firmware_phicomm_n1
         path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
         
     - name: Upload firmware to WeTransfer
