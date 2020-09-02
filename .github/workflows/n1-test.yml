@@ -80,7 +80,7 @@ jobs:
         mkdir -p $OPENWRT_ORGANIZE_PATH
         #git clone https://github.com/codesnas/test.git
         #cp test/*.tar.gz $OPENWRT_ORGANIZE_PATH
-        curl -o rootfs.tar.gz ${{ env.OPENWRT_ORGANIZE_FILES }}
+        curl -O ${{ env.OPENWRT_ORGANIZE_FILES }}
       
     - name: Build firmware for N1
       id: buildn1firmware
