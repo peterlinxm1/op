@@ -78,7 +78,7 @@ jobs:
       id: downfireware
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer ${OPENWRT_ORGANIZE_FILES} 2>&1 | tee wetransferdown.log
+        ./transfer ${{ env.OPENWRT_ORGANIZE_FILES }} 2>&1 | tee wetransferdown.log
         echo "::warning file=wetransfer.com::$(cat wetransferdown.log | grep https)"
         mkdir -p $OPENWRT_ORGANIZE_PATH
         cp *.tar.gz $OPENWRT_ORGANIZE_PATH/openwrt-rootfs.tar.gz
