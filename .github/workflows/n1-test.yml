@@ -83,16 +83,9 @@ jobs:
         sudo $MAKE_FILE -d
         # sudo $MAKE_FILE -d -s 512 -k 5.4.60
           
-        i=0
         cd $OUT_PATH
         for x in $(ls .); do
-          cd $x
-          filename=$(ls .)
-          filename=${filename%.*}
-          gzip *.img
-          echo "::set-env name=UploadFirmwareFolder_$((++i))::$PWD"
-          echo "::set-env name=firmware_$i::$filename"
-          cd ../
+          cd $x && gzip *.img && cd ../
         done
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
         echo "::set-output name=status::success"
