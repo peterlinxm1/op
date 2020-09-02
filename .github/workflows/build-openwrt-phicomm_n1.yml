@@ -149,16 +149,13 @@ jobs:
         mkdir -p $OPENWRT_ORGANIZE_PATH
         cp openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
         sudo $MAKE_FILE -d
-          
-        i=0
+        
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x
           filename=$(ls .)
           filename=${filename%.*}
           gzip *.img
-          echo "::set-env name=UploadFirmwareFolder_$((++i))::$PWD"
-          echo "::set-env name=firmware_$i::$filename"
           cd ../
         done
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
