@@ -31,7 +31,7 @@ env:
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
-  OPENWRT_ORGANIZE_FILES: https://we.tl/t-2rnKOUZ73H
+  OPENWRT_ORGANIZE_FILES: https://we.tl/t-f1hsz0oTsr
   MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
@@ -79,7 +79,6 @@ jobs:
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer ${{ env.OPENWRT_ORGANIZE_FILES }}
-        echo "::warning file=wetransfer.com::$(cat wetransferdown.log | grep https)"
         mkdir -p $OPENWRT_ORGANIZE_PATH
         cp *.tar.gz $OPENWRT_ORGANIZE_PATH/openwrt-rootfs.tar.gz
       
