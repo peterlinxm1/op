@@ -152,11 +152,7 @@ jobs:
         
         cd $OUT_PATH
         for x in $(ls .); do
-          cd $x
-          filename=$(ls .)
-          filename=${filename%.*}
-          gzip *.img
-          cd ../
+          cd $x && gzip *.img && cd ../
         done
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
         echo "::set-output name=status::success"
