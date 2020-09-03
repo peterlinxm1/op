@@ -147,7 +147,7 @@ jobs:
       run: |
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH
-        cp openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
+        cp -rf openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
         sudo $MAKE_FILE -d
         cd $OUT_PATH
         for x in $(ls .); do
