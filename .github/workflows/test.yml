@@ -61,7 +61,7 @@ jobs:
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH
         git clone https://github.com/codesnas/lede-mod.git
-        cp lede-mod/makefile/*.tar.gz $OPENWRT_ORGANIZE_PATH
+        cp -rf lede-mod/makefile/*.tar.gz $OPENWRT_ORGANIZE_PATH
         
         sudo $MAKE_FILE -d          
         cd $OUT_PATH
