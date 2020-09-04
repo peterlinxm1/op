@@ -3,7 +3,7 @@
 #=============================================================================================================
 # https://github.com/ophub/op
 # Description: Automatically Build OpenWrt for Phicomm N1
-# Function: Use Flippy's [boot/dtb/modules] files build [kernel/modules]
+# Function: Use Flippy's kernel files build kernel.tar.xz & modules.tar.xz
 #
 # example: ~/op/router/phicomm_n1/flippy-kernel-build/
 # ├── flippy
