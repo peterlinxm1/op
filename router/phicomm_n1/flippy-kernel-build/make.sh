@@ -5,7 +5,7 @@
 # Description: Automatically Build OpenWrt for Phicomm N1
 # Function: Use Flippy's [boot/dtb/modules] files build [kernel/modules]
 #
-# example：
+# example: ~/op/router/phicomm_n1/flippy-kernel-build/
 # ├── flippy
 # │   ├── boot-5.7.15-flippy-41+.tar.gz
 # │   ├── dtb-amlogic-5.7.15-flippy-41+.tar.gz
@@ -13,12 +13,14 @@
 # └── make.sh
 #
 # Usage: Use Ubuntu 18 LTS 64-bit
-# 01. git clone https://github.com/ophub/op.git
-# 02. cd ~/op/router/phicomm_n1/flippy-kernel-build
-# 03. Put Flippy's boot/dtb/modules files into $flippy_folder
-# 04. Run: sudo ./make.sh
-# 05. The generated file path: /router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder
-# 06. Github.com Build openwrt: /.github/workflows/build-openwrt-phicomm_n1.yml
+# 01. Log in to the home directory of the local Ubuntu system
+# 02. git clone https://github.com/ophub/op.git
+# 03. cd ~/op/router/phicomm_n1/flippy-kernel-build
+# 04. Put Flippy's $build_boot,$build_dtb & $build_modules three files into $flippy_folder
+# 05. Run: sudo ./make.sh
+# 06. The generated file path: ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder
+# 07. git push to your github
+# 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-phicomm_n1.yml
 #
 # Tips: If run 'sudo ./make.sh' is 'Command not found'
 # 01. chmod a+x make.sh
