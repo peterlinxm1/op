@@ -14,10 +14,10 @@
 #
 # Usage
 # 01. Put Flippy's [boot/dtb/modules] files into flippy folder
-# 02. Execute instructions: sudo ./make.sh
-# 03. The generated file path: /$build_save_folder. For example:/5.7.15
-# 04. Github.com folder path: /router/phicomm_n1/armbian/phicomm-n1/kernel/
-# 05. Github.com Build openwrt: /.github/workflows/build-openwrt-phicomm_n1.yml
+# 02. Execute instructions: [sudo ./make.sh]
+# 03. The generated file path: [/$build_save_folder]. For example:/5.7.15
+# 04. Github.com kernel path: [/router/phicomm_n1/armbian/phicomm-n1/kernel/]
+# 05. Github.com Build openwrt: [/.github/workflows/build-openwrt-phicomm_n1.yml]
 #
 # If run [sudo ./make.sh] show: Command not found
 # 01. chmod a+x make.sh
@@ -28,7 +28,7 @@
 
 # Modify your Flippy's [boot/dtb/modules] folder & version
 N1_flippy_folder="flippy"
-N1_version="5.7.7-flippy-38+"
+N1_version="5.7.15-flippy-41+"
 
 # Default setting (Don't modify)
 N1_boot="boot-$N1_version.tar.gz"
