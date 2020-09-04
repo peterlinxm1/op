@@ -23,7 +23,7 @@
 # 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-phicomm_n1.yml
 #
 # Tips: If run 'sudo ./make.sh' is 'Command not found'
-# 01. chmod a+x make.sh
+# 01. chmod +x make.sh
 # 02. vi make.sh
 # 03. :set ff=unix
 # 04. :wq
