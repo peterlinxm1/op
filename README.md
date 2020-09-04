@@ -84,29 +84,30 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       ├── make                                      # Build script for PHICOMM N1
  │       ├── README.md
  │       │
- │       └── armbian                                   # armbian related files
- │           ├── boot-common.tar.gz                    # Public startup file
- │           ├── firmware.tar.gz                       # armbian firmware
- │           │
- │           ├── phicomm-n1
- │           │   ├── kernel                            # Custom kernel folder
- │           │   │   ├── 4.19.134                      # 4.19.134 kernel folder
- │           │   │   │   ├── kernel.tar.gz             # kernel zip file
- │           │   │   │   └── modules.tar.gz            # modules zip file
- │           │   │   │  
- │           │   │   ├── 5.4.50                        # 5.4.50 kernel folder
- │           │   │   │   ├── kernel.tar.gz
- │           │   │   │   └── modules.tar.gz
- │           │   │   │  
- │           │   │   └── 5.4.60                        # 5.4.60 kernel folder
- │           │   │       ├── kernel.tar.gz
- │           │   │       └── modules.tar.gz
- │           │   │
- │           │   └── root                              # Add your custom files(ROOTFS Partition)
- │           │
- │           install-program                           # Install to emmc for PHICOMM N1
+ │       ├── armbian                                   # armbian related files
+ │       │   ├── boot-common.tar.gz                    # Public startup file
+ │       │   ├── firmware.tar.gz                       # armbian firmware
+ │       │   └── phicomm-n1
+ │       │       ├── kernel                            # Custom kernel folder
+ │       │       │   ├── 5.7.15                        # 5.7.15 kernel folder
+ │       │       │   │    ├── kernel.tar.gz
+ │       │       │   │    └── modules.tar.gz
+ │       │       │   │  
+ │       │       │   └── more kernel ...               # kernel folder
+ │       │       │       ├── kernel.tar.gz
+ │       │       │       └── modules.tar.gz
+ │       │       │
+ │       │       └── root                              # Add your custom files(ROOTFS Partition)
+ │       │    
+ │       ├── build-flippy-kernel                       # Use Flippy's files build kernel/modules
+ │       │   ├── make.sh                               # Build script for kernel/modules
+ │       │   └── flippy
+ │       │       ├── boot-$N1_version.tar.gz           # boot files
+ │       │       ├── dtb-amlogic-$N1_version.tar.gz    # dtb files
+ │       │       └── modules-$N1_version.tar.gz        # modules files
+ │       │     
+ │       └── install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
- │           │
  │           └── files
  │               ├── fstab 
  │               ├── n1-install.sh                     # Install script
