@@ -29,11 +29,11 @@
 # 04. :wq
 #=============================================================================================================
 
-# Modify your Flippy's [boot/dtb/modules] folder & version
+# Modify Flippy's kernel folder & version
 flippy_folder="flippy"
 flippy_version="5.7.15-flippy-41+"
 
-# Default setting (Don't modify)
+# Default setting ( Don't modify )
 build_boot="boot-$flippy_version.tar.gz"
 build_dtb="dtb-amlogic-$flippy_version.tar.gz"
 build_modules="modules-$flippy_version.tar.gz"
@@ -42,6 +42,7 @@ build_save_folder=${flippy_version%-flippy*}
 build_Workdir=$PWD
 find $build_Workdir -type f -name "*DS_Store" -delete
 
+# build kernel.tar.xz
 build_kernel() {
 
   echo -e " \033[1;34m【 Start build_kernel 】\033[0m ... build_boot_suffix:${build_boot##*.} & build_dtb_suffix:${build_dtb##*.}"
@@ -95,6 +96,7 @@ build_kernel() {
 
 }
 
+# build modules.tar.xz
 build_modules() {
 
   echo -e " \033[1;34m【 Start build_modules 】\033[0m ... build_modules_suffix:${build_modules##*.} "
@@ -137,6 +139,7 @@ build_modules() {
 
 }
 
+# copy kernel.tar.xz & modules.tar.xz to ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder
 copy_kernel_modules() {
 
   echo -e " \033[1;34m【 Copy /$build_save_folder/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/】\033[0m  ... "
@@ -147,6 +150,7 @@ copy_kernel_modules() {
 
 }
 
+# begin run
 echo -e " \033[1;35m【 Start building [ $build_save_folder ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
 
 build_kernel
@@ -154,4 +158,5 @@ build_modules
 copy_kernel_modules
 
 echo -e " \033[1;35m【 Build completed [ $build_save_folder ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
+# end run
 
