@@ -134,7 +134,21 @@ build_modules() {
 
 }
 
-echo -e " \033[1;34m【 Start building [ $build_save_folder ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
+copy_kernel_modules() {
+
+  echo -e " \033[1;34m【 Copy /$build_save_folder/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/】\033[0m  ... "
+  cd $build_Workdir
+  cp -rf $build_save_folder ../armbian/phicomm-n1/kernel/
+  rm -rf $N1_flippy_folder/* $build_save_folder
+  echo -e " \033[1;33m【 Delete /$N1_flippy_folder/* & /$build_save_folder】\033[0m  ... "
+
+}
+
+echo -e " \033[1;35m【 Start building [ $build_save_folder ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
+
 build_kernel
 build_modules
+copy_kernel_modules
+
+echo -e " \033[1;35m【 Build completed [ $build_save_folder ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
 
