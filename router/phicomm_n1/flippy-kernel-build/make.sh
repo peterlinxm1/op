@@ -3,7 +3,7 @@
 #=============================================================================================================
 # https://github.com/ophub/op
 # Description: Automatically Build OpenWrt for Phicomm N1
-# Function: Use Flippy's [boot/dtb/modules] build [kernel/modules]
+# Function: Use Flippy's [boot/dtb/modules] files build [kernel/modules]
 #
 # example：
 # ├── flippy
@@ -12,13 +12,15 @@
 # │   └── modules-5.7.15-flippy-41+.tar.gz
 # └── make.sh
 #
-# Usage
-# 01. Put Flippy's [boot/dtb/modules] files into flippy folder
-# 02. Execute instructions: [sudo ./make.sh]
-# 03. The generated file path: [/router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder]
-# 04. Github.com Build openwrt: [/.github/workflows/build-openwrt-phicomm_n1.yml]
+# Usage: Use Ubuntu 18 LTS 64-bit
+# 01. git clone https://github.com/ophub/op.git
+# 02. cd ~/op/router/phicomm_n1/flippy-kernel-build
+# 03. Put Flippy's boot/dtb/modules files into $flippy_folder
+# 04. Run: sudo ./make.sh
+# 05. The generated file path: /router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder
+# 06. Github.com Build openwrt: /.github/workflows/build-openwrt-phicomm_n1.yml
 #
-# If run [sudo ./make.sh] show: Command not found
+# Tips: If run 'sudo ./make.sh' is 'Command not found'
 # 01. chmod a+x make.sh
 # 02. vi make.sh
 # 03. :set ff=unix
@@ -26,57 +28,57 @@
 #=============================================================================================================
 
 # Modify your Flippy's [boot/dtb/modules] folder & version
-N1_flippy_folder="flippy"
-N1_version="5.7.15-flippy-41+"
+flippy_folder="flippy"
+flippy_version="5.7.15-flippy-41+"
 
 # Default setting (Don't modify)
-N1_boot="boot-$N1_version.tar.gz"
-N1_dtb="dtb-amlogic-$N1_version.tar.gz"
-N1_modules="modules-$N1_version.tar.gz"
+build_boot="boot-$flippy_version.tar.gz"
+build_dtb="dtb-amlogic-$flippy_version.tar.gz"
+build_modules="modules-$flippy_version.tar.gz"
 build_tmp_folder="build_tmp"
-build_save_folder=${N1_version%-flippy*}
+build_save_folder=${flippy_version%-flippy*}
 build_Workdir=$PWD
 find $build_Workdir -type f -name "*DS_Store" -delete
 
 build_kernel() {
 
-  echo -e " \033[1;34m【 Start build_kernel 】\033[0m ... N1_boot_suffix:${N1_boot##*.} & N1_dtb_suffix:${N1_dtb##*.}"
+  echo -e " \033[1;34m【 Start build_kernel 】\033[0m ... build_boot_suffix:${build_boot##*.} & build_dtb_suffix:${build_dtb##*.}"
   cd $build_Workdir
   rm -rf $build_tmp_folder
   mkdir -p $build_tmp_folder/kernel/Temp_kernel/dtb/amlogic
   mkdir -p $build_save_folder
 
-  cp -rf $N1_flippy_folder/$N1_boot $build_tmp_folder/kernel
-  cp -rf $N1_flippy_folder/$N1_dtb $build_tmp_folder/kernel
+  cp -rf $flippy_folder/$build_boot $build_tmp_folder/kernel
+  cp -rf $flippy_folder/$build_dtb $build_tmp_folder/kernel
 
   cd $build_tmp_folder/kernel
 
-     echo -e " \033[1;32m【 Start Unzip $N1_boot 】\033[0m ... "
-     if [ "${N1_boot##*.}"c = "gz"c ]; then
-        tar -xzf $N1_boot
-     elif [ "${N1_boot##*.}"c = "xz"c ]; then
-        tar -xJf $N1_boot
+     echo -e " \033[1;32m【 Start Unzip $build_boot 】\033[0m ... "
+     if [ "${build_boot##*.}"c = "gz"c ]; then
+        tar -xzf $build_boot
+     elif [ "${build_boot##*.}"c = "xz"c ]; then
+        tar -xJf $build_boot
      else
-        echo -e " \033[1;31m【 Error [ build_kernel ], The suffix of $N1_boot must be tar.gz or tar.xz 】\033[0m ... "
+        echo -e " \033[1;31m【 Error [ build_kernel ], The suffix of $build_boot must be tar.gz or tar.xz 】\033[0m ... "
      fi
 
-     echo -e " \033[1;32m【 Start Copy $N1_boot five files 】\033[0m ... "
-     cp -rf config-$N1_version Temp_kernel/
-     cp -rf initrd.img-$N1_version Temp_kernel/
-     cp -rf System.map-$N1_version Temp_kernel/
-     cp -rf uInitrd-$N1_version Temp_kernel/uInitrd
-     cp -rf vmlinuz-$N1_version Temp_kernel/zImage
+     echo -e " \033[1;32m【 Start Copy $build_boot five files 】\033[0m ... "
+     cp -rf config-$flippy_version Temp_kernel/
+     cp -rf initrd.img-$flippy_version Temp_kernel/
+     cp -rf System.map-$flippy_version Temp_kernel/
+     cp -rf uInitrd-$flippy_version Temp_kernel/uInitrd
+     cp -rf vmlinuz-$flippy_version Temp_kernel/zImage
 
-     echo -e " \033[1;32m【 Start Unzip $N1_dtb 】\033[0m ... "
-     if [ "${N1_dtb##*.}"c = "gz"c ]; then
-        tar -xzf $N1_dtb
-     elif [ "${N1_dtb##*.}"c = "xz"c ]; then
-        tar -xJf $N1_dtb
+     echo -e " \033[1;32m【 Start Unzip $build_dtb 】\033[0m ... "
+     if [ "${build_dtb##*.}"c = "gz"c ]; then
+        tar -xzf $build_dtb
+     elif [ "${build_dtb##*.}"c = "xz"c ]; then
+        tar -xJf $build_dtb
      else
-        echo -e " \033[1;31m【 Error [ build_kernel ], The suffix of $N1_dtb must be tar.gz or tar.xz 】\033[0m ... "
+        echo -e " \033[1;31m【 Error [ build_kernel ], The suffix of $build_dtb must be tar.gz or tar.xz 】\033[0m ... "
      fi
 
-     echo -e " \033[1;32m【 Start Copy $N1_dtb one files 】\033[0m ... "
+     echo -e " \033[1;32m【 Start Copy $build_dtb one files 】\033[0m ... "
      cp -rf meson-gxl-s905d-phicomm-n1.dtb Temp_kernel/dtb/amlogic/
 
   cd Temp_kernel
@@ -93,25 +95,25 @@ build_kernel() {
 
 build_modules() {
 
-  echo -e " \033[1;34m【 Start build_modules 】\033[0m ... N1_modules_suffix:${N1_modules##*.} "
+  echo -e " \033[1;34m【 Start build_modules 】\033[0m ... build_modules_suffix:${build_modules##*.} "
   cd $build_Workdir
   rm -rf $build_tmp_folder
   mkdir -p $build_tmp_folder/modules/lib/modules
   mkdir -p $build_save_folder
 
-  cp -rf $N1_flippy_folder/$N1_modules $build_tmp_folder/modules/lib/modules
+  cp -rf $flippy_folder/$build_modules $build_tmp_folder/modules/lib/modules
 
   cd $build_tmp_folder/modules/lib/modules
 
-     echo -e " \033[1;32m【 Start Unzip $N1_modules 】\033[0m ... "
-     if [ "${N1_modules##*.}"c = "gz"c ]; then
-        tar -xzf $N1_modules
-     elif [ "${N1_modules##*.}"c = "xz"c ]; then
-        tar -xJf $N1_modules
+     echo -e " \033[1;32m【 Start Unzip $build_modules 】\033[0m ... "
+     if [ "${build_modules##*.}"c = "gz"c ]; then
+        tar -xzf $build_modules
+     elif [ "${build_modules##*.}"c = "xz"c ]; then
+        tar -xJf $build_modules
      else
-        echo -e " \033[1;31m【 Error [ build_modules ], The suffix of $N1_modules must be tar.gz or tar.xz 】\033[0m ... "
+        echo -e " \033[1;31m【 Error [ build_modules ], The suffix of $build_modules must be tar.gz or tar.xz 】\033[0m ... "
      fi
-  cd $N1_version
+  cd $flippy_version
      i=0
      for file in $(tree -i -f); do
          if [ "${file##*.}"c = "ko"c ]; then
@@ -121,7 +123,7 @@ build_modules() {
      done
      echo -e " \033[1;32m【 Have [ $i ] files make ko link 】\033[0m ... "
 
-  cd ../ && rm -rf $N1_modules && cd ../../
+  cd ../ && rm -rf $build_modules && cd ../../
      echo -e " \033[1;32m【 Start zip modules.tar.xz 】\033[0m ... "
      tar -cf modules.tar *
      xz -z modules.tar
@@ -138,8 +140,8 @@ copy_kernel_modules() {
   echo -e " \033[1;34m【 Copy /$build_save_folder/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/】\033[0m  ... "
   cd $build_Workdir
   cp -rf $build_save_folder ../armbian/phicomm-n1/kernel/
-  rm -rf $N1_flippy_folder/* $build_save_folder
-  echo -e " \033[1;33m【 Delete /$N1_flippy_folder/* & /$build_save_folder】\033[0m  ... "
+  rm -rf $flippy_folder/* $build_save_folder
+  echo -e " \033[1;33m【 Delete /$flippy_folder/* & /$build_save_folder】\033[0m  ... "
 
 }
 
