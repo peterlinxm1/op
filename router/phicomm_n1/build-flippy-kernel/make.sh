@@ -137,3 +137,4 @@ build_modules() {
 echo -e " \033[1;34m【 Start building [ $build_save_folder ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
 build_kernel
 build_modules
+
