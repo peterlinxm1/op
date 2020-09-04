@@ -102,9 +102,9 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       ├── flippy-kernel-build                       # Use Flippy's files build kernel/modules
  │       │   ├── make.sh                               # Build script for kernel/modules
  │       │   └── flippy
- │       │       ├── boot-$N1_version.tar.gz           # boot files
- │       │       ├── dtb-amlogic-$N1_version.tar.gz    # dtb files
- │       │       └── modules-$N1_version.tar.gz        # modules files
+ │       │       ├── boot-$flippy_version.tar.gz
+ │       │       ├── dtb-amlogic-$flippy_version.tar.gz
+ │       │       └── modules-$flippy_version.tar.gz
  │       │     
  │       └── install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
