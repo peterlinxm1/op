@@ -18,7 +18,7 @@
 # 03. cd ~/op/router/phicomm_n1/flippy-kernel-build/
 # 04. Put Flippy's $build_boot, $build_dtb & $build_modules three files into $flippy_folder
 # 05. Run: sudo ./make.sh
-# 06. The generated file path: ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder
+# 06. The generated files path: ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder
 # 07. git push to your github
 # 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-phicomm_n1.yml
 #
