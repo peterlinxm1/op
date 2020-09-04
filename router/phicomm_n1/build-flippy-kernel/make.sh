@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#==================================================================================
+#=============================================================================================================
 # https://github.com/ophub/op
 # Description: Automatically Build OpenWrt for Phicomm N1
 # Function: Use Flippy's [boot/dtb/modules] build [kernel/modules]
@@ -15,16 +15,15 @@
 # Usage
 # 01. Put Flippy's [boot/dtb/modules] files into flippy folder
 # 02. Execute instructions: [sudo ./make.sh]
-# 03. The generated file path: [/$build_save_folder]. For example:/5.7.15
-# 04. Github.com kernel path: [/router/phicomm_n1/armbian/phicomm-n1/kernel/]
-# 05. Github.com Build openwrt: [/.github/workflows/build-openwrt-phicomm_n1.yml]
+# 03. The generated file path: [/router/phicomm_n1/armbian/phicomm-n1/kernel/$build_save_folder]
+# 04. Github.com Build openwrt: [/.github/workflows/build-openwrt-phicomm_n1.yml]
 #
 # If run [sudo ./make.sh] show: Command not found
 # 01. chmod a+x make.sh
 # 02. vi make.sh
 # 03. :set ff=unix
 # 04. :wq
-#==================================================================================
+#=============================================================================================================
 
 # Modify your Flippy's [boot/dtb/modules] folder & version
 N1_flippy_folder="flippy"
