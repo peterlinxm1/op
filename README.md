@@ -90,8 +90,8 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       │   └── phicomm-n1
  │       │       ├── kernel                            # Custom kernel folder
  │       │       │   ├── 5.7.15                        # 5.7.15 kernel folder
- │       │       │   │    ├── kernel.tar.gz
- │       │       │   │    └── modules.tar.gz
+ │       │       │   │   ├── kernel.tar.gz
+ │       │       │   │   └── modules.tar.gz
  │       │       │   │  
  │       │       │   └── more kernel ...               # kernel folder
  │       │       │       ├── kernel.tar.gz
