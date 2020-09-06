@@ -38,7 +38,7 @@ build_boot="boot-${flippy_version}.tar.gz"
 build_dtb="dtb-amlogic-${flippy_version}.tar.gz"
 build_modules="modules-${flippy_version}.tar.gz"
 build_tmp_folder="build_tmp"
-build_save_folder=${flippy_version}%-flippy*}
+build_save_folder=${flippy_version%-flippy*}
 build_Workdir=${PWD}
 
 # build kernel.tar.xz
