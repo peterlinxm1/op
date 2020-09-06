@@ -39,8 +39,7 @@ build_dtb="dtb-amlogic-${flippy_version}.tar.gz"
 build_modules="modules-${flippy_version}.tar.gz"
 build_tmp_folder="build_tmp"
 build_save_folder=${flippy_version}%-flippy*}
-build_Workdir=$PWD
-find ${build_Workdir} -type f -name "*DS_Store" -delete
+build_Workdir=${PWD}
 
 # build kernel.tar.xz
 build_kernel() {
