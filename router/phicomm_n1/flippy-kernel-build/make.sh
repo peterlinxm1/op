@@ -16,7 +16,7 @@
 # 01. Log in to the home directory of the local Ubuntu system
 # 02. git clone https://github.com/ophub/op.git
 # 03. cd ~/op/router/phicomm_n1/flippy-kernel-build/
-# 04. Put Flippy's ${build_boot}, ${build_dtb} & ${build_modules} three files into $flippy_folder
+# 04. Put Flippy's ${build_boot}, ${build_dtb} & ${build_modules} three files into ${flippy_folder}
 # 05. Run: sudo ./make.sh
 # 06. The generated files path: ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
 # 07. git push to your github
