@@ -151,12 +151,12 @@ copy_kernel_modules() {
 }
 
 # begin run
-echo -e " \033[1;35m【 Start building [ ${build_save_folder} ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
+echo -e " \033[1;35m【 Start building ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz  ... "
 
 build_kernel
 build_modules
 copy_kernel_modules
 
-echo -e " \033[1;35m【 Build completed [ ${build_save_folder} ] kernel.tar.xz & modules.tar.xz 】\033[0m ... "
+echo -e " \033[1;35m【 Build completed ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz ... "
 # end run
 
