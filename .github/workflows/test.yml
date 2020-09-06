@@ -59,7 +59,8 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://is.gd/qgfVrN
+        mkdir -p $OPENWRT_ORGANIZE_PATH & cd $OPENWRT_ORGANIZE_PATH
+        wget -O dtb.tar.gz https://is.gd/qgfVrN
         #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
         sudo $MAKE_FILE -d          
         cd $OUT_PATH
