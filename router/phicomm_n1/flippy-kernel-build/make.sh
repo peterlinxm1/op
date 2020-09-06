@@ -30,16 +30,16 @@
 #=============================================================================================================
 
 # Modify Flippy's kernel folder & version
-local flippy_folder="flippy"
-local flippy_version="5.7.15-flippy-41+"
+flippy_folder="flippy"
+flippy_version="5.7.15-flippy-41+"
 
 # Default setting ( Don't modify )
-local build_boot="boot-${flippy_version}.tar.gz"
-local build_dtb="dtb-amlogic-${flippy_version}.tar.gz"
-local build_modules="modules-${flippy_version}.tar.gz"
-local build_tmp_folder="build_tmp"
-local build_save_folder=${flippy_version}%-flippy*}
-local build_Workdir=$PWD
+build_boot="boot-${flippy_version}.tar.gz"
+build_dtb="dtb-amlogic-${flippy_version}.tar.gz"
+build_modules="modules-${flippy_version}.tar.gz"
+build_tmp_folder="build_tmp"
+build_save_folder=${flippy_version}%-flippy*}
+build_Workdir=$PWD
 find ${build_Workdir} -type f -name "*DS_Store" -delete
 
 # build kernel.tar.xz
