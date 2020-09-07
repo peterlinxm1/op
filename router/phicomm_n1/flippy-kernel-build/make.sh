@@ -154,7 +154,11 @@ copy_kernel_modules() {
 
 # Check files
 if  (test ! -f ${flippy_folder}/${build_boot} || test ! -f ${flippy_folder}/${build_dtb} || test ! -f ${flippy_folder}/${build_modules}); then
-  echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n Please check if the following three files exist: \n 01. ${flippy_folder}/${build_boot} \n 02. ${flippy_folder}/${build_dtb} \n 03. ${flippy_folder}/${build_modules} "
+  echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n \
+  Please check if the following three files exist: \n \
+  01. ${flippy_folder}/${build_boot} \n \
+  02. ${flippy_folder}/${build_dtb} \n \
+  03. ${flippy_folder}/${build_modules} "
   exit 1
 else
   # begin run the script
