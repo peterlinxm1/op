@@ -31,7 +31,7 @@
 
 # Modify Flippy's kernel folder & version
 flippy_folder="flippy"
-flippy_version="5.7.15-flippy-41+"
+flippy_version="5.4.63-flippy-43+o"
 
 # Default setting ( Don't modify )
 build_boot="boot-${flippy_version}.tar.gz"
