@@ -62,6 +62,7 @@ build_kernel() {
         tar -xJf ${build_boot}
      else
         echo -e " \033[1;31m【 Error build_kernel 】\033[0m ... The suffix of ${build_boot} must be tar.gz or tar.xz ... "
+        exit 1
      fi
 
      echo -e " \033[1;32m【 Start Copy ${build_boot} five files 】\033[0m ... "
@@ -78,6 +79,7 @@ build_kernel() {
         tar -xJf ${build_dtb}
      else
         echo -e " \033[1;31m【 Error build_kernel 】\033[0m ... The suffix of ${build_dtb} must be tar.gz or tar.xz  ... "
+        exit 1
      fi
 
      echo -e " \033[1;32m【 Start Copy ${build_dtb} one files 】\033[0m ... "
@@ -115,6 +117,7 @@ build_modules() {
         tar -xJf ${build_modules}
      else
         echo -e " \033[1;31m【 Error build_modules 】\033[0m ... The suffix of ${build_modules} must be tar.gz or tar.xz  ... "
+        exit 1
      fi
   cd ${flippy_version}
      i=0
@@ -149,13 +152,19 @@ copy_kernel_modules() {
 
 }
 
-# begin run
-echo -e " \033[1;35m【 Start building ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz  ... "
+# Check files
+if  (test ! -f ${flippy_folder}/${build_boot} || test ! -f ${flippy_folder}/${build_dtb} || test ! -f ${flippy_folder}/${build_modules}); then
+  echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n Please check if the following three files exist: \n 01. ${flippy_folder}/${build_boot} \n 02. ${flippy_folder}/${build_dtb} \n 03. ${flippy_folder}/${build_modules} "
+  exit 1
+else
+  # begin run the script
+  echo -e " \033[1;35m【 Start building ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz  ... "
+fi
 
 build_kernel
 build_modules
 copy_kernel_modules
 
 echo -e " \033[1;35m【 Build completed ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz ... "
-# end run
+# end run the script
 
