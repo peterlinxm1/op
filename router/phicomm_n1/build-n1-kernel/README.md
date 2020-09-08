@@ -29,7 +29,7 @@ Example: ~/op/router/phicomm_n1/build-n1-kernel/
  └── make_use_img.sh
 ```
 
-Put the ***`Flippy’s OpenWrt firmware`*** E.g: N1_Openwrt_R20.8.27_k5.4.63-flippy-43+o.img into the ***`${flippy_folder}`*** folder, run the script:
+Put the ***`Flippy’s OpenWrt firmware`*** E.g: N1_Openwrt_R20.8.27_k5.4.63-flippy-43+o.img file into the ***`${flippy_folder}`*** folder, run the script:
 ```shell script
 sudo ./make_use_img.sh
 ```
