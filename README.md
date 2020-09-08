@@ -104,11 +104,13 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       ├── build-n1-kernel                           # Use Flippy's files build kernel/modules
  │       │   ├── make_use_img.sh                       # Use Flippy's *.img files build
  │       │   ├── make_use_kernel.sh                    # Use Flippy's kernel files build
+ │       │   ├── README.md
  │       │   └── flippy
  │       │       ├── boot-${flippy_version}.tar.gz
  │       │       ├── dtb-amlogic-${flippy_version}.tar.gz
  │       │       ├── modules-${flippy_version}.tar.gz
- │       │       └── ${flippy_file} E.g: N1_Openwrt_*.img
+ │       │       │ 
+ │       │       └── or ${flippy_file} E.g: N1_Openwrt_*.img
  │       │     
  │       └── install-program                           # Install to emmc for PHICOMM N1
  │           ├── Makefile            
