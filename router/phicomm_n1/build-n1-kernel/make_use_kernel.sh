@@ -60,7 +60,7 @@ check_build_files() {
   else
     # begin run the script
     echo -e " \033[1;34m【 End check_build_files 】\033[0m ... "
-    echo -e " \033[1;35m【 Start building ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz  ... "
+    echo -e " \033[1;35m【 Start building 】\033[0m ${build_save_folder}: kernel.tar.xz & modules.tar.xz  ... "
   fi
 
 }
@@ -176,8 +176,6 @@ copy_kernel_modules() {
   echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
 
 }
-
-
 
 check_build_files
 build_kernel
