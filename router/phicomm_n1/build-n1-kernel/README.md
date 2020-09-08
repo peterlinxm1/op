@@ -40,4 +40,6 @@ sudo ./make_use_img.sh
 ```
 The generated file will be placed directly in the kernel directory of this github: ` ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder} `
 
+## Tips
+
 Use this github's Phicomm N1 to compile the code, you can customize ` default IP, hostname, theme, add/remove software packages `, etc. to generate special firmware.
