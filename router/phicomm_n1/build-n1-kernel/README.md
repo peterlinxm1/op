@@ -8,14 +8,12 @@ You can install Flippy’s OpenWrt firmware and use it. If you want to define so
 
 The first method: 
 ```shell script
-
 Example: ~/op/router/phicomm_n1/build-n1-kernel/
  ├── flippy
  │   ├── boot-5.4.63-flippy-43+o.tar.gz
  │   ├── dtb-amlogic-5.4.63-flippy-43+o.tar.gz
  │   └── modules-5.4.63-flippy-43+o.tar.gz
  └── make_use_kernel.sh
-
 ```
 
 put boot-${flippy_version}.tar.gz, dtb-amlogic-${flippy_version}.tar.gz & modules-${flippy_version}.tar.gz the three files into the ${flippy_folder} folder, run the script:
@@ -25,12 +23,10 @@ sudo ./make_use_kernel.sh
 
 The second method: 
 ```shell script
-
 Example: ~/op/router/phicomm_n1/build-n1-kernel/
  ├── flippy
  │   └── N1_Openwrt_R20.8.27_k5.4.63-flippy-43+o.img
  └── make_use_img.sh
- 
 ```
 
 Put the Flippy’s OpenWrt firmware file ${flippy_file} into the ${flippy_folder} folder, run the script:
