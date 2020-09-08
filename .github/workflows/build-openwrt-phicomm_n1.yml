@@ -18,8 +18,8 @@ on:
       - 'router/phicomm_n1/.config'
   schedule:
     - cron: '0 0 * * 5'
-  watch:
-    types: started
+  #watch:
+    #types: started
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
