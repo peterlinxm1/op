@@ -122,14 +122,14 @@ build_modules() {
         exit 1
      fi
   cd ${flippy_version}
-     i=0
+     x=0
      for file in $(tree -i -f); do
          if [ "${file##*.}"c = "ko"c ]; then
              ln -s $file .
-             i=$(($i+1))
+             x=$(($x+1))
          fi
      done
-     echo -e " \033[1;32m【 Have [ $i ] files make ko link 】\033[0m ... "
+     echo -e " \033[1;32m【 Have [ ${x} ] files make ko link 】\033[0m ... "
 
   cd ../ && rm -rf ${build_modules} && cd ../../
      echo -e " \033[1;32m【 Start zip modules.tar.xz 】\033[0m ... "
