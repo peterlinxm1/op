@@ -101,7 +101,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       │       │
  │       │       └── root                              # Add your custom files(ROOTFS Partition)
  │       │    
- │       ├── flippy-kernel-build                       # Use Flippy's files build kernel/modules
+ │       ├── build-n1-kernel                           # Use Flippy's files build kernel/modules
  │       │   ├── make_use_img.sh                       # Use Flippy's *.img files build
  │       │   ├── make_use_kernel.sh                    # Use Flippy's kernel files build
  │       │   └── flippy
