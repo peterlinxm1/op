@@ -101,7 +101,7 @@ get_flippy_version() {
   build_save_folder=$(echo ${flippy_version} | grep -oE '^[1-9].[0-9]{1,2}.[0-9]+')
   mkdir -p ${build_Workdir}/${build_save_folder}
 
-  echo -e " \033[1;34m【 End get_flippy_version: ${build_save_folder} 】\033[0m ... "
+  echo -e " \033[1;34m【 End get_flippy_version 】\033[0m ${build_save_folder} ... "
 
 }
 
@@ -126,7 +126,7 @@ build_kernel_modules() {
          fi
      done
      if [ $x -eq 0 ]; then
-        echo -e " \033[1;31m【 Error .KO Files not found 】\033[0m ... "
+        echo -e " \033[1;31m【 Error *.KO Files not found 】\033[0m ... "
         exit 1
      else
         echo -e " \033[1;32m【 Have [ ${x} ] files make ko link 】\033[0m ... "
