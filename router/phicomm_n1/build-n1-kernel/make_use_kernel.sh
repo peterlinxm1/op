@@ -46,7 +46,9 @@ build_dtb="dtb-amlogic-${flippy_version}.tar.gz"
 build_modules="modules-${flippy_version}.tar.gz"
 build_save_folder=${flippy_version%-flippy*}
 rm -rf ${build_tmp_folder}
-sudo apt install tree
+
+get_tree_status=$(dpkg --get-selections | grep tree)
+[ $? = 0 ] || sudo apt install tree
 
 # Check files
 check_build_files() {
