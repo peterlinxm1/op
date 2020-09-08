@@ -42,4 +42,4 @@ The generated files ` kernel.tar.gz & modules.tar.gz ` will be directly placed i
 
 ## Tips
 
-Use this github's Phicomm N1 to compile the code, you can customize ` default IP, hostname, theme, add/remove software packages `, etc. to generate special firmware.
+Use this github's program for Phicomm N1 , you can customize ` default IP, hostname, theme, add/remove software packages `, etc. to generate special firmware.
