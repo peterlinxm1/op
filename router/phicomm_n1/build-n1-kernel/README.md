@@ -22,7 +22,6 @@ put boot-${flippy_version}.tar.gz, dtb-amlogic-${flippy_version}.tar.gz & module
 ```shell script
 sudo ./make_use_kernel.sh
 ```
-The generated files will be directly placed in the kernel directory of this github: ` ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder} `
 
 The second method: 
 ```shell script
@@ -38,7 +37,8 @@ Put the Flippy’s OpenWrt firmware file ${flippy_file} into the ${flippy_folder
 ```shell script
 sudo ./make_use_img.sh
 ```
-The generated file will be placed directly in the kernel directory of this github: ` ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder} `
+
+The generated files kernel.tar.gz & modules.tar.gz will be directly placed in the kernel directory of this github: ` ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder} ``
 
 ## Tips
 
