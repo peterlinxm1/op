@@ -8,7 +8,7 @@
 # Copyright (C) 2020 https://github.com/ophub/op
 #=================================================================================
 #
-# example: ~/op/router/phicomm_n1/flippy-kernel-build/
+# example: ~/op/router/phicomm_n1/build-n1-kernel/
 # ├── flippy
 # │   └── N1_Openwrt_R20.8.27_k5.4.63-flippy-43+o.img
 # └── make_use_img.sh
@@ -16,7 +16,7 @@
 # Usage: Use Ubuntu 18 LTS 64-bit
 # 01. Log in to the home directory of the local Ubuntu system
 # 02. git clone https://github.com/ophub/op.git
-# 03. cd ~/op/router/phicomm_n1/flippy-kernel-build/
+# 03. cd ~/op/router/phicomm_n1/build-n1-kernel/
 # 04. Put Flippy's ${flippy_file} file into ${flippy_folder}
 # 05. Run: sudo ./make_use_img.sh
 # 06. The generated files path: ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
