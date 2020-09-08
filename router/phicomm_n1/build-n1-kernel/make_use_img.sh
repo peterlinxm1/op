@@ -43,7 +43,9 @@ root_tmp=${build_tmp_folder}/root
 kernel_tmp=${build_tmp_folder}/kernel_tmp
 modules_tmp=${build_tmp_folder}/modules_tmp/lib
 rm -rf ${build_tmp_folder}
-sudo apt install tree
+
+get_tree_status=$(dpkg --get-selections | grep tree)
+[ $? = 0 ] || sudo apt install tree
 
 # Check files
 check_build_files() {
