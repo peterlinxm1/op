@@ -71,11 +71,11 @@ losetup_mount_img() {
   mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
 
   lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
-  [ $? = 0 ] || die "losetup ${flippy_file} failed!"
+  [ $? = 0 ] || echo -e "losetup ${flippy_file} failed!" && exit 1
   mount ${lodev}p1 ${boot_tmp}
-  [ $? = 0 ] || die "mount ${lodev}p1 failed!"
+  [ $? = 0 ] || echo -e "mount ${lodev}p1 failed!" && exit 1
   mount ${lodev}p2 ${root_tmp}
-  [ $? = 0 ] || die "mount ${lodev}p2 failed!"
+  [ $? = 0 ] || echo -e "mount ${lodev}p2 failed!" && exit 1
 
   echo -e " \033[1;34m【 End losetup_mount_img 】\033[0m ... Use: ${lodev} "
 
