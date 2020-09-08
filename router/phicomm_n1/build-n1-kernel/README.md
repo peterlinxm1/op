@@ -8,12 +8,13 @@ You can install Flippy’s OpenWrt firmware and use it. If you want to define so
 
 The first method: 
 ```shell script
-# example: ~/op/router/phicomm_n1/build-n1-kernel/
-# ├── flippy
-# │   ├── boot-5.4.63-flippy-43+o.tar.gz
-# │   ├── dtb-amlogic-5.4.63-flippy-43+o.tar.gz
-# │   └── modules-5.4.63-flippy-43+o.tar.gz
-# └── make_use_kernel.sh
+
+Example: ~/op/router/phicomm_n1/build-n1-kernel/
+ ├── flippy
+ │   ├── boot-5.4.63-flippy-43+o.tar.gz
+ │   ├── dtb-amlogic-5.4.63-flippy-43+o.tar.gz
+ │   └── modules-5.4.63-flippy-43+o.tar.gz
+ └── make_use_kernel.sh
 
 ```
 
@@ -25,10 +26,12 @@ The generated files will be directly placed in the kernel directory of this gith
 
 The second method: 
 ```shell script
-# example: ~/op/router/phicomm_n1/build-n1-kernel/
-# ├── flippy
-# │   └── N1_Openwrt_R20.8.27_k5.4.63-flippy-43+o.img
-# └── make_use_img.sh
+
+Example: ~/op/router/phicomm_n1/build-n1-kernel/
+ ├── flippy
+ │   └── N1_Openwrt_R20.8.27_k5.4.63-flippy-43+o.img
+ └── make_use_img.sh
+ 
 ```
 
 Put the Flippy’s OpenWrt firmware file ${flippy_file} into the ${flippy_folder} folder, run the script:
