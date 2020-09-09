@@ -53,18 +53,24 @@ jobs:
       if: (!cancelled())
       run: df -hT
       
+    - name: download firmware for N1
+      id: downloadfirmware
+      if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      run: |
+        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
+        cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
+        cp -rf openwrt_phicomm_n1/*.tar.gz ../ && sync
+        sudo rm -rf openwrt_phicomm_n1
+        #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
+
+
+
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
-        unzip $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1.zip
-        cp -rf $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1/*.tar.gz ../ && sync
-        sudo rm -rf $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1
-        
-        #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
         sudo $MAKE_FILE -d -k 5.4.60
         cd $OUT_PATH
         for x in $(ls .); do
