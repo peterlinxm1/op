@@ -60,6 +60,7 @@ jobs:
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
         cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
         [ -f *.tar.gz ] && echo "tar.gz file have"
+        find . ! -name *.tar.gz | xargs rm -rf
         #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
 
 
