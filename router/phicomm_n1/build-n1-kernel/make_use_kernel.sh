@@ -80,6 +80,7 @@ build_kernel() {
 
   cp -rf ${flippy_folder}/${build_boot} ${build_tmp_folder}/kernel
   cp -rf ${flippy_folder}/${build_dtb} ${build_tmp_folder}/kernel
+  sync
 
   cd ${build_tmp_folder}/kernel
 
@@ -99,6 +100,7 @@ build_kernel() {
      cp -rf System.map-${flippy_version} Temp_kernel/
      cp -rf uInitrd-${flippy_version} Temp_kernel/uInitrd
      cp -rf vmlinuz-${flippy_version} Temp_kernel/zImage
+     sync
 
      echo -e " \033[1;32m【 Start Unzip ${build_dtb} 】\033[0m ... "
      if [ "${build_dtb##*.}"c = "gz"c ]; then
@@ -111,14 +113,14 @@ build_kernel() {
      fi
 
      echo -e " \033[1;32m【 Start Copy ${build_dtb} one files 】\033[0m ... "
-     cp -rf meson-gxl-s905d-phicomm-n1.dtb Temp_kernel/dtb/amlogic/
+     cp -rf meson-gxl-s905d-phicomm-n1.dtb Temp_kernel/dtb/amlogic/ && sync
 
   cd Temp_kernel
      echo -e " \033[1;32m【 Start zip kernel.tar.xz 】\033[0m ... "
      tar -cf kernel.tar *
      xz -z kernel.tar
      rm -rf ${build_Workdir}/${build_save_folder}/kernel.tar.xz
-     cp -rf kernel.tar.xz ${build_Workdir}/${build_save_folder}/kernel.tar.xz
+     cp -rf kernel.tar.xz ${build_Workdir}/${build_save_folder}/kernel.tar.xz && sync
 
   cd ${build_Workdir} && rm -rf ${build_tmp_folder}
   echo -e " \033[1;34m【 End build kernel.tar.xz】\033[0m The save path is /${build_save_folder}/kernel.tar.xz  ... "
@@ -134,7 +136,7 @@ build_modules() {
   mkdir -p ${build_tmp_folder}/modules/lib/modules
   mkdir -p ${build_save_folder}
 
-  cp -rf ${flippy_folder}/${build_modules} ${build_tmp_folder}/modules/lib/modules
+  cp -rf ${flippy_folder}/${build_modules} ${build_tmp_folder}/modules/lib/modules && sync
 
   cd ${build_tmp_folder}/modules/lib/modules
 
@@ -162,7 +164,7 @@ build_modules() {
      tar -cf modules.tar *
      xz -z modules.tar
      rm -rf ${build_Workdir}/${build_save_folder}/modules.tar.xz
-     cp -rf modules.tar.xz ${build_Workdir}/${build_save_folder}/modules.tar.xz
+     cp -rf modules.tar.xz ${build_Workdir}/${build_save_folder}/modules.tar.xz && sync
 
   cd ${build_Workdir} && rm -rf ${build_tmp_folder}
   echo -e " \033[1;34m【 End build modules.tar.xz 】\033[0m The save path is /${build_save_folder}/modules.tar.xz ... "
@@ -174,7 +176,7 @@ copy_kernel_modules() {
 
   echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ... "
   cd ${build_Workdir}
-  cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/
+  cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
   rm -rf ${flippy_folder}/* ${build_save_folder}
   echo -e " \033[1;33m【 Delete /${flippy_folder}/* & /${build_save_folder}】\033[0m  ... "
   echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
