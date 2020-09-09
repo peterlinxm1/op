@@ -67,7 +67,7 @@ jobs:
         done
         zip -r openwrt_phicomm_n1.zip *
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD/openwrt_phicomm_n1.zip"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
@@ -83,9 +83,9 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
         tag: Phicomm_N1
-        overwrite: false
+        overwrite: true
         file_glob: true
-        release_name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
+        release_name: OpenWrt_phicomm_n1${{ env.FILE_DATE }}
         body: "This is OpenWrt for Phicomm N1. Time${{ env.FILE_DATE }}"
 
     - name: Upload firmware to WeTransfer
