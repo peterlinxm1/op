@@ -59,7 +59,13 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
+        mkdir $OPENWRT_ORGANIZE_PATH/tmp
+        cd $OPENWRT_ORGANIZE_PATH/tmp
+        wget https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
+        unzip openwrt_phicomm_n1.zip
+        [ -d openwrt_phicomm_n1 ] && cd openwrt_phicomm_n1 && cp *.tar.gz ../
+        
+        #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
         sudo $MAKE_FILE -d -k 5.4.60
         cd $OUT_PATH
         for x in $(ls .); do
