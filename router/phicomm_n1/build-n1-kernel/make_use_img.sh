@@ -89,6 +89,7 @@ copy_boot_root() {
 
   cp -rf ${boot_tmp}/{dtb,config*,initrd.img*,System.map*,uInitrd,zImage} ${kernel_tmp}
   cp -rf ${root_tmp}/lib/modules ${modules_tmp}
+  sync
 
   echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m ... "
 
@@ -139,6 +140,7 @@ build_kernel_modules() {
   tar -cf modules.tar *
   xz -z modules.tar
   mv -f modules.tar.xz ${build_Workdir}/${build_save_folder}
+  sync
 
   echo -e " \033[1;34m【 End build_kernel_modules 】\033[0m ... "
 
@@ -149,7 +151,7 @@ copy_kernel_modules() {
 
   echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ... "
   cd ${build_Workdir}
-  cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/
+  cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
   rm -rf ${build_save_folder}
   echo -e " \033[1;33m【 Delete /${build_save_folder}】\033[0m  ... "
   echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
