@@ -60,8 +60,7 @@ jobs:
         mkdir -p $OUT_PATH $OPENWRT_ORGANIZE_PATH
         wget -q -P $OUT_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
         cd $OUT_PATH && unzip openwrt_phicomm_n1.zip
-        [ -f *.tar.gz ] && cp *.tar.gz ../openwrt/ || ( echo "*.tar.gz does not exist" && exit 1 )
-        #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
+        [ -f *.tar.gz ] && cp *.tar.gz ../openwrt/ || echo '*.tar.gz does not exist'
 
     - name: Build firmware for N1
       id: buildn1firmware
