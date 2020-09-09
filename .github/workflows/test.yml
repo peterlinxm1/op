@@ -60,20 +60,21 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
-        sudo $MAKE_FILE -d          
+        sudo $MAKE_FILE -d -k 5.4.60
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
         done
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
         echo "::set-output name=status::success"
-        
-    - name: Upload firmware to WeTransfer
+
+    - name: Upload firmware directory for Phicomm N1
+      uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+      with:
+        name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
+        path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
 
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
@@ -83,6 +84,15 @@ jobs:
         asset_name: OpenWrt for Phicomm N1
         tag: Phicomm_N1
         overwrite: true
-        body: "This is OpenWrt for Phicomm N1"
+        body: "This is OpenWrt for Phicomm N1: ${{ env.FILE_DATE }}"
+
+    - name: Upload firmware to WeTransfer
+      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+
+
         
         
