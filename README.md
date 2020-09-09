@@ -37,6 +37,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
 | SSH_ACTIONS | SSH connection Actions function. Default false |
 | UPLOAD_BIN_DIR | Upload the bin directory (all ipk files and firmware). Default false |
 | UPLOAD_FIRMWARE | Upload firmware catalog. Default true |
+| UPLOAD_RELEASE | Upload firmware to release. Default true |
 | UPLOAD_COWTRANSFER | Upload the firmware to CowTransfer.com. Default false |
 | UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
 | TZ | Time zone setting |
