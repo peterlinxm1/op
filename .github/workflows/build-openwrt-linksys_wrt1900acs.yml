@@ -108,7 +108,7 @@ jobs:
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
 
     - name: Check space usage
       if: (!cancelled())
@@ -144,11 +144,11 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.FIRMWARE }}
-        tag: Linksys_WRT1900ACS
-        overwrite: false
+        tag: OpenWrt_Linksys_WRT1900ACS${{ env.FILE_DATE }}
+        overwrite: true
         file_glob: true
-        release_name: ${{ env.FIRMWARE }}
-        body: "This is OpenWrt for Linksys WRT1900ACS. Date${{ env.FILE_DATE }}"
+        release_name: OpenWrt_Linksys_WRT1900ACS${{ env.FILE_DATE }}
+        body: "This is OpenWrt firmware for Linksys WRT1900ACS"
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
