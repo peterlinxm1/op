@@ -58,9 +58,8 @@ jobs:
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
-        cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
+        cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip && sync
         [ -f *.tar.gz ] && echo "tar.gz file have"
-        find -type d -exec sudo rm -rf {} \;
         #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
 
     - name: Build firmware for N1
