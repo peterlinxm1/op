@@ -59,7 +59,7 @@ jobs:
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
-        mkdir $OPENWRT_ORGANIZE_PATH/tmp
+        mkdir -p $OPENWRT_ORGANIZE_PATH/tmp
         cd $OPENWRT_ORGANIZE_PATH/tmp
         wget https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
         unzip openwrt_phicomm_n1.zip
