@@ -63,8 +63,6 @@ jobs:
         find . -type  d | xargs rm -rf
         #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
 
-
-
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
