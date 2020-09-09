@@ -148,7 +148,7 @@ jobs:
       run: |
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH
-        cp -rf openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
+        cp -rf openwrt/bin/targets/*/*/*rootfs.tar.gz $OPENWRT_ORGANIZE_PATH/rootfs.tar.gz
         sudo $MAKE_FILE -d
         cd $OUT_PATH
         for x in $(ls .); do
@@ -156,6 +156,7 @@ jobs:
         done
         zip -r openwrt_phicomm_n1.zip *
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD/openwrt_phicomm_n1.zip"
+        echo "::set-env name=DOWN_ROOTFS_FILEPATH::$OPENWRT_ORGANIZE_PATH/rootfs.tar.gz"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
@@ -165,7 +166,19 @@ jobs:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
 
+
     - name: Upload firmware to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.DOWN_ROOTFS_FILEPATH }}
+        tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        overwrite: true
+        file_glob: true
+        release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        body: "This is OpenWrt firmware for Phicomm N1"
+
+    - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
