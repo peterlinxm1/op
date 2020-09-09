@@ -60,7 +60,7 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
-        sudo $MAKE_FILE -d -k 5.4.60
+        sudo $MAKE_FILE -d
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
