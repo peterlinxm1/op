@@ -79,10 +79,10 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
-        asset_name: mything
-        tag: ${{ github.ref }}_Phicomm_N1
+        file: ${DOWN_PHICOMM_N1_FILEPATH}
+        asset_name: OpenWrt for Phicomm N1
+        tag: Phicomm_N1
         overwrite: true
-        body: "This is OpenWrt for Phicomm N1,Date: $(date +%Y-%m-%d)"
+        body: "This is OpenWrt for Phicomm N1"
         
         
