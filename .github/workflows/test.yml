@@ -60,6 +60,7 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
+        echo "::set-env name=DOWN_ORGANIZE_FILEPATH::$OPENWRT_ORGANIZE_PATH/s905d-dtb.tar.gz"
         sudo $MAKE_FILE -d -k 5.4.60
         cd $OUT_PATH
         for x in $(ls .); do
@@ -76,6 +77,18 @@ jobs:
       with:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+
+    - name: Upload firmware to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.DOWN_ORGANIZE_FILEPATH }}
+        tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        overwrite: true
+        file_glob: true
+        release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        body: "This is OpenWrt firmware for Phicomm N1"
+
 
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
