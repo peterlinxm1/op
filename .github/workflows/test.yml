@@ -61,7 +61,7 @@ jobs:
         sudo rm -rf $OUT_PATH
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.09/openwrt_phicomm_n1.zip
         unzip openwrt_phicomm_n1.zip
-        cd $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1/*.tar.gz ../ && sync
+        cp -rf $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1/*.tar.gz ../ && sync
         sudo rm -rf $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1 $OPENWRT_ORGANIZE_PATH/openwrt_phicomm_n1.zip
         
         #wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
