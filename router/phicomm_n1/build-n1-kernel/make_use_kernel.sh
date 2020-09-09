@@ -94,12 +94,11 @@ build_kernel() {
         exit 1
      fi
 
-     echo -e " \033[1;32m【 Start Copy ${build_boot} five files 】\033[0m ... "
-     [[ -f config-${flippy_version} && cp -rf config-${flippy_version} Temp_kernel/ ]] || echo -e "config-${flippy_version} does not exist" exit 1
-     [[ -f initrd.img-${flippy_version} && cp -rf initrd.img-${flippy_version} Temp_kernel/ ]] || echo -e "initrd.img-${flippy_version} does not exist" exit 1
-     [[ -f System.map-${flippy_version} && cp -rf System.map-${flippy_version} Temp_kernel/ ]] || echo -e "System.map-${flippy_version} does not exist" exit 1
-     [[ -f uInitrd-${flippy_version} && cp -rf uInitrd-${flippy_version} Temp_kernel/uInitrd ]] || echo -e "uInitrd-${flippy_version} does not exist" exit 1
-     [[ -f vmlinuz-${flippy_version} && cp -rf vmlinuz-${flippy_version} Temp_kernel/zImage ]] || echo -e "vmlinuz-${flippy_version} does not exist" exit 1
+     [ -f config-${flippy_version} ] && cp -f config-${flippy_version} Temp_kernel/ || ( echo "config* does not exist" && exit 1 )
+     [ -f initrd.img-${flippy_version} ] && cp -f initrd.img-${flippy_version} Temp_kernel/ || ( echo "initrd* does not exist" && exit 1 )
+     [ -f System.map-${flippy_version} ] && cp -f System.map-${flippy_version} Temp_kernel/ || ( echo "System* does not exist" && exit 1 )
+     [ -f uInitrd-${flippy_version} ] && cp -f uInitrd-${flippy_version} Temp_kernel/uInitrd || ( echo "uInitrd* does not exist" && exit 1 )
+     [ -f vmlinuz-${flippy_version} ] && cp -f vmlinuz-${flippy_version} Temp_kernel/zImage || ( echo "vmlinuz* does not exist" && exit 1 )
      sync
 
      echo -e " \033[1;32m【 Start Unzip ${build_dtb} 】\033[0m ... "
