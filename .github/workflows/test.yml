@@ -85,7 +85,7 @@ jobs:
         tag: Phicomm_N1
         overwrite: false
         file_glob: true
-        release_name: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+        release_name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         body: "This is OpenWrt for Phicomm N1. Time${{ env.FILE_DATE }}"
 
     - name: Upload firmware to WeTransfer
