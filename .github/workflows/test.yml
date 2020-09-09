@@ -82,12 +82,11 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
-        asset_name: OpenWrt for Phicomm N1
         tag: Phicomm_N1
-        overwrite: true
+        overwrite: false
         file_glob: true
         release_name: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
-        body: "This is OpenWrt for Phicomm N1: ${{ env.FILE_DATE }}"
+        body: "This is OpenWrt for Phicomm N1. Time${{ env.FILE_DATE }}"
 
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
