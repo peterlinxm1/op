@@ -148,13 +148,13 @@ jobs:
       run: |
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH
-        cp -rf openwrt/bin/targets/*/*/*rootfs.tar.gz $OPENWRT_ORGANIZE_PATH/armvirt_rootfs.tar.gz
+        cp -rf openwrt/bin/targets/*/*/*.tar.gz $OPENWRT_ORGANIZE_PATH
         sudo $MAKE_FILE -d
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
         done
-        cp $OPENWRT_ORGANIZE_PATH/* .
+        mkdir backup_original && cp -rf $OPENWRT_ORGANIZE_PATH/* backup_original
         zip -r openwrt_phicomm_n1.zip *
         echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-output name=status::success"
