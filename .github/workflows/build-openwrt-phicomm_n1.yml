@@ -36,6 +36,7 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_ORIGINALFIRMWARE: true
   UPLOAD_N1FIRMWARE: true
+  UPLOAD_RELEASE: true
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
@@ -112,7 +113,7 @@ jobs:
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
 
     - name: Check space usage
       if: (!cancelled())
@@ -153,7 +154,8 @@ jobs:
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
         done
-        echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD"
+        zip -r openwrt_phicomm_n1.zip *
+        echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
@@ -162,6 +164,17 @@ jobs:
       with:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+
+    - name: Upload firmware to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+        tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        overwrite: true
+        file_glob: true
+        release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        body: "This is OpenWrt firmware for Phicomm N1"
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
