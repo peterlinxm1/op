@@ -82,10 +82,10 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
-        tag: OpenWrt_Phicomm_N1{{ env.FILE_DATE }}
+        tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
-        release_name: Date${{ env.FILE_DATE }}_${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+        release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         body: "This is OpenWrt for Phicomm N1. Date${{ env.FILE_DATE }}"
 
     - name: Upload firmware to WeTransfer
