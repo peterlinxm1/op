@@ -166,8 +166,7 @@ jobs:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
 
-
-    - name: Upload firmware to release
+    - name: Upload Original firmware to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
