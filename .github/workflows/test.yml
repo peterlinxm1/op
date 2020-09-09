@@ -60,7 +60,7 @@ jobs:
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/codesnas/lede-mod/raw/master/makefile/s905d-dtb.tar.gz
-        sudo $MAKE_FILE -d
+        sudo $MAKE_FILE -d -k 5.4.60
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
@@ -82,11 +82,11 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
-        tag: Phicomm_N1
+        tag: OpenWrt_Phicomm_N1{{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
-        release_name: OpenWrt_phicomm_n1${{ env.FILE_DATE }}
-        body: "This is OpenWrt for Phicomm N1. Time${{ env.FILE_DATE }}"
+        release_name: Date${{ env.FILE_DATE }}_${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+        body: "This is OpenWrt for Phicomm N1. Date${{ env.FILE_DATE }}"
 
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
