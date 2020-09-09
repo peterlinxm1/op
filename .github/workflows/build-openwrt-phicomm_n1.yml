@@ -154,7 +154,7 @@ jobs:
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
         done
-        mkdir backup_original && cp -rf $OPENWRT_ORGANIZE_PATH/* backup_original
+        cp -rf ../openwrt/* .
         zip -r openwrt_phicomm_n1.zip *
         echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-output name=status::success"
