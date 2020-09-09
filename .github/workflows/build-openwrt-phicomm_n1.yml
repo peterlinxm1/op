@@ -156,7 +156,7 @@ jobs:
         done
         mkdir backup_original && cp -rf $OPENWRT_ORGANIZE_PATH/* backup_original
         zip -r openwrt_phicomm_n1.zip *
-        echo "::set-env name=DOWN_PHICOMM_N1_FILEPATH::$PWD/openwrt_phicomm_n1.zip"
+        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
@@ -164,14 +164,14 @@ jobs:
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
-        path: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+        path: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
 
     - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.DOWN_PHICOMM_N1_FILEPATH }}
+        file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
         tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
@@ -184,7 +184,7 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${UploadOriginalFirmware} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"    
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         
     - name: Upload firmware to WeTransfer
@@ -193,6 +193,6 @@ jobs:
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${UploadOriginalFirmware} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${DOWN_PHICOMM_N1_FILEPATH} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
