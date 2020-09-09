@@ -74,13 +74,13 @@ build_kernel() {
 
   echo -e " \033[1;34m【 Start build_kernel 】\033[0m ... "
   cd ${build_Workdir}
-  rm -rf ${build_tmp_folder}
-  mkdir -p ${build_tmp_folder}/kernel/Temp_kernel/dtb/amlogic
-  mkdir -p ${build_save_folder}
+     rm -rf ${build_tmp_folder}
+     mkdir -p ${build_tmp_folder}/kernel/Temp_kernel/dtb/amlogic
+     mkdir -p ${build_save_folder}
 
-  cp -rf ${flippy_folder}/${build_boot} ${build_tmp_folder}/kernel
-  cp -rf ${flippy_folder}/${build_dtb} ${build_tmp_folder}/kernel
-  sync
+     cp -rf ${flippy_folder}/${build_boot} ${build_tmp_folder}/kernel
+     cp -rf ${flippy_folder}/${build_dtb} ${build_tmp_folder}/kernel
+     sync
 
   cd ${build_tmp_folder}/kernel
 
@@ -94,11 +94,11 @@ build_kernel() {
         exit 1
      fi
 
-     [ -f config-${flippy_version} ] && cp -f config-${flippy_version} Temp_kernel/ || ( echo "config* does not exist" && exit 1 )
-     [ -f initrd.img-${flippy_version} ] && cp -f initrd.img-${flippy_version} Temp_kernel/ || ( echo "initrd* does not exist" && exit 1 )
-     [ -f System.map-${flippy_version} ] && cp -f System.map-${flippy_version} Temp_kernel/ || ( echo "System* does not exist" && exit 1 )
-     [ -f uInitrd-${flippy_version} ] && cp -f uInitrd-${flippy_version} Temp_kernel/uInitrd || ( echo "uInitrd* does not exist" && exit 1 )
-     [ -f vmlinuz-${flippy_version} ] && cp -f vmlinuz-${flippy_version} Temp_kernel/zImage || ( echo "vmlinuz* does not exist" && exit 1 )
+     [ -f config-${flippy_version} ] && cp -f config* Temp_kernel/ || ( echo "config* does not exist" && exit 1 )
+     [ -f initrd.img-${flippy_version} ] && cp -f initrd.img* Temp_kernel/ || ( echo "initrd.img* does not exist" && exit 1 )
+     [ -f System.map-${flippy_version} ] && cp -f System.map* Temp_kernel/ || ( echo "System.map* does not exist" && exit 1 )
+     [ -f uInitrd-${flippy_version} ] && cp -f uInitrd* Temp_kernel/uInitrd || ( echo "uInitrd* does not exist" && exit 1 )
+     [ -f vmlinuz-${flippy_version} ] && cp -f vmlinuz* Temp_kernel/zImage || ( echo "vmlinuz* does not exist" && exit 1 )
      sync
 
      echo -e " \033[1;32m【 Start Unzip ${build_dtb} 】\033[0m ... "
@@ -112,7 +112,8 @@ build_kernel() {
      fi
 
      echo -e " \033[1;32m【 Start Copy ${build_dtb} one files 】\033[0m ... "
-     cp -rf meson-gxl-s905d-phicomm-n1.dtb Temp_kernel/dtb/amlogic/ && sync
+     [ -f meson-gxl-s905d-phicomm-n1.dtb ] && cp -f *phicomm-n1.dtb Temp_kernel/dtb/amlogic/ || ( echo "*phicomm-n1.dtb does not exist" && exit 1 )
+     sync
 
   cd Temp_kernel
      echo -e " \033[1;32m【 Start zip kernel.tar.xz 】\033[0m ... "
@@ -122,7 +123,7 @@ build_kernel() {
      cp -rf kernel.tar.xz ${build_Workdir}/${build_save_folder}/kernel.tar.xz && sync
 
   cd ${build_Workdir} && rm -rf ${build_tmp_folder}
-  echo -e " \033[1;34m【 End build kernel.tar.xz】\033[0m The save path is /${build_save_folder}/kernel.tar.xz  ... "
+     echo -e " \033[1;34m【 End build kernel.tar.xz】\033[0m The save path is /${build_save_folder}/kernel.tar.xz  ... "
 
 }
 
@@ -131,11 +132,11 @@ build_modules() {
 
   echo -e " \033[1;34m【 Start build_modules 】\033[0m ... "
   cd ${build_Workdir}
-  rm -rf ${build_tmp_folder}
-  mkdir -p ${build_tmp_folder}/modules/lib/modules
-  mkdir -p ${build_save_folder}
+     rm -rf ${build_tmp_folder}
+     mkdir -p ${build_tmp_folder}/modules/lib/modules
+     mkdir -p ${build_save_folder}
 
-  cp -rf ${flippy_folder}/${build_modules} ${build_tmp_folder}/modules/lib/modules && sync
+     cp -rf ${flippy_folder}/${build_modules} ${build_tmp_folder}/modules/lib/modules && sync
 
   cd ${build_tmp_folder}/modules/lib/modules
 
@@ -175,10 +176,10 @@ copy_kernel_modules() {
 
   echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ... "
   cd ${build_Workdir}
-  cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
-  rm -rf ${flippy_folder}/* ${build_save_folder}
-  echo -e " \033[1;33m【 Delete /${flippy_folder}/* & /${build_save_folder}】\033[0m  ... "
-  echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
+     cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
+     rm -rf ${flippy_folder}/* ${build_save_folder}
+     echo -e " \033[1;33m【 Delete /${flippy_folder}/* & /${build_save_folder}】\033[0m  ... "
+     echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
 
 }
 
@@ -187,6 +188,6 @@ build_kernel
 build_modules
 copy_kernel_modules
 
-echo -e " \033[1;35m【 Build completed ${build_save_folder} 】\033[0m : kernel.tar.xz & modules.tar.xz ... "
+echo -e " \033[1;35m【 Build completed 】\033[0m ${build_save_folder}: kernel.tar.xz & modules.tar.xz ... "
 # end run the script
 

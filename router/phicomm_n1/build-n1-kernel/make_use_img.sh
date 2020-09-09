@@ -52,14 +52,15 @@ check_build_files() {
 
   echo -e " \033[1;34m【 Start check_build_files 】\033[0m ... "
   cd ${build_Workdir}
-  if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
-    echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n \
-    Please check if the following three files exist: ${flippy_folder}/${flippy_file} "
-    exit 1
-  else
-    echo -e " \033[1;34m【 End check_build_files 】\033[0m ... "
-    echo -e " \033[1;35m【 Start building 】\033[0m Use ${flippy_file} build kernel.tar.xz & modules.tar.xz  ... "
-  fi
+      if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
+        echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n \
+        Please check if the following three files exist: ${flippy_folder}/${flippy_file} "
+        exit 1
+      else
+        # begin run the script
+        echo -e " \033[1;34m【 End check_build_files 】\033[0m ... "
+        echo -e " \033[1;35m【 Start building 】\033[0m Use ${flippy_file} build kernel.tar.xz & modules.tar.xz  ... "
+      fi
 
 }
 
@@ -68,16 +69,16 @@ losetup_mount_img() {
 
   echo -e " \033[1;34m【 Start losetup_mount_img 】\033[0m ... "
   cd ${build_Workdir}
-  mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
+     mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
 
-  lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
-  [ $? = 0 ] || ( echo "losetup ${flippy_file} failed!" && exit 1 )
-  mount ${lodev}p1 ${boot_tmp}
-  [ $? = 0 ] || ( echo "mount ${lodev}p1 failed!" && exit 1 )
-  mount ${lodev}p2 ${root_tmp}
-  [ $? = 0 ] || ( echo "mount ${lodev}p2 failed!" && exit 1 )
+     lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
+     [ $? = 0 ] || ( echo "losetup ${flippy_file} failed!" && exit 1 )
+     mount ${lodev}p1 ${boot_tmp}
+     [ $? = 0 ] || ( echo "mount ${lodev}p1 failed!" && exit 1 )
+     mount ${lodev}p2 ${root_tmp}
+     [ $? = 0 ] || ( echo "mount ${lodev}p2 failed!" && exit 1 )
 
-  echo -e " \033[1;34m【 End losetup_mount_img 】\033[0m ... Use: ${lodev} "
+     echo -e " \033[1;34m【 End losetup_mount_img 】\033[0m ... Use: ${lodev} "
 
 }
 
@@ -87,11 +88,11 @@ copy_boot_root() {
   echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m ... "
   cd ${build_Workdir}
 
-  cp -rf ${boot_tmp}/{dtb,config*,initrd.img*,System.map*,uInitrd,zImage} ${kernel_tmp}
-  cp -rf ${root_tmp}/lib/modules ${modules_tmp}
-  sync
+     cp -rf ${boot_tmp}/{dtb,config*,initrd.img*,System.map*,uInitrd,zImage} ${kernel_tmp}
+     cp -rf ${root_tmp}/lib/modules ${modules_tmp}
+     sync
 
-  echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m ... "
+     echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m ... "
 
 }
 
@@ -101,11 +102,11 @@ get_flippy_version() {
   echo -e " \033[1;34m【 Start get_flippy_version 】\033[0m ... "
 
   cd ${build_Workdir}/${modules_tmp}/modules
-  flippy_version=$(ls .)
-  build_save_folder=$(echo ${flippy_version} | grep -oE '^[1-9].[0-9]{1,2}.[0-9]+')
-  mkdir -p ${build_Workdir}/${build_save_folder}
+     flippy_version=$(ls .)
+     build_save_folder=$(echo ${flippy_version} | grep -oE '^[1-9].[0-9]{1,2}.[0-9]+')
+     mkdir -p ${build_Workdir}/${build_save_folder}
 
-  echo -e " \033[1;34m【 End get_flippy_version 】\033[0m ${build_save_folder} ... "
+     echo -e " \033[1;34m【 End get_flippy_version 】\033[0m ${build_save_folder} ... "
 
 }
 
@@ -115,9 +116,9 @@ build_kernel_modules() {
   echo -e " \033[1;34m【 Start build_kernel_modules 】\033[0m ... "
 
   cd ${build_Workdir}/${kernel_tmp}
-  tar -cf kernel.tar *
-  xz -z kernel.tar
-  mv -f kernel.tar.xz ${build_Workdir}/${build_save_folder}
+     tar -cf kernel.tar *
+     xz -z kernel.tar
+     mv -f kernel.tar.xz ${build_Workdir}/${build_save_folder}
 
   cd ${build_Workdir}/${modules_tmp}/modules/${flippy_version}/
 
@@ -137,12 +138,12 @@ build_kernel_modules() {
      fi
 
   cd ../../../
-  tar -cf modules.tar *
-  xz -z modules.tar
-  mv -f modules.tar.xz ${build_Workdir}/${build_save_folder}
-  sync
+     tar -cf modules.tar *
+     xz -z modules.tar
+     mv -f modules.tar.xz ${build_Workdir}/${build_save_folder}
+     sync
 
-  echo -e " \033[1;34m【 End build_kernel_modules 】\033[0m ... "
+     echo -e " \033[1;34m【 End build_kernel_modules 】\033[0m ... "
 
 }
 
@@ -151,10 +152,10 @@ copy_kernel_modules() {
 
   echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ... "
   cd ${build_Workdir}
-  cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
-  rm -rf ${build_save_folder}
-  echo -e " \033[1;33m【 Delete /${build_save_folder}】\033[0m  ... "
-  echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
+     cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
+     rm -rf ${build_save_folder}
+     echo -e " \033[1;33m【 Delete /${build_save_folder}】\033[0m  ... "
+     echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
 
 }
 
@@ -162,16 +163,16 @@ copy_kernel_modules() {
 umount_ulosetup() {
 
   cd ${build_Workdir}
-  echo -e " \033[1;34m【 Start umount_ulosetup 】\033[0m ... "
+     echo -e " \033[1;34m【 Start umount_ulosetup 】\033[0m ... "
 
-  umount ${build_Workdir}/${boot_tmp}
-  umount ${build_Workdir}/${root_tmp}
-  losetup -d ${lodev}
+     umount ${build_Workdir}/${boot_tmp}
+     umount ${build_Workdir}/${root_tmp}
+     losetup -d ${lodev}
 
-  rm -rf ${build_tmp_folder}
-  rm -rf ${flippy_folder}/*
+     rm -rf ${build_tmp_folder}
+     rm -rf ${flippy_folder}/*
 
-  echo -e " \033[1;34m【 End umount_ulosetup 】\033[0m ... "
+     echo -e " \033[1;34m【 End umount_ulosetup 】\033[0m ... "
 
 }
 
@@ -183,5 +184,6 @@ build_kernel_modules
 copy_kernel_modules
 umount_ulosetup
 
-echo -e " \033[1;35m【 Build completed 】\033[0m Use ${flippy_file} build ${build_save_folder} kernel.tar.xz & modules.tar.xz  ... "
+echo -e " \033[1;35m【 Build completed 】\033[0m ${build_save_folder}: kernel.tar.xz & modules.tar.xz  ... "
+# end run the script
 
