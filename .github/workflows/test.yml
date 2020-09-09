@@ -83,6 +83,6 @@ jobs:
         asset_name: mything
         tag: ${{ github.ref }}_Phicomm_N1
         overwrite: true
-        body: "This is OpenWrt for Phicomm N1,Date: $(date +"%Y%m%d%H%M")"
+        body: "This is OpenWrt for Phicomm N1,Date: $(date +%Y-%m-%d)"
         
         
