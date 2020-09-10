@@ -137,11 +137,7 @@ The code Fork comes from the code bases of authors such as coolsnowwolf, P3TERX,
 
 - [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 - [tuanqing's mknop](https://github.com/tuanqing/mknop)
-- [KFERMercer's OpenWrt-CI](https://github.com/KFERMercer/OpenWrt-CI)
 
-- [GitHub Actions](https://github.com/features/actions)
-- [Cowtransfer](https://cowtransfer.com)
-- [WeTransfer](https://wetransfer.com/)
 - [Mikubill/transfer](https://github.com/Mikubill/transfer)
 
 ## License
