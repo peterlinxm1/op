@@ -19,8 +19,6 @@
 # Mydiy-luci-app-and-theme（use to /.config luci-app&theme）
 # ==========luci-app-url==========
 # git clone https://github.com/kenzok8/openwrt-packages.git package/openwrt-packages
-# git clone https://github.com/kenzok8/small.git package/small
-# git clone https://github.com/fw876/helloworld.git package/helloworld
 svn co https://github.com/ophub/op/trunk/router/phicomm_n1/install-program package/install-program
 # ==========luci-theme-url==========
 # svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-theme-bootstrap-mod package/luci-theme-bootstrap-mod
