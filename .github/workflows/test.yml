@@ -60,7 +60,7 @@ jobs:
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.10/openwrt_phicomm_n1.zip
         cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
         rm -rf $( find ${PWD}/* -type d )
-        [ -f *.tar.gz ] && echo '*.tar.gz file exists' || echo '*.tar.gz file does not exist'
+        [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
 
     - name: Build firmware for N1
       id: buildn1firmware
