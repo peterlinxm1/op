@@ -132,11 +132,11 @@ The code Fork comes from the code bases of authors such as coolsnowwolf, P3TERX,
 ## Acknowledgments
 
 - [OpenWrt](https://github.com/openwrt/openwrt)
-- [Lean's OpenWrt](https://github.com/coolsnowwolf/lede)
-- [Lienol's OpenWrt](https://github.com/Lienol/openwrt)
+- [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
+- [Lienol/openwrt](https://github.com/Lienol/openwrt)
 
-- [P3TERX's Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
-- [tuanqing's mknop](https://github.com/tuanqing/mknop)
+- [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
+- [tuanqing/mknop](https://github.com/tuanqing/mknop)
 
 - [Mikubill/transfer](https://github.com/Mikubill/transfer)
 
