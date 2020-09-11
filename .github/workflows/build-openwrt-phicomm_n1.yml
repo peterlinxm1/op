@@ -180,11 +180,12 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${UploadOriginalFirmware} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+        ./transfer wet -s -p 16 --no-progress ${UploadOriginalFirmware} 2>&1 | tee wetransfer1.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer1.log | grep https)"
+        echo "::set-env name=WETRANSFER_URL1::$(cat wetransfer1.log | grep https | cut -f3 -d" ")"
+        ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer2.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer2.log | grep https)"
+        echo "::set-env name=WETRANSFER_URL2::$(cat wetransfer2.log | grep https | cut -f3 -d" ")"
         
     - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
