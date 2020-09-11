@@ -167,5 +167,5 @@ jobs:
         release_name: OpenWrt_Linksys_WRT32X${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Linksys WRT32X
-          🔗 [WeTransfer](${{ env.WETRANSFER_URL }})
+          🔗 [Download from WeTransfer](${{ env.WETRANSFER_URL }})
 
