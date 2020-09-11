@@ -98,7 +98,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       │       │
  │       │       └── root                              # Add your custom files(ROOTFS Partition)
  │       │    
- │       ├── build-n1-kernel                           # Use Flippy's files build kernel/modules
+ │       ├── build-n1-kernel                           # Build OpenWrt's Armbian kernel for Phicomm-N1
  │       │   ├── make_use_img.sh                       # Use Flippy's *.img files build
  │       │   ├── make_use_kernel.sh                    # Use Flippy's kernel files build
  │       │   ├── README.md
