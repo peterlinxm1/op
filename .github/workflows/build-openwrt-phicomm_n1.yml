@@ -200,5 +200,5 @@ jobs:
         release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Phicomm N1
-          🔗 [WeTransfer](${{ env.WETRANSFER_URL }})
+          🔗 [WeTransfer](${{ env.WETRANSFER_URL2 }})
 
