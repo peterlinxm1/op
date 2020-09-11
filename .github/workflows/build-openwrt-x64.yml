@@ -166,5 +166,5 @@ jobs:
         release_name: OpenWrt_X64${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for X64
-          🔗 [WeTransfer](${{ env.WETRANSFER_URL }})
+          🔗 [Download from WeTransfer](${{ env.WETRANSFER_URL }})
 
