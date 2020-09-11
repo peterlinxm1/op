@@ -57,7 +57,7 @@ jobs:
       id: downloadfirmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.10/openwrt_phicomm_n1.zip
+        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.11/openwrt_phicomm_n1.zip
         cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
         rm -rf $( find ${PWD}/* -type d )
         [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
@@ -86,24 +86,25 @@ jobs:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
         path: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
 
-    - name: Upload firmware to release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
-        tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
-        overwrite: true
-        file_glob: true
-        release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
-        body: "This is OpenWrt firmware for Phicomm N1"
-
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
-
+    - name: Upload firmware to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
+        tag: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
+        overwrite: true
+        file_glob: true
+        release_name: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
+        body: |
+          This is OpenWrt firmware for Phicomm N1
+          🔗 [WeTransfer](${{ env.WETRANSFER_URL }})
         
         
