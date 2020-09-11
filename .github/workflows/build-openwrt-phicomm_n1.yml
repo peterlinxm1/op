@@ -132,7 +132,7 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        echo "::set-env name=UploadOriginalFirmware::$PWD"
+        echo "::set-env name=ORIGINALFIRMWARE::$PWD"
         echo "::set-output name=status::success"
  
     - name: Upload firmware directory for Original_Armvirt
@@ -140,7 +140,7 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware_original_armvirt_64${{ env.FILE_DATE }}
-        path: ${{ env.UploadOriginalFirmware }}       
+        path: ${{ env.ORIGINALFIRMWARE }}       
         
     - name: Build firmware for N1
       id: buildn1firmware
@@ -156,7 +156,7 @@ jobs:
         done
         cp -rf ../openwrt/* .
         zip -r openwrt_phicomm_n1.zip *
-        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
+        echo "::set-env name=N1FIRMWARE::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
@@ -164,13 +164,13 @@ jobs:
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
-        path: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
+        path: ${{ env.N1FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${N1FIRMWARE} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         echo "::set-env name=COWTRANSFER_URL::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
         
@@ -178,7 +178,7 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${N1FIRMWARE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
         
@@ -187,7 +187,7 @@ jobs:
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
+        file: ${{ env.N1FIRMWARE }}
         tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
