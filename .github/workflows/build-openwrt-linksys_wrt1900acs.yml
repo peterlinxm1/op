@@ -166,5 +166,5 @@ jobs:
         release_name: OpenWrt_Linksys_WRT1900ACS${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Linksys WRT1900ACS
-          🔗 [WeTransfer](${{ env.WETRANSFER_URL }})
+          🔗 [Download from WeTransfer](${{ env.WETRANSFER_URL }})
 
