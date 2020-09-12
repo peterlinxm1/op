@@ -17,7 +17,7 @@ on:
     paths:
       - 'router/linksys_wrt1900acs/.config'
   schedule:
-    - cron: '0 0 * * 5'
+    - cron: '0 20 * * *'
   #watch:
     #types: started
 
@@ -109,6 +109,7 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
         echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
+        echo "::set-env name=FILE_WEEK::_$(date +"%w")"
 
     - name: Check space usage
       if: (!cancelled())
@@ -156,7 +157,7 @@ jobs:
 
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.FILE_WEEK == '0' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.FIRMWARE }}
