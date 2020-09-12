@@ -42,6 +42,16 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
 | UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
 | TZ | Time zone setting |
 
+* Firmware information
+
+| Name | Value |
+| ---- | ---- |
+| Default IP | 192.168.1.1 |
+| Default username | root |
+| Default password | password |
+| Default WIFI name | OpenWrt |
+| Default WIFI password | none |
+
 * Catalog description:
 
 ```shell script
