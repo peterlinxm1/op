@@ -156,8 +156,8 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r openwrt_phicomm_n1.zip *
-        echo "::set-env name=N1FIRMWARE::$PWD/openwrt_phicomm_n1.zip"
+        zip -r openwrt_phicomm_n1${{ env.FILE_DATE }}.zip *
+        echo "::set-env name=N1FIRMWARE::$PWD/openwrt_phicomm_n1${{ env.FILE_DATE }}.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
@@ -192,8 +192,12 @@ jobs:
         tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
-        release_name: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Phicomm N1
-          🔗 [Download from WeTransfer](${{ env.WETRANSFER_URL }})
+          * Firmware information
+          Default IP: 192.168.1.1
+          Default username: root
+          Default password: password
+          Default WIFI name: OpenWrt
+          Default WIFI password: none
 
