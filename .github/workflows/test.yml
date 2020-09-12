@@ -76,8 +76,8 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r openwrt_phicomm_n1${{ env.FILE_DATE }}.zip *
-        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1${{ env.FILE_DATE }}.zip"
+        zip -r openwrt_phicomm_n1_test${{ env.FILE_DATE }}.zip *
+        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1_test${{ env.FILE_DATE }}.zip"
 
         echo "::set-output name=status::success"
         
@@ -101,7 +101,8 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
-        tag: OpenWrt_Phicomm_N1_TES${{ env.FILE_DATE }}
+        tag: OpenWrt_Phicomm_N1_TES3${{ env.FILE_DATE }}
+        overwrite: true
         file_glob: true
         body: |
           This is OpenWrt firmware for Phicomm N1
