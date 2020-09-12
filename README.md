@@ -3,7 +3,7 @@
 
 # Automatically Build OpenWrt
 
-The latest version of the OpenWrt firmware is automatically compiled everyday at 20:00 UTC, Build OpenWrt using GitHub Actions, which can be downloaded in [Action](https://github.com/ophub/op/actions). update to [Releases](https://github.com/ophub/op/releases) every Monday. For detailed information about each firmware, please refer to the README.md file of each model. The currently supported router models are: 
+The latest version of the OpenWrt firmware is automatically compiled everyday at 20:00 UTC, Build OpenWrt using GitHub Actions, which can be downloaded in [Action](https://github.com/ophub/op/actions). Will be updated to later in every Monday [Releases](https://github.com/ophub/op/releases). For detailed information about each firmware, please refer to the README.md file of each model. The currently supported router models are: 
 
 - [Linksys WRT1900ACS](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs)
 - [Linksys WRT3200ACM](https://github.com/ophub/op/tree/master/router/linksys_wrt3200acm)
