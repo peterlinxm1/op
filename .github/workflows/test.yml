@@ -100,7 +100,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
-        tag: OpenWrt_Phicomm_N1_T${{ env.FILE_DATE }}
+        tag: OpenWrt_Phicomm_N1_TE${{ env.FILE_DATE }}
         file_glob: true
         body: |
           This is OpenWrt firmware for Phicomm N1
