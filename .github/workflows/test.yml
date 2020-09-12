@@ -1,0 +1,115 @@
+#======================================================
+# https://github.com/ophub/op
+# Description: Automatically Build OpenWrt for Phicomm N1
+# Function: Workflows for Build Phicomm N1
+# Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
+#=====================================================
+
+name: Build OpenWrt for Phicomm N1
+
+on:
+  repository_dispatch:
+  release:
+    types: published
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/test.yml'
+  #schedule:
+    #- cron: '0 0 * * 5'
+  #watch:
+    #types: started
+
+env:
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
+  CONFIG_FILE: router/phicomm_n1/.config
+  DIY_P1_SH: router/phicomm_n1/diy-part1.sh
+  DIY_P2_SH: router/phicomm_n1/diy-part2.sh
+  TMP_PATH: router/phicomm_n1/tmp
+  OUT_PATH: router/phicomm_n1/out
+  OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
+  MAKE_FILE: router/phicomm_n1/make
+  SSH_ACTIONS: false
+  UPLOAD_BIN_DIR: false
+  UPLOAD_ORIGINALFIRMWARE: true
+  UPLOAD_N1FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: true
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+      
+    - name: download firmware for N1
+      id: downloadfirmware
+      if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      run: |
+        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/OpenWrt_Phicomm_N1_2020.09.11/openwrt_phicomm_n1.zip
+        cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
+        rm -rf $( find ${PWD}/* -type d )
+        [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
+    - name: Build firmware for N1
+      id: buildn1firmware
+      if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      run: |
+        chmod +x $MAKE_FILE
+        sudo rm -rf $OUT_PATH
+        sudo $MAKE_FILE -d
+        cd $OUT_PATH
+        for x in $(ls .); do
+          cd $x && gzip *.img && cd ../
+        done
+        cp -rf ../openwrt/* .
+        zip -r openwrt_phicomm_n1.zip *
+        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
+        echo "::set-output name=status::success"
+    - name: Upload firmware directory for Phicomm N1
+      uses: actions/upload-artifact@master
+      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      with:
+        name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
+        path: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
+
+    - name: Upload firmware to WeTransfer
+      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+    - name: Upload firmware to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
+        tag: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
+        overwrite: true
+        file_glob: true
+        release_name: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
+        body: |
+          This is OpenWrt firmware for Phicomm N1
+          🔗 [Download OpenWrt for PHICOMM-N1 from WeTransfer](${{ env.WETRANSFER_URL }})
+          * Firmware information
+          | Name | Value |
+          | ---- | ---- |
+          | Default IP | 192.168.1.1 |
+          | Default username | root |
+          | Default password | password |
+          | Default WIFI name | OpenWrt |
+          | Default WIFI password | none |
+     
+     
