@@ -101,9 +101,7 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
         tag: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
-        overwrite: false
         file_glob: true
-        release_name: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Phicomm N1
           * Firmware information
