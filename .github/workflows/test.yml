@@ -77,7 +77,7 @@ jobs:
         zip -r openwrt_phicomm_n1.zip *
         echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
-        echo "::set-env name=FILE_WEEK::_$(date +"%Y.%m.%d")"
+        echo "::set-env name=FILE_WEEK::$(date +"%w")"
         echo "::set-output name=status::success"
         
     - name: Upload firmware directory for Phicomm N1
