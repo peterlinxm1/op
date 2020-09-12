@@ -61,6 +61,8 @@ jobs:
         cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
         rm -rf $( find ${PWD}/* -type d )
         [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
+        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
+        echo "::set-env name=FILE_WEEK::$(date +"%w")"
         
     - name: Build firmware for N1
       id: buildn1firmware
@@ -74,10 +76,9 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r openwrt_phicomm_n1.zip *
-        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
-        echo "::set-env name=FILE_WEEK::$(date +"%w")"
+        zip -r openwrt_phicomm_n1${{ env.FILE_DATE }}.zip *
+        echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1${{ env.FILE_DATE }}.zip"
+
         echo "::set-output name=status::success"
         
     - name: Upload firmware directory for Phicomm N1
@@ -100,7 +101,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
-        tag: OpenWrt_Phicomm_N1_TE${{ env.FILE_DATE }}
+        tag: OpenWrt_Phicomm_N1_TES${{ env.FILE_DATE }}
         file_glob: true
         body: |
           This is OpenWrt firmware for Phicomm N1
