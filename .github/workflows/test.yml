@@ -61,6 +61,7 @@ jobs:
         cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
         rm -rf $( find ${PWD}/* -type d )
         [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
+        
     - name: Build firmware for N1
       id: buildn1firmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
@@ -76,7 +77,9 @@ jobs:
         zip -r openwrt_phicomm_n1.zip *
         echo "::set-env name=OPENWRT_PHICOMM_N1_FILE::$PWD/openwrt_phicomm_n1.zip"
         echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
+        echo "::set-env name=FILE_WEEK::_$(date +"%Y.%m.%d")"
         echo "::set-output name=status::success"
+        
     - name: Upload firmware directory for Phicomm N1
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
@@ -85,12 +88,13 @@ jobs:
         path: ${{ env.OPENWRT_PHICOMM_N1_FILE }}
 
     - name: Upload firmware to WeTransfer
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && env.FILE_WEEK == '6' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${OPENWRT_PHICOMM_N1_FILE} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+        
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
       with:
@@ -102,14 +106,11 @@ jobs:
         release_name: OpenWrt_Phicomm_N1_TEST${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Phicomm N1
-          🔗 [Download OpenWrt for PHICOMM-N1 from WeTransfer](${{ env.WETRANSFER_URL }})
           * Firmware information
-          | Name | Value |
-          | ---- | ---- |
-          | Default IP | 192.168.1.1 |
-          | Default username | root |
-          | Default password | password |
-          | Default WIFI name | OpenWrt |
-          | Default WIFI password | none |
+          Default IP: 192.168.1.1
+          Default username: root
+          Default password: password
+          Default WIFI name: OpenWrt
+          Default WIFI password: none
      
      
