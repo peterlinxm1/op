@@ -128,8 +128,8 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        zip -r openwrt_linksys_wrt32x.zip *
-        echo "::set-env name=FIRMWARE::$PWD/openwrt_linksys_wrt32x.zip"
+        zip -r openwrt_linksys_wrt32x${{ env.FILE_DATE }}.zip *
+        echo "::set-env name=FIRMWARE::$PWD/openwrt_linksys_wrt32x${{ env.FILE_DATE }}.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory
@@ -165,8 +165,12 @@ jobs:
         tag: OpenWrt_Linksys_WRT32X${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
-        release_name: OpenWrt_Linksys_WRT32X${{ env.FILE_DATE }}
         body: |
           This is OpenWrt firmware for Linksys WRT32X
-          🔗 [Download from WeTransfer](${{ env.WETRANSFER_URL }})
+          * Firmware information
+          Default IP: 192.168.1.1
+          Default username: root
+          Default password: password
+          Default WIFI name: OpenWrt
+          Default WIFI password: none
 
