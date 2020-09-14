@@ -37,6 +37,7 @@ jobs:
       if: env.DELETE_RELEASE == 'true'
       with:
         keep_latest: ${{ env.RELEASE_LASTEST }}
+        delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
