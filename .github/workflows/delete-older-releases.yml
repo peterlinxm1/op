@@ -15,7 +15,7 @@ on:
     branches:
       - master
     paths:
-      - '.github/workflows/delete-releases.yml'
+      - '.github/workflows/delete-older-releases.yml'
   schedule:
     - cron: '0 0 * * 1'
 
