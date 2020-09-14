@@ -21,7 +21,7 @@ on:
 
 env:
   DELETE_RELEASE: true
-  RELEASE_LASTEST: 10
+  RELEASE_LASTEST: 4
 
 jobs:
   build:
@@ -40,3 +40,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Delete older releases
+      uses: geekyeggo/delete-artifact@v1
+      if: env.DELETE_RELEASE == 'true'
+      with:
+        name: |
+          Build OpenWrt for Linksys WRT3200ACM
+          Build OpenWrt for Linksys WRT32X
+
+        
+ 
