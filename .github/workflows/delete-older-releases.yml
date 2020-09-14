@@ -21,7 +21,9 @@ on:
 
 env:
   DELETE_RELEASE: true
-  KEEP_LASTEST: 10
+  RELEASE_LASTEST: 10
+  DELETE_ACTIONS: true
+  ACTIONS_LASTEST: 2days
 
 jobs:
   build:
@@ -36,8 +38,14 @@ jobs:
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.DELETE_RELEASE == 'true'
       with:
-        keep_latest: ${{ env.KEEP_LASTEST }}
+        keep_latest: ${{ env.RELEASE_LASTEST }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-     
+    - name: Delete older actions
+      uses: kolpav/purge-artifacts-action@v1
+      if: env.DELETE_ACTIONS == 'true'
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        expire-in: ${{ env.ACTIONS_LASTEST }}
+
