@@ -19,11 +19,9 @@ on:
   schedule:
     - cron: '0 0 * * 1'
 
-
 env:
   DELETE_RELEASE: true
   KEEP_LASTEST: 10
-
 
 jobs:
   build:
