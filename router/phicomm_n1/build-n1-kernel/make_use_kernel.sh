@@ -36,7 +36,7 @@
 
 # Modify Flippy's kernel folder & version
 flippy_folder="flippy"
-flippy_version="5.4.63-flippy-43+o"
+flippy_version="5.7.10-flippy-40+"
 
 # Default setting ( Don't modify )
 build_Workdir=${PWD}
