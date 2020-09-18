@@ -21,7 +21,7 @@ on:
 
 env:
   DELETE_RELEASE: true
-  RELEASE_LASTEST: 20
+  RELEASE_LASTEST: 10
 
 jobs:
   build:
