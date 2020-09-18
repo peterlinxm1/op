@@ -41,3 +41,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Delete older actions
+      if: env.DELETE_RELEASE == 'true'
+      run: |
+        DELETE /repos/ophub/op/actions/runs/251617916/logs
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
