@@ -17,11 +17,11 @@ on:
     paths:
       - '.github/workflows/delete-older-releases.yml'
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: '0 0 1 * *'
 
 env:
   DELETE_RELEASE: true
-  RELEASE_LASTEST: 10
+  RELEASE_LASTEST: 20
 
 jobs:
   build:
