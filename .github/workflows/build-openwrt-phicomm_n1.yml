@@ -13,7 +13,7 @@ on:
     types: published
   push:
     branches:
-      - master
+      - main
     paths:
       - 'router/phicomm_n1/.config'
   schedule:
@@ -48,7 +48,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
 
     - name: Initialization environment
       env:
@@ -121,7 +121,7 @@ jobs:
       run: df -hT
 
     - name: Upload bin directory
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
@@ -137,7 +137,7 @@ jobs:
         echo "::set-output name=status::success"
  
     - name: Upload firmware directory for Original_Armvirt
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v2
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware_original_armvirt_64${{ env.FILE_DATE }}
@@ -161,7 +161,7 @@ jobs:
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v2
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
         name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
