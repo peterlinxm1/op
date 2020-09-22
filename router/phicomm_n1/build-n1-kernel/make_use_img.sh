@@ -196,7 +196,6 @@ umount_ulosetup() {
 
 }
 
-
 check_build_files
 losetup_mount_img
 copy_boot_root
