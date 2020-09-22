@@ -47,19 +47,46 @@ rm -rf ${build_tmp_folder}
 get_tree_status=$(dpkg --get-selections | grep tree)
 [ $? = 0 ] || sudo apt install tree
 
+# echo color codes
+echo_color() {
+
+    this_color=${1}
+        case "${this_color}" in
+        red)
+            echo -e " \033[1;31m[ ${2} ]\033[0m ${3}"
+            ;;
+        green)
+            echo -e " \033[1;32m[ ${2} ]\033[0m ${3}"
+            ;;
+        yellow)
+            echo -e " \033[1;33m[ ${2} ]\033[0m ${3}"
+            ;;
+        blue)
+            echo -e " \033[1;34m[ ${2} ]\033[0m ${3}"
+            ;;
+        purple)
+            echo -e " \033[1;35m[ ${2} ]\033[0m ${3}"
+            ;;
+        *)
+            echo -e " \033[1;30m[ ${2} ]\033[0m ${3}"
+            ;;
+        esac
+
+}
+
 # Check files
 check_build_files() {
 
-  echo -e " \033[1;34m【 Start check_build_files 】\033[0m ... "
   cd ${build_Workdir}
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
-        echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n \
-        Please check if the following three files exist: ${flippy_folder}/${flippy_file} "
+        echo_color "red" "Error: Files does not exist"  "\n \
+        Please check if the following three files exist: \n \
+        ${flippy_folder}/${flippy_file} "
         exit 1
       else
         # begin run the script
-        echo -e " \033[1;34m【 End check_build_files 】\033[0m ... "
-        echo -e " \033[1;35m【 Start building 】\033[0m Use ${flippy_file} build kernel.tar.xz & modules.tar.xz  ... "
+        echo_color "purple" "Start building"  "Use ${flippy_file} build kernel.tar.xz & modules.tar.xz ..."
+        echo_color "green" "(1/7) End check_build_files"  "..."
       fi
 
 }
@@ -67,7 +94,6 @@ check_build_files() {
 #losetup & mount ${flippy_file} boot:kernel.tar.xz root:modules.tar.xz
 losetup_mount_img() {
 
-  echo -e " \033[1;34m【 Start losetup_mount_img 】\033[0m ... "
   cd ${build_Workdir}
      mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
 
@@ -78,42 +104,37 @@ losetup_mount_img() {
      mount ${lodev}p2 ${root_tmp}
      [ $? = 0 ] || ( echo "mount ${lodev}p2 failed!" && exit 1 )
 
-     echo -e " \033[1;34m【 End losetup_mount_img 】\033[0m ... Use: ${lodev} "
+   echo_color "green" "(2/7) End losetup_mount_img"  "Use: ${lodev} ..."
 
 }
 
 #copy ${boot_tmp} & ${root_tmp} Related files to ${kernel_tmp} & ${modules_tmp}
 copy_boot_root() {
 
-  echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m ... "
   cd ${build_Workdir}
 
      cp -rf ${boot_tmp}/{dtb,config*,initrd.img*,System.map*,uInitrd,zImage} ${kernel_tmp}
      cp -rf ${root_tmp}/lib/modules ${modules_tmp}
      sync
 
-     echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m ... "
+  echo_color "green" "(3/7) End copy_kernel_modules"  "..."
 
 }
 
 #get version
 get_flippy_version() {
 
-  echo -e " \033[1;34m【 Start get_flippy_version 】\033[0m ... "
-
   cd ${build_Workdir}/${modules_tmp}/modules
      flippy_version=$(ls .)
      build_save_folder=$(echo ${flippy_version} | grep -oE '^[1-9].[0-9]{1,2}.[0-9]+')
      mkdir -p ${build_Workdir}/${build_save_folder}
 
-     echo -e " \033[1;34m【 End get_flippy_version 】\033[0m ${build_save_folder} ... "
+   echo_color "green" "(4/7) End get_flippy_version"  "${build_save_folder} ..."
 
 }
 
 # build kernel.tar.xz & modules.tar.xz
 build_kernel_modules() {
-
-  echo -e " \033[1;34m【 Start build_kernel_modules 】\033[0m ... "
 
   cd ${build_Workdir}/${kernel_tmp}
      tar -cf kernel.tar *
@@ -131,10 +152,10 @@ build_kernel_modules() {
          fi
      done
      if [ $x -eq 0 ]; then
-        echo -e " \033[1;31m【 Error *.KO Files not found 】\033[0m ... "
+        echo_color "red" "Error *.KO Files not found"  "..."
         exit 1
      else
-        echo -e " \033[1;32m【 Have [ ${x} ] files make ko link 】\033[0m ... "
+        echo_color "yellow" "Have [ ${x} ] files make ko link"  "..."
      fi
 
   cd ../../../
@@ -143,19 +164,19 @@ build_kernel_modules() {
      mv -f modules.tar.xz ${build_Workdir}/${build_save_folder}
      sync
 
-     echo -e " \033[1;34m【 End build_kernel_modules 】\033[0m ... "
+   echo_color "green" "(5/7) End build_kernel_modules"  "..."
 
 }
 
 # copy kernel.tar.xz & modules.tar.xz to ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
 copy_kernel_modules() {
 
-  echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ... "
+
   cd ${build_Workdir}
      cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
      rm -rf ${build_save_folder}
-     echo -e " \033[1;33m【 Delete /${build_save_folder}】\033[0m  ... "
-     echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
+
+  echo_color "green" "(6/7) End copy_kernel_modules"  "Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ..."
 
 }
 
@@ -163,7 +184,6 @@ copy_kernel_modules() {
 umount_ulosetup() {
 
   cd ${build_Workdir}
-     echo -e " \033[1;34m【 Start umount_ulosetup 】\033[0m ... "
 
      umount ${build_Workdir}/${boot_tmp}
      umount ${build_Workdir}/${root_tmp}
@@ -172,9 +192,10 @@ umount_ulosetup() {
      rm -rf ${build_tmp_folder}
      rm -rf ${flippy_folder}/*
 
-     echo -e " \033[1;34m【 End umount_ulosetup 】\033[0m ... "
+  echo_color "green" "(7/7) End umount_ulosetup"  "..."
 
 }
+
 
 check_build_files
 losetup_mount_img
@@ -184,6 +205,7 @@ build_kernel_modules
 copy_kernel_modules
 umount_ulosetup
 
-echo -e " \033[1;35m【 Build completed 】\033[0m ${build_save_folder}: kernel.tar.xz & modules.tar.xz  ... "
+echo_color "purple" "Build completed"  "${build_save_folder}: kernel.tar.xz & modules.tar.xz  ..."
+
 # end run the script
 

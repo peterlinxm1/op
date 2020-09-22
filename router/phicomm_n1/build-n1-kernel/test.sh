@@ -50,7 +50,139 @@ rm -rf ${build_tmp_folder}
 get_tree_status=$(dpkg --get-selections | grep tree)
 [ $? = 0 ] || sudo apt install tree
 
-# echo color codes
+# Check files
+check_build_files() {
+
+  echo -e " \033[1;34m【 Start check_build_files 】\033[0m ... "
+  if  (test ! -f ${flippy_folder}/${build_boot} || test ! -f ${flippy_folder}/${build_dtb} || test ! -f ${flippy_folder}/${build_modules}); then
+    echo -e " \033[1;31m【 Error: Files does not exist 】\033[0m \n \
+    Please check if the following three files exist: \n \
+    01. ${flippy_folder}/${build_boot} \n \
+    02. ${flippy_folder}/${build_dtb} \n \
+    03. ${flippy_folder}/${build_modules} "
+    exit 1
+  else
+    # begin run the script
+    echo -e " \033[1;34m【 End check_build_files 】\033[0m ... "
+    echo -e " \033[1;35m【 Start building 】\033[0m ${build_save_folder}: kernel.tar.xz & modules.tar.xz  ... "
+  fi
+
+}
+
+# build kernel.tar.xz
+build_kernel() {
+
+  echo -e " \033[1;34m【 Start build_kernel 】\033[0m ... "
+  cd ${build_Workdir}
+     rm -rf ${build_tmp_folder}
+     mkdir -p ${build_tmp_folder}/kernel/Temp_kernel/dtb/amlogic
+     mkdir -p ${build_save_folder}
+
+     cp -rf ${flippy_folder}/${build_boot} ${build_tmp_folder}/kernel
+     cp -rf ${flippy_folder}/${build_dtb} ${build_tmp_folder}/kernel
+     sync
+
+  cd ${build_tmp_folder}/kernel
+
+     echo -e " \033[1;32m【 Start Unzip ${build_boot} 】\033[0m ... "
+     if [ "${build_boot##*.}"c = "gz"c ]; then
+        tar -xzf ${build_boot}
+     elif [ "${build_boot##*.}"c = "xz"c ]; then
+        tar -xJf ${build_boot}
+     else
+        echo -e " \033[1;31m【 Error build_kernel 】\033[0m ... The suffix of ${build_boot} must be tar.gz or tar.xz ... "
+        exit 1
+     fi
+
+     [ -f config-${flippy_version} ] && cp -f config* Temp_kernel/ || ( echo "config* does not exist" && exit 1 )
+     [ -f initrd.img-${flippy_version} ] && cp -f initrd.img* Temp_kernel/ || ( echo "initrd.img* does not exist" && exit 1 )
+     [ -f System.map-${flippy_version} ] && cp -f System.map* Temp_kernel/ || ( echo "System.map* does not exist" && exit 1 )
+     [ -f uInitrd-${flippy_version} ] && cp -f uInitrd* Temp_kernel/uInitrd || ( echo "uInitrd* does not exist" && exit 1 )
+     [ -f vmlinuz-${flippy_version} ] && cp -f vmlinuz* Temp_kernel/zImage || ( echo "vmlinuz* does not exist" && exit 1 )
+     sync
+
+     echo -e " \033[1;32m【 Start Unzip ${build_dtb} 】\033[0m ... "
+     if [ "${build_dtb##*.}"c = "gz"c ]; then
+        tar -xzf ${build_dtb}
+     elif [ "${build_dtb##*.}"c = "xz"c ]; then
+        tar -xJf ${build_dtb}
+     else
+        echo -e " \033[1;31m【 Error build_kernel 】\033[0m ... The suffix of ${build_dtb} must be tar.gz or tar.xz  ... "
+        exit 1
+     fi
+
+     echo -e " \033[1;32m【 Start Copy ${build_dtb} one files 】\033[0m ... "
+     [ -f meson-gxl-s905d-phicomm-n1.dtb ] && cp -f *phicomm-n1.dtb Temp_kernel/dtb/amlogic/ || ( echo "*phicomm-n1.dtb does not exist" && exit 1 )
+     sync
+
+  cd Temp_kernel
+     echo -e " \033[1;32m【 Start zip kernel.tar.xz 】\033[0m ... "
+     tar -cf kernel.tar *
+     xz -z kernel.tar
+     rm -rf ${build_Workdir}/${build_save_folder}/kernel.tar.xz
+     cp -rf kernel.tar.xz ${build_Workdir}/${build_save_folder}/kernel.tar.xz && sync
+
+  cd ${build_Workdir} && rm -rf ${build_tmp_folder}
+     echo -e " \033[1;34m【 End build kernel.tar.xz】\033[0m The save path is /${build_save_folder}/kernel.tar.xz  ... "
+
+}
+
+# build modules.tar.xz
+build_modules() {
+
+  echo -e " \033[1;34m【 Start build_modules 】\033[0m ... "
+  cd ${build_Workdir}
+     rm -rf ${build_tmp_folder}
+     mkdir -p ${build_tmp_folder}/modules/lib/modules
+     mkdir -p ${build_save_folder}
+
+     cp -rf ${flippy_folder}/${build_modules} ${build_tmp_folder}/modules/lib/modules && sync
+
+  cd ${build_tmp_folder}/modules/lib/modules
+
+     echo -e " \033[1;32m【 Start Unzip ${build_modules} 】\033[0m ... "
+     if [ "${build_modules##*.}"c = "gz"c ]; then
+        tar -xzf ${build_modules}
+     elif [ "${build_modules##*.}"c = "xz"c ]; then
+        tar -xJf ${build_modules}
+     else
+        echo -e " \033[1;31m【 Error build_modules 】\033[0m ... The suffix of ${build_modules} must be tar.gz or tar.xz  ... "
+        exit 1
+     fi
+  cd ${flippy_version}
+     x=0
+     for file in $(tree -i -f); do
+         if [ "${file##*.}"c = "ko"c ]; then
+             ln -s $file .
+             x=$(($x+1))
+         fi
+     done
+     echo -e " \033[1;32m【 Have [ ${x} ] files make ko link 】\033[0m ... "
+
+  cd ../ && rm -rf ${build_modules} && cd ../../
+     echo -e " \033[1;32m【 Start zip modules.tar.xz 】\033[0m ... "
+     tar -cf modules.tar *
+     xz -z modules.tar
+     rm -rf ${build_Workdir}/${build_save_folder}/modules.tar.xz
+     cp -rf modules.tar.xz ${build_Workdir}/${build_save_folder}/modules.tar.xz && sync
+
+  cd ${build_Workdir} && rm -rf ${build_tmp_folder}
+  echo -e " \033[1;34m【 End build modules.tar.xz 】\033[0m The save path is /${build_save_folder}/modules.tar.xz ... "
+
+}
+
+# copy kernel.tar.xz & modules.tar.xz to ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
+copy_kernel_modules() {
+
+  echo -e " \033[1;34m【 Start copy_kernel_modules 】\033[0m Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ... "
+  cd ${build_Workdir}
+     cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
+     rm -rf ${flippy_folder}/* ${build_save_folder}
+     echo -e " \033[1;33m【 Delete /${flippy_folder}/* & /${build_save_folder}】\033[0m  ... "
+     echo -e " \033[1;34m【 End copy_kernel_modules 】\033[0m Copy complete ... "
+
+}
+
 echo_color() {
 
     this_color=${1}
@@ -77,140 +209,12 @@ echo_color() {
 
 }
 
-# Check files
-check_build_files() {
+echo_color "red" "extract openwrt files "  "phicomm_n1"
+#check_build_files
+#build_kernel
+#build_modules
+#copy_kernel_modules
 
-  if  (test ! -f ${flippy_folder}/${build_boot} || test ! -f ${flippy_folder}/${build_dtb} || test ! -f ${flippy_folder}/${build_modules}); then
-    echo_color "red" "Error: Files does not exist"  "\n \
-    Please check if the following three files exist: \n \
-    01. ${flippy_folder}/${build_boot} \n \
-    02. ${flippy_folder}/${build_dtb} \n \
-    03. ${flippy_folder}/${build_modules} "
-    exit 1
-  else
-    # begin run the script
-    echo_color "purple" "Start building"  "${build_save_folder}: kernel.tar.xz & modules.tar.xz ..."
-    echo_color "green" "(1/4) End check_build_files"  "..."
-  fi
-
-}
-
-# build kernel.tar.xz
-build_kernel() {
-
-  cd ${build_Workdir}
-     rm -rf ${build_tmp_folder}
-     mkdir -p ${build_tmp_folder}/kernel/Temp_kernel/dtb/amlogic
-     mkdir -p ${build_save_folder}
-
-     cp -rf ${flippy_folder}/${build_boot} ${build_tmp_folder}/kernel
-     cp -rf ${flippy_folder}/${build_dtb} ${build_tmp_folder}/kernel
-     sync
-
-  cd ${build_tmp_folder}/kernel
-
-     echo_color "yellow" "Start Unzip ${build_boot}"  "..."
-     if [ "${build_boot##*.}"c = "gz"c ]; then
-        tar -xzf ${build_boot}
-     elif [ "${build_boot##*.}"c = "xz"c ]; then
-        tar -xJf ${build_boot}
-     else
-        echo_color "red" "Error build_kernel ${build_boot}"  "The suffix of ${build_boot} must be tar.gz or tar.xz ..."
-        exit 1
-     fi
-
-     [ -f config-${flippy_version} ] && cp -f config* Temp_kernel/ || ( echo "config* does not exist" && exit 1 )
-     [ -f initrd.img-${flippy_version} ] && cp -f initrd.img* Temp_kernel/ || ( echo "initrd.img* does not exist" && exit 1 )
-     [ -f System.map-${flippy_version} ] && cp -f System.map* Temp_kernel/ || ( echo "System.map* does not exist" && exit 1 )
-     [ -f uInitrd-${flippy_version} ] && cp -f uInitrd* Temp_kernel/uInitrd || ( echo "uInitrd* does not exist" && exit 1 )
-     [ -f vmlinuz-${flippy_version} ] && cp -f vmlinuz* Temp_kernel/zImage || ( echo "vmlinuz* does not exist" && exit 1 )
-     sync
-
-     echo_color "yellow" "Start Unzip ${build_dtb}"  "..."
-     if [ "${build_dtb##*.}"c = "gz"c ]; then
-        tar -xzf ${build_dtb}
-     elif [ "${build_dtb##*.}"c = "xz"c ]; then
-        tar -xJf ${build_dtb}
-     else
-        echo_color "red" "Error build_kernel"  "The suffix of ${build_dtb} must be tar.gz or tar.xz ..."
-        exit 1
-     fi
-
-     echo_color "yellow" "Start Copy ${build_dtb} one files"  "..."
-     [ -f meson-gxl-s905d-phicomm-n1.dtb ] && cp -f *phicomm-n1.dtb Temp_kernel/dtb/amlogic/ || ( echo "*phicomm-n1.dtb does not exist" && exit 1 )
-     sync
-
-  cd Temp_kernel
-     echo_color "yellow" "Start zip kernel.tar.xz"  "..."
-     tar -cf kernel.tar *
-     xz -z kernel.tar
-     rm -rf ${build_Workdir}/${build_save_folder}/kernel.tar.xz
-     cp -rf kernel.tar.xz ${build_Workdir}/${build_save_folder}/kernel.tar.xz && sync
-
-  cd ${build_Workdir} && rm -rf ${build_tmp_folder}
-     echo_color "green" "(2/4) End build kernel.tar.xz"  "The save path is /${build_save_folder}/kernel.tar.xz ..."
-
-}
-
-# build modules.tar.xz
-build_modules() {
-
-  cd ${build_Workdir}
-     rm -rf ${build_tmp_folder}
-     mkdir -p ${build_tmp_folder}/modules/lib/modules
-     mkdir -p ${build_save_folder}
-
-     cp -rf ${flippy_folder}/${build_modules} ${build_tmp_folder}/modules/lib/modules && sync
-
-  cd ${build_tmp_folder}/modules/lib/modules
-
-     echo_color "yellow" "Start Unzip ${build_modules}"  "..."
-     if [ "${build_modules##*.}"c = "gz"c ]; then
-        tar -xzf ${build_modules}
-     elif [ "${build_modules##*.}"c = "xz"c ]; then
-        tar -xJf ${build_modules}
-     else
-        echo_color "red" "Error build_modules"  "The suffix of ${build_modules} must be tar.gz or tar.xz ..."
-        exit 1
-     fi
-  cd ${flippy_version}
-     x=0
-     for file in $(tree -i -f); do
-         if [ "${file##*.}"c = "ko"c ]; then
-             ln -s $file .
-             x=$(($x+1))
-         fi
-     done
-     echo_color "yellow" "Have [ ${x} ] files make ko link"  "..."
-
-  cd ../ && rm -rf ${build_modules} && cd ../../
-     echo_color "yellow" "Start zip modules.tar.xz"  "..."
-     tar -cf modules.tar *
-     xz -z modules.tar
-     rm -rf ${build_Workdir}/${build_save_folder}/modules.tar.xz
-     cp -rf modules.tar.xz ${build_Workdir}/${build_save_folder}/modules.tar.xz && sync
-
-  cd ${build_Workdir} && rm -rf ${build_tmp_folder}
-  echo_color "green" "(3/4) End build modules.tar.xz"  "The save path is /${build_save_folder}/modules.tar.xz ..."
-
-}
-
-# copy kernel.tar.xz & modules.tar.xz to ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
-copy_kernel_modules() {
-
-  cd ${build_Workdir}
-     cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
-     rm -rf ${flippy_folder}/* ${build_save_folder}
-
-     echo_color "green" "(4/4) End copy_kernel_modules"  "Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ..."
-
-}
-
-check_build_files
-build_kernel
-build_modules
-copy_kernel_modules
-
-echo_color "purple" "Build completed"  "${build_save_folder}: kernel.tar.xz & modules.tar.xz ..."
+#echo -e " \033[1;35m【 Build completed 】\033[0m ${build_save_folder}: kernel.tar.xz & modules.tar.xz ... "
 # end run the script
 
