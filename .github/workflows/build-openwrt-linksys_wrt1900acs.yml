@@ -16,6 +16,7 @@ on:
       - main
     paths:
       - 'router/linksys_wrt1900acs/.config'
+      - '.github/workflows/build-openwrt-linksys_wrt1900acs.yml'
   schedule:
     - cron: '0 20 * * 0,3'
   #watch:
