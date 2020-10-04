@@ -16,6 +16,7 @@ on:
       - main
     paths:
       - 'router/linksys_wrt3200acm/.config'
+      - '.github/workflows/build-openwrt-linksys_wrt3200acm.yml'
   schedule:
     - cron: '0 20 * * 0,3'
   #watch:
@@ -86,7 +87,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: SSH connection to Actions @ use ctrl+d to exit
+    - name: SSH connection to Actions @ Ctrl+C to enter, Ctrl+D to exit
       uses: P3TERX/debugger-action@main
       if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
 
