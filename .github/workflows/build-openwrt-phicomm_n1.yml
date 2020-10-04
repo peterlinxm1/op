@@ -186,7 +186,7 @@ jobs:
         
     - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && env.FILE_WEEK == '1' && !cancelled()
+      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.N1FIRMWARE }}
