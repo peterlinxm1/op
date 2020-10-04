@@ -16,6 +16,7 @@ on:
       - main
     paths:
       - 'router/x64/.config'
+      - '.github/workflows/build-openwrt-x64.yml'
   schedule:
     - cron: '0 20 * * 0,3'
   #watch:
@@ -28,7 +29,7 @@ env:
   CONFIG_FILE: router/x64/.config
   DIY_P1_SH: router/x64/diy-part1.sh
   DIY_P2_SH: router/x64/diy-part2.sh
-  SSH_ACTIONS: true
+  SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -86,7 +87,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: SSH connection to Actions @ use ctrl+d to exit
+    - name: SSH connection to Actions @ Ctrl+C to enter, Ctrl+D to exit
       uses: P3TERX/debugger-action@main
       if: env.SSH_ACTIONS == 'true' || contains(github.event.action, 'ssh')
 
