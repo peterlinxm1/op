@@ -30,7 +30,7 @@ cd /tmp/upload
 sysupgrade -F -n -v FW_WRT1900ACSV2_2.0.3.201002_prod.img
 reboot
 ````
-# Configuration file function description
+## Configuration file function description
 
 | Folder/file name | Features |
 | ---- | ---- |
@@ -41,7 +41,7 @@ reboot
 | diy-part2.sh | After updating and installing feeds, you can write the instructions for modifying the source code into the script, such as modifying the default IP, host name, theme, adding/removing software packages, etc. |
 
 
-# .github/workflow/build-openwrt-linksys_wrt1900acs.yml related environment variable description
+## .github/workflow/build-openwrt-linksys_wrt1900acs.yml related environment variable description
 
 | Environment variable | Features |
 | ---- | ---- |
@@ -59,7 +59,7 @@ reboot
 | UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
 | TZ | Time zone setting |
 
-# Firmware compilation parameters
+## Firmware compilation parameters
 
 | Option | Value |
 | ---- | ---- |
@@ -70,7 +70,7 @@ reboot
 | LuCI -> Applications | in the file: .config |
 
 
-# Firmware information
+## Firmware information
 
 | Name | Value |
 | ---- | ---- |
