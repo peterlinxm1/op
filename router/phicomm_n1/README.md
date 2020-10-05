@@ -28,18 +28,18 @@ iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE        #If the interface is
 iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is br-lan bridged.
 ```
 
-# Local compilation instructions
+## Local compilation instructions
 The software package supports Github Action cloud compilation, and the compiled firmware can be downloaded directly in [Action](https://github.com/ophub/op/actions) and [Releases](https://github.com/ophub/op/releases). You can also compile locally:
 1. Clone the warehouse to the local. `git clone https://github.com/ophub/op`
 2. Create an `openwrt` folder in the local `op/router/phicomm_n1` directory, and upload the compiled openwrt firmware of the ARM kernel to the openwrt directory
 3. Enter the phicomm_n1 directory and run `sudo ./make -d` to complete the compilation. The generated openwrt firmware supporting Phicomm N1 is in the `out` directory under the root directory.
 
-# Detailed make compile command
+## Detailed make compile command
 - `sudo ./make -d`: Compile all kernel versions of openwrt with the default configuration. This command is recommended.
 - `sudo ./make -d -s 512 -k 5.7.15`: Use the default configuration and set the partition size to 512m, and only compile the openwrt firmware with the kernel version 5.7.15.
 - `sudo ./make`: If you are familiar with the relevant setting requirements of the phicomm_n1 firmware, you can follow the prompts, such as selecting the firmware you want to make, the kernel version, setting the ROOTFS partition size, etc. If you don’t know these settings, just press Enter .
 
-# Firmware compilation parameters
+## Firmware compilation parameters
 
 | Option | Value |
 | ---- | ---- |
@@ -50,7 +50,7 @@ The software package supports Github Action cloud compilation, and the compiled 
 | Utilities  ---> |  <*> install-program |
 | LuCI -> Applications | in the file: .config |
 
-# Firmware information
+## Firmware information
 
 | Name | Value |
 | ---- | ---- |
