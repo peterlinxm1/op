@@ -34,7 +34,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
 | diy-part2.sh | After updating and installing feeds, you can write the instructions for modifying the source code into the script, such as modifying the default IP, host name, theme, adding/removing software packages, etc. |
 
 
-* .github/workflow/***.yml files related environment variable description:
+* .github/workflow/${workflows_file}.yml files related environment variable description:
 
 | Environment variable | Features |
 | ---- | ---- |
