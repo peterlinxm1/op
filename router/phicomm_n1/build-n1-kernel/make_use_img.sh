@@ -185,9 +185,9 @@ umount_ulosetup() {
 
   cd ${build_Workdir}
 
-     umount ${build_Workdir}/${boot_tmp}
-     umount ${build_Workdir}/${root_tmp}
-     losetup -d ${lodev}
+     umount -f ${build_Workdir}/${boot_tmp} 2>/dev/null
+     umount -f ${build_Workdir}/${root_tmp} 2>/dev/null
+     losetup -d ${lodev} 2>/dev/null
 
      rm -rf ${build_tmp_folder}
      rm -rf ${flippy_folder}/*
