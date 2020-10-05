@@ -1,7 +1,7 @@
 # OpenWrt for Linksys WRT32X
 
 
-You can download the OpwnWrt for Linksys WRT32X firmware from [Actions](https://github.com/ophub/op/actions). Such as ` Build OpenWrt for Linksys WRT32X `. Unzip to get the `***.img` file.
+You can download the OpwnWrt for Linksys WRT32X firmware from [Actions](https://github.com/ophub/op/actions). Such as ` Build OpenWrt for Linksys WRT32X `. Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `OpenWrt_Linksys_WRT32X_${date}`.
 
 This firmware supports Linksys WRT32X.
 
