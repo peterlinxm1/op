@@ -1,7 +1,7 @@
 # OpenWrt for Linksys WRT3200ACM
 
 
-You can download the OpwnWrt for Linksys WRT3200ACM firmware from [Actions](https://github.com/ophub/op/actions). Such as ` Build OpenWrt for Linksys WRT3200ACM `. Unzip to get the `***.img` file.
+You can download the OpwnWrt for Linksys WRT3200ACM firmware from [Actions](https://github.com/ophub/op/actions). Such as ` Build OpenWrt for Linksys WRT3200ACM `. Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `OpenWrt_Linksys_WRT3200ACM_${date}`.
 
 This firmware supports Linksys WRT3200ACM.
 
