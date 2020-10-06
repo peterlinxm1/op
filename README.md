@@ -51,7 +51,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
 | UPLOAD_COWTRANSFER | Upload the firmware to CowTransfer.com. Default false |
 | UPLOAD_WERANSFER | Upload the firmware to WeTransfer.com. Default failure |
 | TZ | Time zone setting |
-| ${{ secrets.GITHUB_TOKEN }} | 1. control center → settings → Developer settings → Personal access tokens → Create token ( Name:GITHUB_TOKEN, Select: public_repo, Copy GITHUB_TOKEN's content). 2. op code center  → settings → Secrets → Add a new secret → ( Name:RELEASES_TOKEN, Value: GITHUB_TOKEN's content). |
+| secrets.GITHUB_TOKEN | 1. control center → settings → Developer settings → Personal access tokens → Create token ( Name:GITHUB_TOKEN, Select: public_repo, Copy GITHUB_TOKEN's content). \n 2. op code center  → settings → Secrets → Add a new secret → ( Name:RELEASES_TOKEN, Value: GITHUB_TOKEN's content). |
 
 ## Firmware information
 
