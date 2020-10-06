@@ -1,9 +1,9 @@
-#=================================================
+#======================================================================
 # https://github.com/ophub/op
 # Description: Automatically Build OpenWrt for Linksys WRT3200ACM
 # Function: Workflows for Build Linksys WRT3200ACM
 # Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
-#=================================================
+#======================================================================
 
 name: Build OpenWrt for Linksys WRT3200ACM
 
@@ -29,7 +29,7 @@ env:
   CONFIG_FILE: router/linksys_wrt3200acm/.config
   DIY_P1_SH: router/linksys_wrt3200acm/diy-part1.sh
   DIY_P2_SH: router/linksys_wrt3200acm/diy-part2.sh
-  SSH_ACTIONS: false
+  SSH_ACTIONS: true
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
