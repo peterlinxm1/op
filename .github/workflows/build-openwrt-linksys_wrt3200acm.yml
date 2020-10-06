@@ -29,7 +29,7 @@ env:
   CONFIG_FILE: router/linksys_wrt3200acm/.config
   DIY_P1_SH: router/linksys_wrt3200acm/diy-part1.sh
   DIY_P2_SH: router/linksys_wrt3200acm/diy-part2.sh
-  SSH_ACTIONS: true
+  SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
