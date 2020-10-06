@@ -36,9 +36,9 @@ You can download the OpwnWrt for NanoPi R2S firmware from [Actions](https://gith
 
 | Option | Value |
 | ---- | ---- |
-| Target System | x86 |
-| Subtarget | x64 64bit |
-| Target Profile | Generic |
+| Target System | Rockchip |
+| Subtarget | RK33xx boards (64 bit) |
+| Target Profile | FriendlyARM NanoPi R2S |
 | Target Images | squashfs |
 | LuCI -> Applications | in the file: .config |
 
