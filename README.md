@@ -8,8 +8,9 @@ The latest version of the OpenWrt firmware is automatically compiled every Monda
 - [Linksys WRT1900ACS](https://github.com/ophub/op/tree/master/router/linksys_wrt1900acs)
 - [Linksys WRT3200ACM](https://github.com/ophub/op/tree/master/router/linksys_wrt3200acm)
 - [Linksys WRT32X](https://github.com/ophub/op/tree/master/router/linksys_wrt32x)
-- [x64](https://github.com/ophub/op/tree/master/router/x64)
+- [NanoPi R2S](https://github.com/ophub/op/tree/master/router/nanopi_r2s)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
+- [x64](https://github.com/ophub/op/tree/master/router/x64)
 
 ## Usage
 
@@ -96,6 +97,12 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │   │   ├── diy-part2.sh
  │   │   └── README.md
  │   │ 
+ │   ├── nanopi_r2s                                    # NanoPi R2S related code files
+ │   │   ├── .config            
+ │   │   ├── diy-part1.sh            
+ │   │   ├── diy-part2.sh
+ │   │   └── README.md
+ │   │
  │   ├── x64                                           # x64 related code files
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
