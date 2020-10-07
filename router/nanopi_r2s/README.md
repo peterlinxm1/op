@@ -2,6 +2,11 @@
 
 You can download the OpwnWrt for NanoPi R2S firmware from [Actions](https://github.com/ophub/op/actions). Such as, ` Build OpenWrt for NanoPi R2S `, Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `OpenWrt_NanoPi_R2S_${date}`.
 
+## Instructions
+
+1. Before burning the system, it is recommended to format the TF card (MicroSD card/TF card: 8GB SDHC card of Class10 or above), and use a writing tool such as [balenaEtcher](https://www.balena.io/etcher/) to write the *.img file into the TF card.
+2. Insert the completed TF card into the NanoPi-R2S card slot, power on and start (5V/2A), and see the SYS red light flashing, indicating that the system has successfully started.
+
 ## Configuration file function description
 
 | Folder/file name | Features |
