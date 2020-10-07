@@ -38,7 +38,7 @@ env:
   DEVICE_NAME: nanopi_r2s
   FILE_DATE: $(date +"%Y.%m.%d")
   FILE_WEEK: $(date +"%w")"
-  FIRMWARE: openwrt/openwrt_openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip
+  FIRMWARE: openwrt/openwrt_openwrt_${DEVICE_NAME}_${FILE_DATE}.zip
   TZ: Asia/Shanghai
 
 jobs:
