@@ -111,21 +111,19 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
+        echo "::set-output name=firmware::openwrt_original_armvirt_$(date +"%Y.%m.%d")"
+        echo "::set-output name=n1firmware::openwrt_phicomm_n1_$(date +"%Y.%m.%d")"
         echo "::set-output name=status::success"
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
-        echo "::set-env name=FILE_WEEK::$(date +"%w")"
 
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload bin directory
+    - name: Upload original bin directory
       uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: Bin_${{ steps.compile.outputs.firmware }}
         path: openwrt/bin
 
     - name: Organize files
@@ -134,18 +132,19 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        echo "::set-env name=ORIGINALFIRMWARE::$PWD"
+        zip -r ${{ steps.compile.outputs.firmware }}.zip *
+        echo "::set-output name=filepath::$PWD/${{ steps.compile.outputs.firmware }}.zip"
         echo "::set-output name=status::success"
  
     - name: Upload firmware directory for Original_Armvirt
       uses: actions/upload-artifact@v2
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_original_armvirt_64${{ env.FILE_DATE }}
-        path: ${{ env.ORIGINALFIRMWARE }}       
+        name: ${{ steps.compile.outputs.firmware }}
+        path: ${{ steps.organize.outputs.filepath }}
         
     - name: Build firmware for N1
-      id: buildn1firmware
+      id: buildn1
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         sudo rm -rf $OUT_PATH
@@ -157,29 +156,29 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r openwrt_phicomm_n1${{ env.FILE_DATE }}.zip *
-        echo "::set-env name=N1FIRMWARE::$PWD/openwrt_phicomm_n1${{ env.FILE_DATE }}.zip"
+        zip -r ${{ steps.compile.outputs.n1firmware }}.zip *
+        echo "::set-output name=n1filepath::$PWD/${{ steps.compile.outputs.n1firmware }}.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
       uses: actions/upload-artifact@v2
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
-        path: ${{ env.N1FIRMWARE }}
+        name: ${{ steps.compile.outputs.n1firmware }}
+        path: ${{ steps.buildn1.outputs.n1filepath }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${N1FIRMWARE} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ steps.buildn1.outputs.n1filepath }} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${N1FIRMWARE} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${{ steps.buildn1.outputs.n1filepath }} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         
     - name: Upload Phicomm N1 firmware to release
@@ -187,8 +186,8 @@ jobs:
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.N1FIRMWARE }}
-        tag: OpenWrt_Phicomm_N1${{ env.FILE_DATE }}
+        file: ${{ steps.buildn1.outputs.n1filepath }}
+        tag: ${{ steps.compile.outputs.n1firmware }}
         overwrite: true
         file_glob: true
         body: |
