@@ -30,7 +30,7 @@ env:
   DIY_P1_SH: router/nanopi_r2s/diy-part1.sh
   DIY_P2_SH: router/nanopi_r2s/diy-part2.sh
   SSH_ACTIONS: false
-  UPLOAD_BIN_DIR: false
+  UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_COWTRANSFER: false
@@ -133,7 +133,7 @@ jobs:
         zip -r openwrt_nanopi_r2s${{ env.FILE_DATE }}.zip * && cp -f *.zip ../../../../
         echo "::set-output name=status::success"
       env:
-        FIRMWARE: ./openwrt/openwrt_nanopi_r2s${{ env.FILE_DATE }}.zip  
+        FIRMWARE: openwrt/openwrt_nanopi_r2s${{ env.FILE_DATE }}.zip  
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@v2
