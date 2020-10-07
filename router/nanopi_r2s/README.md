@@ -17,7 +17,6 @@ You can download the OpwnWrt for NanoPi R2S firmware from [Actions](https://gith
 | diy-part1.sh | Execute before updating and installing feeds, you can write instructions for modifying the source code into the script, such as adding/modifying/deleting feeds.conf.default. |
 | diy-part2.sh | After updating and installing feeds, you can write the instructions for modifying the source code into the script, such as modifying the default IP, host name, theme, adding/removing software packages, etc. |
 
-
 ## .github/workflow/build-openwrt-nanopi_r2s.yml related environment variable description
 
 | Environment variable | Features |
