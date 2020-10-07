@@ -109,7 +109,6 @@ jobs:
         echo "::set-output name=firmware::openwrt_linksys_wrt1900acs_$(date +"%Y.%m.%d")"
         echo "::set-output name=status::success"
 
-
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
