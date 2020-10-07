@@ -135,7 +135,7 @@ jobs:
         zip -r openwrt_nanopi_r2s${{ env.FILE_DATE }}.zip *
         echo "::set-output name=status::success"
       env:
-        FIRMWARE: openwrt/bin/targets/*/*/openwrt_nanopi_r2s${{ env.FILE_DATE }}.zip  
+        FIRMWARE: $GITHUB_WORKSPACE/openwrt/bin/targets/*/*/openwrt_nanopi_r2s${{ env.FILE_DATE }}.zip  
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@v2
