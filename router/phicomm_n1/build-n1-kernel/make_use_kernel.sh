@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#=============================================================================================================
+#===============================================================================================================
 # https://github.com/ophub/op
 # Description: Automatically Build OpenWrt firmware for Phicomm N1
 # Function: Use Flippy's Armbian kernel files to build kernel.tar.xz & modules.tar.xz
 # Copyright (C) 2020 Flippy's Armbian kernel for Phicomm N1
 # Copyright (C) 2020 https://github.com/ophub/op
-#=============================================================================================================
+#===============================================================================================================
 #
 # example: ~/op/router/phicomm_n1/build-n1-kernel/
 # ├── flippy
@@ -31,12 +31,12 @@
 # 03. :set ff=unix
 # 04. :wq
 #
-#=============================================================================================================
+#===============================================================================================================
 
 
 # Modify Flippy's kernel folder & version
 flippy_folder="flippy"
-flippy_version="5.7.10-flippy-40+"
+flippy_version="5.4.69-flippy-45+o"
 
 # Default setting ( Don't modify )
 build_Workdir=${PWD}
