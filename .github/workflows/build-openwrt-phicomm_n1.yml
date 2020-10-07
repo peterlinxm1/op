@@ -162,20 +162,20 @@ jobs:
 
     - name: Upload firmware directory for Phicomm N1
       uses: actions/upload-artifact@v2
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
         name: ${{ steps.compile.outputs.n1firmware }}
         path: ${{ steps.buildn1.outputs.n1filepath }}
 
     - name: Upload firmware to cowtransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ steps.buildn1.outputs.n1filepath }} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         
     - name: Upload firmware to WeTransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${{ steps.buildn1.outputs.n1filepath }} 2>&1 | tee wetransfer.log
@@ -183,7 +183,7 @@ jobs:
         
     - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ steps.buildn1.outputs.n1filepath }}
