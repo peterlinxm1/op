@@ -129,9 +129,9 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        zip -r openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip * && cp -f *.zip ../../../../
+        zip -r openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip *
         echo "::set-output name=status::success"
-        echo "::set-output name=firmware::openwrt/openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip"
+        echo "::set-output name=firmware::$PWD/openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip"
 
       
     - name: Upload firmware directory
