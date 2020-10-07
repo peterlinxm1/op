@@ -38,7 +38,6 @@ env:
   DEVICE_NAME: nanopi_r2s
   FILE_DATE: $(date +"%Y.%m.%d")
   FILE_WEEK: $(date +"%w")"
-  FIRMWARE: openwrt/openwrt_${DEVICE_NAME}_${FILE_DATE}.zip
   TZ: Asia/Shanghai
 
 jobs:
@@ -132,26 +131,28 @@ jobs:
         rm -rf packages
         zip -r openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip * && cp -f *.zip ../../../../
         echo "::set-output name=status::success"
+        echo "::set-output name=firmware::openwrt/openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip"
+
       
     - name: Upload firmware directory
       uses: actions/upload-artifact@v2
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
-        path: ${{ env.FIRMWARE }}
+        path: ${{ steps.organize.outputs.firmware }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ env.FIRMWARE }} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ steps.organize.outputs.firmware }} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ env.FIRMWARE }} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${{ steps.organize.outputs.firmware }} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
     - name: Upload firmware to release
@@ -159,7 +160,7 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.FIRMWARE }}
+        file: ${{ steps.organize.outputs.firmware }}
         tag: OpenWrt_NanoPi_R2S_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
