@@ -60,7 +60,7 @@ jobs:
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_2020.10.08/openwrt_phicomm_n1_2020.10.08.zip
-        cd $OPENWRT_ORGANIZE_PATH && unzip openwrt_phicomm_n1.zip
+        cd $OPENWRT_ORGANIZE_PATH && unzip *.zip
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f -name "*.zip" )
         [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
