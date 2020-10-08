@@ -31,7 +31,7 @@ env:
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
   OPENWRT_ORGANIZE_PATH: router/phicomm_n1/build-n1-kernel/flippy
-  MAKE_FILE: router/phicomm_n1/build-n1-kernel/make_s905x.sh
+  MAKE_FILE: router/phicomm_n1/build-n1-kernel/make_s905x3.sh
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_ORIGINALFIRMWARE: true
