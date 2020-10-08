@@ -119,7 +119,7 @@ check_build_files() {
 #losetup & mount ${flippy_file}
 losetup_mount_img() {
 
-  cd ${build_Workdir}
+  #cd ${build_Workdir}
      mkdir -p ${boot_tmp} ${root_tmp}
 
      lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
@@ -136,7 +136,7 @@ losetup_mount_img() {
 #edit uEnv.txt from ${boot_tmp}
 edit_uenv() {
 
-  cd ${build_Workdir}/${boot_tmp}
+  cd ${boot_tmp}
 
         if [  ! -f "uEnv.txt" ]; then
            echo_color "red" "Error: uEnv.txt Files does not exist"  "\n \
@@ -198,7 +198,7 @@ edit_uenv() {
 #umount & del losetup
 umount_ulosetup() {
 
-  cd ${build_Workdir}
+  #cd ${build_Workdir}
 
      umount -f ${build_Workdir}/${boot_tmp} 2>/dev/null
      umount -f ${build_Workdir}/${root_tmp} 2>/dev/null
