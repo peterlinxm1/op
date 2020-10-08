@@ -57,7 +57,7 @@ jobs:
         [ -f *.img ] && echo $(ls *.img) file exist || echo *.img file does not exist
         echo "::set-output name=status::success"
 
-    - name: Build firmware for s905x3
+    - name: Build firmware
       id: build
       if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
@@ -68,7 +68,7 @@ jobs:
         echo "::set-output name=firmware::$PWD/openwrt_s905x3_${{ env.RELEASE_DATE }}.zip"
         echo "::set-output name=status::success"
 
-    - name: Upload firmware directory for s905x3
+    - name: Upload firmware to Actions
       uses: actions/upload-artifact@master
       if: steps.build.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
@@ -82,7 +82,7 @@ jobs:
         ./transfer wet -s -p 16 --no-progress ${{ steps.build.outputs.firmware }} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
-    - name: Upload s905x3 firmware to release
+    - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
       if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
@@ -92,7 +92,7 @@ jobs:
         overwrite: true
         file_glob: true
         body: |
-          This is OpenWrt firmware for S905X3
+          This is OpenWrt firmware for s905x3
           * Firmware information
           Default IP: 192.168.1.1
           Default username: root
