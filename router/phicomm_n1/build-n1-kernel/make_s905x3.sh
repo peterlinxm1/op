@@ -28,7 +28,7 @@
 # 03. :set ff=unix
 # 04. :wq
 #
-# Warning :heavy_exclamation_mark:
+# Warning❗
 # According to Flippy’s introduction, the difference between s905x3 and Phicomm-N1 firmware is the difference 
 # in the dtb file specified in boot/uEnv.txt, and the contents of other firmware are common. 
 # This script downloads the N1 firmware that has been built, and modifies the path to the dtb file. 
