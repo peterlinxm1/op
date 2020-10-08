@@ -198,12 +198,16 @@ edit_uenv() {
 #umount & del losetup
 umount_ulosetup() {
 
-  #cd ${build_Workdir}
+  cd ../../
 
      umount -f ${build_Workdir}/${boot_tmp} 2>/dev/null
      umount -f ${build_Workdir}/${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
 
+     echo "Current path -PWD-: [ ${PWD} ]"
+     echo "Situation -lsblk-: [ $(lsblk) ]"
+     echo "Directory file list -ls-: [ $(ls .) ]"
+           
      if [ ${no_firmware} = false ]; then
         cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}.img
      fi
