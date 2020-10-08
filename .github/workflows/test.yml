@@ -40,6 +40,7 @@ env:
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
+  MAKE_RELEASE_DATE: '2020-10-08'
 
 
 jobs:
@@ -59,17 +60,16 @@ jobs:
       id: downloadfirmware
       if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_2020.10.08/openwrt_phicomm_n1_2020.10.08.zip
+        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_${{ env.MAKE_RELEASE_DATE }}/openwrt_phicomm_n1_${{ env.MAKE_RELEASE_DATE }}.zip
         cd $OPENWRT_ORGANIZE_PATH && unzip *.zip
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f -name "*.zip" )
         [ -f *.tar.gz ] && echo '*.tar.gz file exist' || echo '*.tar.gz file does not exist'
-        echo "::set-env name=FILE_DATE::_$(date +"%Y.%m.%d")"
-        echo "::set-env name=FILE_WEEK::$(date +"%w")"
+        echo "::set-output name=status::success"
 
     - name: Build firmware for N1
       id: buildn1firmware
-      if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.downloadfirmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         chmod +x $MAKE_FILE
         sudo rm -rf $OUT_PATH
@@ -79,32 +79,31 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r openwrt_phicomm_n1_test${{ env.FILE_DATE }}.zip *
-        echo "::set-env name=N1FIRMWARE::$PWD/openwrt_phicomm_n1_test${{ env.FILE_DATE }}.zip"
+        zip -r openwrt_phicomm_n1_test_${{ env.MAKE_RELEASE_DATE }}.zip *
+        echo "::set-output name=n1testfirmware::$PWD/openwrt_phicomm_n1_test_${{ env.MAKE_RELEASE_DATE }}.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
       uses: actions/upload-artifact@master
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_firmware_phicomm_n1${{ env.FILE_DATE }}
-        path: ${{ env.N1FIRMWARE }}
+        name: OpenWrt_Phicomm_N1_test_${{ env.MAKE_RELEASE_DATE }}
+        path: ${{ steps.buildn1firmware.outputs.n1testfirmware }}
 
     - name: Upload firmware to WeTransfer
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${N1FIRMWARE} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${{ steps.buildn1firmware.outputs.n1testfirmware }} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        echo "::set-env name=WETRANSFER_URL::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
     - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
       if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ env.N1FIRMWARE }}
-        tag: OpenWrt_Phicomm_N1_test${{ env.FILE_DATE }}
+        file: ${{ steps.buildn1firmware.outputs.n1testfirmware }}
+        tag: OpenWrt_Phicomm_N1_test_${{ env.MAKE_RELEASE_DATE }}
         overwrite: true
         file_glob: true
         body: |
@@ -115,5 +114,4 @@ jobs:
           Default password: password
           Default WIFI name: OpenWrt
           Default WIFI password: none
-          [Download from Wetransfer](${{ env.WETRANSFER_URL }})
      
