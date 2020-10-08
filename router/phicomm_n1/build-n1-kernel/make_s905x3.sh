@@ -119,7 +119,6 @@ check_build_files() {
 #losetup & mount ${flippy_file}
 losetup_mount_img() {
 
-  #cd ${build_Workdir}
      mkdir -p ${boot_tmp} ${root_tmp}
 
      lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
@@ -200,10 +199,12 @@ umount_ulosetup() {
 
   cd ../../
 
-     umount -f ${build_Workdir}/${boot_tmp} 2>/dev/null
-     umount -f ${build_Workdir}/${root_tmp} 2>/dev/null
+     echo "-----------------begin umount_ulosetup-----------------"
+     umount -f ${boot_tmp} 2>/dev/null
+     umount -f ${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
-
+     [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
+     
      echo "Current path -PWD-: [ ${PWD} ]"
      echo "Situation -lsblk-: [ $(lsblk) ]"
      echo "Directory file list -ls-: [ $(ls .) ]"
