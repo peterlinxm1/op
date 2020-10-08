@@ -115,7 +115,7 @@ build_kernel() {
      elif [ "${build_boot##*.}"c = "xz"c ]; then
         tar -xJf ${build_boot}
      else
-        echo_color "red" "Error build_kernel ${build_boot}"  "The suffix of ${build_boot} must be tar.gz or tar.xz ..."
+        echo_color "red" "Error build_kernel ${build_boot}"  "The suffix of ${build_boot} must be .tar.gz or .tar.xz ..."
         exit 1
      fi
 
@@ -132,12 +132,12 @@ build_kernel() {
      elif [ "${build_dtb##*.}"c = "xz"c ]; then
         tar -xJf ${build_dtb}
      else
-        echo_color "red" "Error build_kernel"  "The suffix of ${build_dtb} must be tar.gz or tar.xz ..."
+        echo_color "red" "Error build_kernel"  "The suffix of ${build_dtb} must be .tar.gz or .tar.xz ..."
         exit 1
      fi
 
      echo_color "yellow" "Start Copy ${build_dtb} one files"  "..."
-     [ -f meson-gxl-s905d-phicomm-n1.dtb ] && cp -f *phicomm-n1.dtb Temp_kernel/dtb/amlogic/ || ( echo "*phicomm-n1.dtb does not exist" && exit 1 )
+     [ -f meson-gxl-s905d-phicomm-n1.dtb ] && cp -rf *.dtb Temp_kernel/dtb/amlogic/ || ( echo "*phicomm-n1.dtb does not exist" && exit 1 )
      sync
 
   cd Temp_kernel
@@ -170,7 +170,7 @@ build_modules() {
      elif [ "${build_modules##*.}"c = "xz"c ]; then
         tar -xJf ${build_modules}
      else
-        echo_color "red" "Error build_modules"  "The suffix of ${build_modules} must be tar.gz or tar.xz ..."
+        echo_color "red" "Error build_modules"  "The suffix of ${build_modules} must be .tar.gz or .tar.xz ..."
         exit 1
      fi
   cd ${flippy_version}
