@@ -99,6 +99,17 @@ echo_color() {
 
 }
 
+#print Current situation
+echo_situation() {
+
+     echo "------------------Begin ${1}--------------------"
+     echo "Current path -PWD-: [ ${PWD} ]"
+     echo "Situation -lsblk-: [ $(lsblk) ]"
+     echo "Directory file list -ls-: [ $(ls .) ]"
+     echo "------------------End ${1}----------------------"
+
+}
+
 # Check files
 check_build_files() {
 
@@ -140,11 +151,9 @@ edit_uenv() {
         if [  ! -f "uEnv.txt" ]; then
            echo_color "red" "Error: uEnv.txt Files does not exist"  "\n \
            Please check if the following one files exist: \n \
-           ${boot_tmp}/uEnv.txt \n \
-           Current path -PWD-: [ ${PWD} ]
-           Situation -lsblk-: [ $(lsblk) ]
-           Directory file list -ls-: [ $(ls .) ]
-           "
+           ${boot_tmp}/uEnv.txt \n \"
+           
+           echo_situation "edit_uenv: uEnv.txt"
 
            exit 1
         fi
@@ -199,18 +208,18 @@ umount_ulosetup() {
 
   cd ../../
 
-     echo "-----------------begin umount_ulosetup-----------------"
+     echo_situation "Begin umount_ulosetup: ${lodev}"
+     
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
      [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
      
-     echo "Current path -PWD-: [ ${PWD} ]"
-     echo "Situation -lsblk-: [ $(lsblk) ]"
-     echo "Directory file list -ls-: [ $(ls .) ]"
+     echo_situation "End umount_ulosetup: ${lodev}"
            
      if [ ${no_firmware} = false ]; then
         cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}.img
+        echo_color "yellow" "convert to openwrt_${convert_firmware}.img" "..."
      fi
 
      sync
@@ -221,7 +230,6 @@ umount_ulosetup() {
   echo_color "green" "(4/4) End umount_ulosetup"  "..."
 
 }
-
 
 check_build_files
 losetup_mount_img
