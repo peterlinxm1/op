@@ -33,7 +33,7 @@
 
 # Modify Flippy's kernel folder & *.img file name
 flippy_folder="flippy"
-flippy_file="N1_Openwrt_R20.9.15_k5.4.69-flippy-45+o.img"
+flippy_file="N1_Openwrt_R20.7.20_k5.7.15-flippy-41+.img"
 
 # Default setting ( Don't modify )
 build_Workdir=${PWD}
