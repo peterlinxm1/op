@@ -64,7 +64,7 @@ jobs:
         cd $OPENWRT_ORGANIZE_PATH && unzip *.zip
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f -name "*.zip" )
-        [ -f *.tar.gz ] && echo '$(ls *.tar.gz) file exist' || echo '*.tar.gz file does not exist'
+        [ -f *.tar.gz ] && echo $(ls *.tar.gz) file exist || echo *.tar.gz file does not exist
         echo "::set-output name=status::success"
 
     - name: Build firmware for N1
