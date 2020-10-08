@@ -22,26 +22,14 @@ on:
     #types: started
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-  FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: router/phicomm_n1/.config
-  DIY_P1_SH: router/phicomm_n1/diy-part1.sh
-  DIY_P2_SH: router/phicomm_n1/diy-part2.sh
-  TMP_PATH: router/phicomm_n1/tmp
-  OUT_PATH: router/phicomm_n1/out
-  OPENWRT_ORGANIZE_PATH: router/phicomm_n1/build-n1-kernel/flippy
+  OPENWRT_PATH: router/phicomm_n1/build-n1-kernel/flippy
   MAKE_FILE: router/phicomm_n1/build-n1-kernel/make_s905x3.sh
-  SSH_ACTIONS: false
-  UPLOAD_BIN_DIR: false
-  UPLOAD_ORIGINALFIRMWARE: true
-  UPLOAD_N1FIRMWARE: true
+  UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
-  UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
-  MAKE_RELEASE_DATE: '2020.10.08'
-  USE_N1_KERNEL: '5.4.69'
+  RELEASE_DATE: '2020.10.08'
+  USE_KERNEL: '5.4.69'
 
 
 jobs:
@@ -57,54 +45,54 @@ jobs:
       if: (!cancelled())
       run: df -hT
       
-    - name: download firmware for N1
-      id: downloadfirmware
-      if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+    - name: download firmware from Phicomm N1 releases
+      id: download
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_${{ env.MAKE_RELEASE_DATE }}/openwrt_phicomm_n1_${{ env.MAKE_RELEASE_DATE }}.zip
-        cd $OPENWRT_ORGANIZE_PATH && unzip *.zip
-        cd $USE_N1_KERNEL && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
+        wget -q -P $OPENWRT_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_${{ env.RELEASE_DATE }}/openwrt_phicomm_n1_${{ env.RELEASE_DATE }}.zip
+        cd ${{ env.OPENWRT_PATH }} && unzip *.zip
+        cd ${{ env.USE_KERNEL }} && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f ! -name "*.img" )
         [ -f *.img ] && echo $(ls *.img) file exist || echo *.img file does not exist
         echo "::set-output name=status::success"
 
-    - name: Build firmware for N1
-      id: buildn1firmware
-      if: steps.downloadfirmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+    - name: Build firmware for s905x3
+      id: build
+      if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        chmod +x $MAKE_FILE
-        sudo $MAKE_FILE hk1
-        cd $OPENWRT_ORGANIZE_PATH && cd ../
-        zip -r openwrt_phicomm_n1_test_${{ env.MAKE_RELEASE_DATE }}.zip *.img
-        echo "::set-output name=n1testfirmware::$PWD/openwrt_phicomm_n1_test_${{ env.MAKE_RELEASE_DATE }}.zip"
+        chmod +x ${{ env.MAKE_FILE }}
+        sudo ${{ env.MAKE_FILE }} hk1
+        cd ${{ env.OPENWRT_PATH }} && cd ../
+        zip -r openwrt_s905x3_${{ env.RELEASE_DATE }}.zip *.img
+        echo "::set-output name=firmware::$PWD/openwrt_s905x3_${{ env.RELEASE_DATE }}.zip"
         echo "::set-output name=status::success"
 
-    - name: Upload firmware directory for Phicomm N1
+    - name: Upload firmware directory for s905x3
       uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_Phicomm_N1_test_${{ env.MAKE_RELEASE_DATE }}
-        path: ${{ steps.buildn1firmware.outputs.n1testfirmware }}
+        name: openwrt_s905x3_${{ env.RELEASE_DATE }}
+        path: ${{ steps.build.outputs.firmware }}
 
     - name: Upload firmware to WeTransfer
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ steps.buildn1firmware.outputs.n1testfirmware }} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${{ steps.build.outputs.firmware }} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
-    - name: Upload Phicomm N1 firmware to release
+    - name: Upload s905x3 firmware to release
       uses: svenstaro/upload-release-action@v2
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ steps.buildn1firmware.outputs.n1testfirmware }}
-        tag: OpenWrt_Phicomm_N1_test_${{ env.MAKE_RELEASE_DATE }}
+        file: ${{ steps.build.outputs.firmware }}
+        tag: openwrt_s905x3_${{ env.RELEASE_DATE }}
         overwrite: true
         file_glob: true
         body: |
-          This is OpenWrt firmware for Phicomm N1
+          This is OpenWrt firmware for S905X3
           * Firmware information
           Default IP: 192.168.1.1
           Default username: root
