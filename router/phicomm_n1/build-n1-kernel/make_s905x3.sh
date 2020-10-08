@@ -35,7 +35,8 @@ flippy_folder="flippy"
 flippy_file="phicomm.img"
 
 # Default setting ( Don't modify )
-build_Workdir=${PWD}
+#build_Workdir=${PWD}
+build_Workdir="router/phicomm_n1/build-n1-kernel"
 build_tmp_folder="tmp"
 boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
@@ -81,7 +82,7 @@ check_build_files() {
   cd ${build_Workdir}
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
         echo_color "red" "Error: Files does not exist"  "\n \
-        Please check if the following three files exist: \n \
+        Please check if the following one files exist: \n \
         ${flippy_folder}/${flippy_file} "
         exit 1
       else
