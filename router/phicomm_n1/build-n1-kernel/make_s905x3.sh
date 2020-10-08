@@ -151,7 +151,7 @@ edit_uenv() {
         if [  ! -f "uEnv.txt" ]; then
            echo_color "red" "Error: uEnv.txt Files does not exist"  "\n \
            Please check if the following one files exist: \n \
-           ${boot_tmp}/uEnv.txt \n \"
+           ${boot_tmp}/uEnv.txt"
            
            echo_situation "edit_uenv: uEnv.txt"
 
