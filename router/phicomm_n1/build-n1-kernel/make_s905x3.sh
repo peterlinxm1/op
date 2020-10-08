@@ -28,13 +28,29 @@
 # 03. :set ff=unix
 # 04. :wq
 #
-# Warning❗
+# Warning:❗❗❗
 # According to Flippy’s introduction, the difference between s905x3 and Phicomm-N1 firmware is the difference 
 # in the dtb file specified in boot/uEnv.txt, and the contents of other firmware are common. 
 # This script downloads the N1 firmware that has been built, and modifies the path to the dtb file. 
 # Since the s905x3 device has not been purchased, the firmware has not been personally tested, 
 # and the script has just been online, there may be unknown bugs. 
 # You can also test other N1 dtb paths according to the introduction.
+#
+# /boot/uEnv.txt: ✅ 
+#    #Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. E.g
+#
+#    #Phicomm N1 
+#    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1.dtb
+#    #Phicomm N1 (thresh)
+#    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1-thresh.dtb
+#
+#    #X96 Max+ (S905X3 for 100m)
+#    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus-100m.dtb
+#    #X96 Max+ (S905X3 for 1000M)
+#    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
+#
+#    #HK1 BoX (S905X3 for 1000M)
+#    FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 #=============================================================================================================
 
 # Modify Phicomm N1 firmware's folder & *.img file name
