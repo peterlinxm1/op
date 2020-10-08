@@ -199,7 +199,7 @@ edit_uenv() {
 
      sync
 
-  echo_color "green" "(3/4) End edit_uenv"  "..."
+  echo_color "green" "(3/4) End edit_uenv" "..."
 
 }
 
@@ -208,14 +208,14 @@ umount_ulosetup() {
 
   cd ../../
 
-     echo_situation "Begin umount_ulosetup: ${lodev}"
+     echo_situation "Begin umount_ulosetup"
      
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
      [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
      
-     echo_situation "End umount_ulosetup: ${lodev}"
+     echo_situation "End umount_ulosetup"
            
      if [ ${no_firmware} = false ]; then
         cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}.img
