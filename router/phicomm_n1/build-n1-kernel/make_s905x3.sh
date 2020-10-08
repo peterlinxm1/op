@@ -138,6 +138,18 @@ edit_uenv() {
 
   cd ${build_Workdir}/${boot_tmp}
 
+        if [  ! -f "uEnv.txt" ]; then
+           echo_color "red" "Error: uEnv.txt Files does not exist"  "\n \
+           Please check if the following one files exist: \n \
+           ${boot_tmp}/uEnv.txt \n \
+           Current path -PWD-: [ ${PWD} ]
+           Situation -lsblk-: [ $(lsblk) ]
+           Directory file list -ls-: [ $(ls .) ]
+           "
+
+           exit 1
+        fi
+        
         no_firmware=false
         case "${convert_firmware}" in
         n1-thresh)
