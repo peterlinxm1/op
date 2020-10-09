@@ -221,6 +221,7 @@ umount_ulosetup() {
      
      [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
      cp -f ${flippy_folder}/${flippy_file} ${build_save_folder}/openwrt_${convert_firmware}.img
+     chmod -R 777 ${build_save_folder}
      echo_color "yellow" "convert to ${build_save_folder}/openwrt_${convert_firmware}.img" "..."
      
      sync
