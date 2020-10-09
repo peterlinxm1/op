@@ -12,6 +12,8 @@
 # and the script has just been online, there may be unknown bugs. 
 # You can also test other N1 dtb paths according to the introduction.
 #
+# firmware_list="n1-thresh x96-100m x96-1000m hk1"
+#
 # /boot/uEnv.txt: ✅ 
 #    #Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. E.g
 #
