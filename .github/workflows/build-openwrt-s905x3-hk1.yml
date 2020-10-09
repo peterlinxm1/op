@@ -40,7 +40,7 @@ on:
       - main
     paths:
       - '.github/workflows/build-openwrt-s905x3.yml'
-      - 'router/phicomm_n1/build-n1-kernel/make_s905x3-hk1.sh'
+      - 'router/phicomm_n1/build-n1-kernel/make_s905x3_hk1.sh'
   #schedule:
     #- cron: '0 0 * * 5'
   #watch:
@@ -48,7 +48,7 @@ on:
 
 env:
   OPENWRT_PATH: router/phicomm_n1/build-n1-kernel/flippy
-  MAKE_FILE: router/phicomm_n1/build-n1-kernel/make_s905x3-hk1.sh
+  MAKE_FILE: router/phicomm_n1/build-n1-kernel/make_s905x3_hk1.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_WETRANSFER: true
