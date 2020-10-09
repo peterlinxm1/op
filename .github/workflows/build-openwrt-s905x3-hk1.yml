@@ -57,7 +57,7 @@ env:
   TZ: Asia/Shanghai
   RELEASE_DATE: '2020.10.08'
   USE_KERNEL: '5.4.69'
-  MAKE_FIRMWARE: 'hk1'
+  MAKE_FIRMWARE: 'x96-100m'
 
 jobs:
   build:
