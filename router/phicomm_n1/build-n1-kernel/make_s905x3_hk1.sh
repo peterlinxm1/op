@@ -221,7 +221,7 @@ umount_ulosetup() {
      [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
      
      cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}.img
-     echo_color "yellow" "convert to openwrt_${convert_firmware}.img" "..."
+     echo_color "yellow" "convert to openwrt_${convert_firmware}_$(date +"%Y.%m.%d").img" "..."
      
      sync
 
