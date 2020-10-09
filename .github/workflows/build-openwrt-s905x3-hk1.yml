@@ -89,14 +89,14 @@ jobs:
         chmod +x ${{ env.MAKE_FILE }}
         sudo ${{ env.MAKE_FILE }} hk1
         cd ${{ env.OPENWRT_PATH }} && cd ../
-        zip -r $(echo basename $(ls *.img) | sed -e 's/.img//g').zip *.img
+        zip -r $(echo $(ls *.img) | sed -e 's/.img//g').zip *.img
         
-        echo "zipname: $(echo basename $(ls *.img) | sed -e 's/.img//g')"
+        echo "zipname: $(echo $(ls *.img) | sed -e 's/.img//g')"
         echo "firmware: $PWD/$(ls *.zip)"
-        echo "tag: $(echo basename $(ls *.zip) | sed -e 's/.zip//g')"
+        echo "tag: $(echo $(ls *.zip) | sed -e 's/.zip//g')"
         
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
-        echo "::set-output name=tag::$(echo basename $(ls *.zip) | sed -e 's/.zip//g')"
+        echo "::set-output name=tag::$(echo $(ls *.zip) | sed -e 's/.zip//g')"
         echo "::set-output name=status::success"
 
     - name: Upload firmware to Actions
