@@ -57,7 +57,7 @@ env:
   TZ: Asia/Shanghai
   RELEASE_DATE: '2020.10.08'
   USE_KERNEL: '5.4.69'
-
+  MAKE_FIRMWARE: 'hk1'
 
 jobs:
   build:
@@ -89,7 +89,7 @@ jobs:
       if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         chmod +x ${{ env.MAKE_FILE }}
-        sudo ${{ env.MAKE_FILE }} hk1
+        sudo ${{ env.MAKE_FILE }} ${{ env.MAKE_FIRMWARE }}
         cd ${{ env.OPENWRT_PATH }} && cd ../
         zip -r $(ls *.img | sed -e 's/.img//g').zip *.img     
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
@@ -120,7 +120,7 @@ jobs:
         overwrite: true
         file_glob: true
         body: |
-          This is OpenWrt firmware for s905x3
+          This is OpenWrt firmware for ${{ env.MAKE_FIRMWARE }}
           * Firmware information
           Default IP: 192.168.1.1
           Default username: root
