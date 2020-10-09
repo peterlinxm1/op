@@ -102,11 +102,11 @@ echo_color() {
 #print Current situation
 echo_situation() {
 
-     echo "------------------Begin ${1}--------------------"
+     echo "-------------------${1}---------------------"
      echo "Current path -PWD-: [ ${PWD} ]"
      echo "Situation -lsblk-: [ $(lsblk) ]"
      echo "Directory file list -ls-: [ $(ls .) ]"
-     echo "------------------End ${1}----------------------"
+     echo "-------------------${1}---------------------"
 
 }
 
@@ -213,7 +213,7 @@ umount_ulosetup() {
 
   cd ../../
 
-     echo_situation "Begin: umount_ulosetup ( ${lodev} Related Information )"
+     echo_situation "Print: umount_ulosetup ( ${lodev} Related Information )"
      
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
