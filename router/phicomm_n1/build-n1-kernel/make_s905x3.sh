@@ -119,7 +119,7 @@ check_build_files() {
         Please check if the following one files exist: \n \
         ${flippy_folder}/${flippy_file} "
         
-        echo_situation "Begin umount_ulosetup"
+        echo_situation "Error: check_build_files ( ${flippy_file} Files does not exist )"
         
         exit 1
       else
@@ -155,9 +155,7 @@ edit_uenv() {
            echo_color "red" "Error: uEnv.txt Files does not exist"  "\n \
            Please check if the following one files exist: \n \
            ${boot_tmp}/uEnv.txt"
-           
-           echo_situation "edit_uenv: uEnv.txt file does not exist"
-
+           echo_situation "Error: edit_uenv ( uEnv.txt file does not exist )"
            exit 1
         fi
         
@@ -200,7 +198,7 @@ edit_uenv() {
             echo_color "yellow" "old-phicomm-n1: dtb have close" "..."
         else
             echo_color "red" "Error: Did not match the appropriate type" "..."
-            echo_situation "list: ${firmware_list}, have no: ${convert_firmware}"
+            echo_situation "Error: edit_uenv ( list: ${firmware_list}, have no: ${convert_firmware} )"
             exit 1
         fi
 
@@ -215,7 +213,7 @@ umount_ulosetup() {
 
   cd ../../
 
-     echo_situation "Begin umount_ulosetup"
+     echo_situation "Begin: umount_ulosetup ( ${lodev} Related Information )"
      
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
