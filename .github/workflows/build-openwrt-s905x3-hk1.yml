@@ -90,8 +90,8 @@ jobs:
       run: |
         chmod +x ${{ env.MAKE_FILE }}
         sudo ${{ env.MAKE_FILE }} ${{ env.MAKE_FIRMWARE }}
-        cd ${{ env.OPENWRT_PATH }} && cd ../
-        zip -r $(ls *.img | sed -e 's/.img//g').zip *.img     
+        cd ${{ env.OPENWRT_PATH }} && cd ../out/
+        [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && zip -r openwrt_s905x3_hk1.zip * || zip -r $(ls *.img | sed -e 's/.img//g').zip *.img
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
         echo "::set-output name=tag::$(ls *.zip | sed -e 's/.zip//g')"
         echo "::set-output name=status::success"
