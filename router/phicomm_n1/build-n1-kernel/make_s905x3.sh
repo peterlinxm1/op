@@ -102,11 +102,11 @@ echo_color() {
 #print Current situation
 echo_situation() {
 
-     echo "------------------Begin ${1}--------------------"
+     echo "\n ------------------Begin ${1}--------------------"
      echo "Current path -PWD-: [ ${PWD} ]"
      echo "Situation -lsblk-: [ $(lsblk) ]"
      echo "Directory file list -ls-: [ $(ls .) ]"
-     echo "------------------End ${1}----------------------"
+     echo "------------------End ${1}---------------------- \n"
 
 }
 
@@ -118,6 +118,9 @@ check_build_files() {
         echo_color "red" "Error: Files does not exist"  "\n \
         Please check if the following one files exist: \n \
         ${flippy_folder}/${flippy_file} "
+        
+        echo_situation "Begin umount_ulosetup"
+        
         exit 1
       else
         # begin run the script
@@ -153,7 +156,7 @@ edit_uenv() {
            Please check if the following one files exist: \n \
            ${boot_tmp}/uEnv.txt"
            
-           echo_situation "edit_uenv: uEnv.txt"
+           echo_situation "edit_uenv: uEnv.txt file does not exist"
 
            exit 1
         fi
@@ -194,7 +197,11 @@ edit_uenv() {
             old_str="FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
             new_str="#FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
             sed -i "s/${old_str}/${new_str}/g" uEnv.txt
-            echo_color "yellow" "old-phicomm-n1: have close" "..."
+            echo_color "yellow" "old-phicomm-n1: dtb have close" "..."
+        else
+            echo_color "red" "Error: Did not match the appropriate type" "..."
+            echo_situation "list: ${firmware_list}, have no: ${convert_firmware}"
+            exit 1
         fi
 
      sync
@@ -215,13 +222,9 @@ umount_ulosetup() {
      losetup -d ${lodev} 2>/dev/null
      [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
      
-     echo_situation "End umount_ulosetup"
-           
-     if [ ${no_firmware} = false ]; then
-        cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}.img
-        echo_color "yellow" "convert to openwrt_${convert_firmware}.img" "..."
-     fi
-
+     cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}.img
+     echo_color "yellow" "convert to openwrt_${convert_firmware}.img" "..."
+     
      sync
 
      rm -rf ${build_tmp_folder}
