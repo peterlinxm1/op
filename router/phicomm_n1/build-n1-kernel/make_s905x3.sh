@@ -102,11 +102,11 @@ echo_color() {
 #print Current situation
 echo_situation() {
 
-     echo "\n ------------------Begin ${1}--------------------"
+     echo "------------------Begin ${1}--------------------"
      echo "Current path -PWD-: [ ${PWD} ]"
      echo "Situation -lsblk-: [ $(lsblk) ]"
      echo "Directory file list -ls-: [ $(ls .) ]"
-     echo "------------------End ${1}---------------------- \n"
+     echo "------------------End ${1}----------------------"
 
 }
 
