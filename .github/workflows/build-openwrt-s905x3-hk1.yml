@@ -39,7 +39,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/build-openwrt-s905x3.yml'
+      - '.github/workflows/build-openwrt-s905x3-hk1.yml'
       - 'router/phicomm_n1/build-n1-kernel/make_s905x3_hk1.sh'
   #schedule:
     #- cron: '0 0 * * 5'
