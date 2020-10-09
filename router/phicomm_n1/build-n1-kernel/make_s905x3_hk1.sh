@@ -61,6 +61,7 @@ flippy_file="phicomm.img"
 #build_Workdir=${PWD}
 build_Workdir="router/phicomm_n1/build-n1-kernel"
 build_tmp_folder="tmp"
+build_save_folder="out"
 boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
 rm -rf ${build_tmp_folder}
@@ -102,11 +103,11 @@ echo_color() {
 #print Current situation
 echo_situation() {
 
-     echo "-------------------${1}---------------------"
-     echo "Current path -PWD-: [ ${PWD} ]"
-     echo "Situation -lsblk-: [ $(lsblk) ]"
-     echo "Directory file list -ls-: [ $(ls .) ]"
-     echo "-------------------${1}---------------------"
+     echo -e "-------------------${1}---------------------"
+     echo -e "Current path -PWD-: [ ${PWD} ]"
+     echo -e "Situation -lsblk-: [ $(lsblk) ]"
+     echo -e "Directory file list -ls-: [ $(ls .) ]"
+     echo -e "-------------------${1}---------------------"
 
 }
 
@@ -212,16 +213,15 @@ edit_uenv() {
 umount_ulosetup() {
 
   cd ../../
-
-     echo_situation "Print: umount_ulosetup ( ${lodev} Related Information )"
      
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
      [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
      
-     cp -f ${flippy_folder}/${flippy_file} openwrt_${convert_firmware}_$(date +"%Y.%m.%d").img
-     echo_color "yellow" "convert to openwrt_${convert_firmware}_$(date +"%Y.%m.%d").img" "..."
+     [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
+     cp -f ${flippy_folder}/${flippy_file} ${build_save_folder}/openwrt_${convert_firmware}.img
+     echo_color "yellow" "convert to ${build_save_folder}/openwrt_${convert_firmware}.img" "..."
      
      sync
 
