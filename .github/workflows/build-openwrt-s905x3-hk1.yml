@@ -89,9 +89,9 @@ jobs:
         chmod +x ${{ env.MAKE_FILE }}
         sudo ${{ env.MAKE_FILE }} hk1
         cd ${{ env.OPENWRT_PATH }} && cd ../
-        zip -r $( find ${PWD}/* -type f -name "*.img" )_${{ env.RELEASE_DATE }}.zip *.img
-        echo "::set-output name=firmware::$PWD/$( find ${PWD}/* -type f -name "*.img" )_${{ env.RELEASE_DATE }}.zip"
-        echo "::set-output name=tag::$( find ${PWD}/* -type f -name "*.img" )_${{ env.RELEASE_DATE }}"
+        zip -r $(ls *.img)_${{ env.RELEASE_DATE }}.zip *.img
+        echo "::set-output name=firmware::$PWD/$(ls *.zip)"
+        echo "::set-output name=tag::$( ls *.zip )_${{ env.RELEASE_DATE }}"
         echo "::set-output name=status::success"
 
     - name: Upload firmware to Actions
