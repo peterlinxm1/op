@@ -167,13 +167,13 @@ edit_uenv() {
             old_s905x3_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
             new_s905x3_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
             sed -i "s/${old_s905x3_dtb}/${new_s905x3_dtb}/g" uEnv.txt
-            echo_color "yellow" "x96-max-plus-1000m: convert completed" "..."
+            echo_color "yellow" "s905x3: convert completed" "..."
             ;;
         hk1)
             old_hk1_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
             new_hk1_dtb="FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
             sed -i "s/${old_hk1_dtb}/${new_hk1_dtb}/g" uEnv.txt
-            echo_color "yellow" "hk1box-vontar-x3: convert completed" "..."
+            echo_color "yellow" "hk1: convert completed" "..."
             ;;
         *)
             echo_color "red" "have no this firmware: ${convert_firmware}"  "Please select from this list: [ ${firmware_list} ]"
