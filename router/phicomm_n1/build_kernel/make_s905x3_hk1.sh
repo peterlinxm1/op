@@ -126,7 +126,7 @@ check_build_files() {
         exit 1
       else
         # begin run the script
-        echo_color "purple" "Start convert"  "Use [ ${flippy_file} ] Convert to [ ${convert_firmware}] ..."
+        echo_color "purple" "Start convert"  "Use [ ${flippy_file} ] Convert to [ ${convert_firmware} ] ..."
         echo_color "green" "(1/4) End check_build_files" "..."
       fi
 
