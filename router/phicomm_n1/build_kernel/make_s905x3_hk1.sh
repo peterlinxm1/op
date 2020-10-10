@@ -136,9 +136,11 @@ check_build_files() {
 losetup_mount_img() {
 
      mkdir -p ${boot_tmp} ${root_tmp}
+     
+     cp -f ${flippy_folder}/${flippy_file}  ${flippy_folder}/make_${flippy_file} && sync
 
-     lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
-     [ $? = 0 ] || ( echo "losetup ${flippy_file} failed!" && exit 1 )
+     lodev=$(losetup -P -f --show ${flippy_folder}/make_${flippy_file})
+     [ $? = 0 ] || ( echo "losetup make_${flippy_file} failed!" && exit 1 )
      mount ${lodev}p1 ${boot_tmp}
      [ $? = 0 ] || ( echo "mount ${lodev}p1 failed!" && exit 1 )
      mount ${lodev}p2 ${root_tmp}
@@ -209,7 +211,7 @@ umount_ulosetup() {
      [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
      
      [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
-     cp -f ${flippy_folder}/${flippy_file} ${build_save_folder}/openwrt_${convert_firmware}.img
+     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/openwrt_${convert_firmware}.img
      chmod -R 777 ${build_save_folder}
      echo_color "yellow" "convert to ${build_save_folder}/openwrt_${convert_firmware}.img" "..."
      
