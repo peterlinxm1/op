@@ -109,7 +109,7 @@ echo_situation() {
 # Check files
 check_build_files() {
 
-  #cd ${build_Workdir}
+  cd ${build_Workdir}
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
         echo_color "red" "(1/4) Error: Files does not exist"  "\n \
         Please check if the following one files exist: \n \
