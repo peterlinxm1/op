@@ -10,7 +10,7 @@
 # example: ~/op/router/phicomm_n1/build_kernel/
 # ├── flippy
 # │   └── phicomm.img
-# └── make_s905x3.sh
+# └── make_s905x3_hk1.sh
 #
 # Usage: Use Ubuntu 18 LTS 64-bit
 # 01. Log in to the home directory of the local Ubuntu system
@@ -18,9 +18,9 @@
 # 03. cd ~/op/router/phicomm_n1/build_kernel/
 # 04. Put Phicomm N1 firmware ${flippy_file} file into ${flippy_folder}
 # 05. Run: sudo ./make_s905x3_hk1.sh
-# 06. The generated files path: ~/op/router/phicomm_n1/build_kernel/openwrt_${convert_firmware}.img
+# 06. The generated files path: ~/op/router/phicomm_n1/build_kernel/out/openwrt_${convert_firmware}.img
 # 07. git push to your github
-# 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-s905x3.yml
+# 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-s905x3-hk1.yml
 #
 # Tips: If run 'sudo ./make_s905x3_hk1.sh ${firmware_key}' is 'Command not found'
 # 01. chmod +x make_s905x3_hk1.sh
@@ -172,7 +172,6 @@ edit_uenv() {
             echo_color "yellow" "(3/4) old-phicomm-n1: dtb have close" "..."
         else
             echo_color "red" "(3/4) Error: Did not match the appropriate type" "..."
-            exit 1
         fi
 
      sync
