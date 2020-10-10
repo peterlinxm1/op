@@ -29,7 +29,6 @@ env:
   UPLOAD_RELEASE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
-  RELEASE_DATE: '2020.10.08'
   USE_KERNEL: '5.4.69'
 
 jobs:
@@ -45,19 +44,19 @@ jobs:
       if: (!cancelled())
       run: df -hT
  
-    - name: Download Url
+    - name: Get the latest download url of Phicomm-N1 release
       if: (!cancelled())
       run: |
         curl -s "https://api.github.com/repos/ophub/op/releases" | grep -o "openwrt_.*/openwrt_phicomm_.*\.zip" | head -n 1 > DOWNLOAD_URL
         [ -s DOWNLOAD_URL ] && echo "DOWNLOAD_URL=https://github.com/ophub/op/releases/download/$(cat DOWNLOAD_URL)" >> $GITHUB_ENV
  
-    - name: Download firmware from Phicomm N1 releases
+    - name: Download firmware
       id: download
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         wget -q -P ${{ env.OPENWRT_PATH }}/flippy ${{ env.DOWNLOAD_URL }}
         cd ${{ env.OPENWRT_PATH }}/flippy && unzip *.zip
-        cd ${{ env.USE_KERNEL }} && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
+        cd $( (ls -d */) | head -n 1 ) && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f ! -name "*.img" )
         [ -f *.img ] && echo $(ls *.img) file exist || echo *.img file does not exist
