@@ -218,7 +218,7 @@ umount_ulosetup() {
      sync
 
      rm -rf ${build_tmp_folder}
-     rm -rf ${flippy_folder}/*
+     rm -rf ${flippy_folder}/make_${flippy_file}
 
   echo_color "green" "(4/4) End umount_ulosetup"  "..."
 
