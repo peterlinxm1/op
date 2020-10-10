@@ -64,15 +64,9 @@ build_tmp_folder="tmp"
 build_save_folder="out"
 boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
-rm -rf ${build_tmp_folder}
-
-firmware_list="s905x3 hk1"
+[ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder} 2>/dev/null
+firmware_list="all s905x3 hk1"
 convert_firmware=${1}
-if  [ ! -n "${convert_firmware}" ]; then
-  echo "You did not specify the parameters of the conversion firmware!"
-  exit 1
-fi
-echo ${firmware_list} | grep -iq ${convert_firmware} && echo "Parameters are valid" || echo "(0/4) Parameter error"
 
 # echo color codes
 echo_color() {
@@ -115,19 +109,17 @@ echo_situation() {
 # Check files
 check_build_files() {
 
-  cd ${build_Workdir}
+  #cd ${build_Workdir}
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
-        echo_color "red" "Error: Files does not exist"  "\n \
+        echo_color "red" "(1/4) Error: Files does not exist"  "\n \
         Please check if the following one files exist: \n \
         ${flippy_folder}/${flippy_file} "
-        
-        echo_situation "Error: check_build_files ( ${flippy_file} Files does not exist )"
-        
+        echo_situation "(1/4) Error: check_build_files ( ${flippy_file} Files does not exist )"
         exit 1
       else
         # begin run the script
         echo_color "purple" "Start convert"  "Use [ ${flippy_file} ] Convert to [ ${convert_firmware} ] ..."
-        echo_color "green" "(1/4) End check_build_files" "..."
+        echo_color "green" "(1/4) End check_build_files" "Use: ${flippy_file}..."
       fi
 
 }
@@ -136,15 +128,16 @@ check_build_files() {
 losetup_mount_img() {
 
      mkdir -p ${boot_tmp} ${root_tmp}
-     
+
      cp -f ${flippy_folder}/${flippy_file}  ${flippy_folder}/make_${flippy_file} && sync
+     chmod -R 777 ${flippy_folder} ${build_tmp_folder}
 
      lodev=$(losetup -P -f --show ${flippy_folder}/make_${flippy_file})
-     [ $? = 0 ] || ( echo "losetup make_${flippy_file} failed!" && exit 1 )
+     [ $lodev ] || ( echo_color "red" "(2/4) losetup make_${flippy_file} failed!" "..." && exit 1 )
      mount ${lodev}p1 ${boot_tmp}
-     [ $? = 0 ] || ( echo "mount ${lodev}p1 failed!" && exit 1 )
+     [ $lodev ] || ( echo_color "red" "(2/4) mount ${lodev}p1 failed!" "..." && exit 1 )
      mount ${lodev}p2 ${root_tmp}
-     [ $? = 0 ] || ( echo "mount ${lodev}p2 failed!" && exit 1 )
+     [ $lodev ] || ( echo_color "red" "(2/4) mount ${lodev}p2 failed!" "..." && exit 1 )
 
      echo_color "green" "(2/4) End losetup_mount_img" "Use: ${lodev} ..."
 
@@ -156,29 +149,30 @@ edit_uenv() {
   cd ${boot_tmp}
 
         if [  ! -f "uEnv.txt" ]; then
-           echo_color "red" "Error: uEnv.txt Files does not exist"  "\n \
+           echo_color "red" "(3/4) Error: uEnv.txt Files does not exist"  "\n \
            Please check if the following one files exist: \n \
            ${boot_tmp}/uEnv.txt"
-           echo_situation "Error: edit_uenv ( uEnv.txt file does not exist )"
+           echo_situation "(3/4) Error: edit_uenv ( uEnv.txt file does not exist )"
            exit 1
         fi
         
         no_firmware=false
-        case "${convert_firmware}" in
+        firmware_dtb=${1}
+        case "${firmware_dtb}" in
         s905x3)
             old_s905x3_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
             new_s905x3_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
             sed -i "s/${old_s905x3_dtb}/${new_s905x3_dtb}/g" uEnv.txt
-            echo_color "yellow" "s905x3: convert completed" "..."
+            echo_color "yellow" "(3/4) s905x3: convert completed" "..."
             ;;
         hk1)
             old_hk1_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
             new_hk1_dtb="FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
             sed -i "s/${old_hk1_dtb}/${new_hk1_dtb}/g" uEnv.txt
-            echo_color "yellow" "hk1: convert completed" "..."
+            echo_color "yellow" "(3/4) hk1: convert completed" "..."
             ;;
         *)
-            echo_color "red" "have no this firmware: ${convert_firmware}"  "Please select from this list: [ ${firmware_list} ]"
+            echo_color "red" "(3/4) have no this firmware: ${convert_firmware}"  "Please select from this list: [ ${firmware_list} ]"
             no_firmware=ture
             ;;
         esac
@@ -187,16 +181,16 @@ edit_uenv() {
             old_n1_dtb="FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
             new_n1_dtb="#FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
             sed -i "s/${old_n1_dtb}/${new_n1_dtb}/g" uEnv.txt
-            echo_color "yellow" "old-phicomm-n1: dtb have close" "..."
+            echo_color "yellow" "(3/4) old-phicomm-n1: dtb have close" "..."
         else
-            echo_color "red" "Error: Did not match the appropriate type" "..."
-            echo_situation "Error: edit_uenv ( list: ${firmware_list}, have no: ${convert_firmware} )"
+            echo_color "red" "(3/4) Error: Did not match the appropriate type" "..."
+            echo_situation "(3/4) Error: edit_uenv ( list: ${firmware_list}, have no: ${convert_firmware} )"
             exit 1
         fi
 
      sync
 
-  echo_color "green" "(3/4) End edit_uenv" "..."
+  echo_color "green" "(3/4) End edit_uenv:" "For: ${firmware_dtb} ..."
 
 }
 
@@ -208,26 +202,50 @@ umount_ulosetup() {
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
-     [ $? = 0 ] || ( echo "umount ${lodev} failed!" && exit 1 )
+     [ $? = 0 ] || ( echo_color "red" "(4/4) umount ${lodev} failed!" "..." && exit 1 )
      
      [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
-     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/openwrt_${convert_firmware}.img
+     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/openwrt_${firmware_dtb}.img
      chmod -R 777 ${build_save_folder}
-     echo_color "yellow" "convert to ${build_save_folder}/openwrt_${convert_firmware}.img" "..."
+     echo_color "yellow" "(4/4) convert to ${build_save_folder}/openwrt_${firmware_dtb}.img" "..."
      
      sync
 
      rm -rf ${build_tmp_folder}
      rm -rf ${flippy_folder}/make_${flippy_file}
 
-  echo_color "green" "(4/4) End umount_ulosetup"  "..."
+  echo_color "green" "(4/4) End umount_ulosetup"  "Del: ${lodev} ..."
 
 }
 
-check_build_files
-losetup_mount_img
-edit_uenv
-umount_ulosetup
+if [ ! -n "${convert_firmware}" ]; then
+  echo_color "red" "(0/4) You did not specify the parameters of the conversion firmware!"
+  exit 1
+fi
+
+in_parameters=$( echo ${firmware_list} | grep -iq ${convert_firmware} && echo 0 || echo 1 )
+if [ ${in_parameters} = 0 ]; then
+   echo_color "green" "(0/4) Parameters are valid: ${convert_firmware}"
+else
+   echo_color "red" "(0/4) Parameter error: ${convert_firmware}"
+   exit 1
+fi
+
+# Use Phicomm N1 firmware to build s905x3 related firmware (s905x3 hk1)
+if [ ${convert_firmware} = "all" ];then
+     make_firmware_list=("s905x3" "hk1")
+          for x in ${make_firmware_list[*]}; do
+               check_build_files
+               losetup_mount_img
+               edit_uenv ${x}
+               umount_ulosetup
+          done
+else
+               check_build_files
+               losetup_mount_img
+               edit_uenv ${convert_firmware}
+               umount_ulosetup
+fi
 
 echo_color "purple" "convert completed"  "..."
 
