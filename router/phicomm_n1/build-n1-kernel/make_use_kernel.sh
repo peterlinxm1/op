@@ -8,7 +8,7 @@
 # Copyright (C) 2020 https://github.com/ophub/op
 #===============================================================================================================
 #
-# example: ~/op/router/phicomm_n1/build-n1-kernel/
+# example: ~/op/router/phicomm_n1/build_kernel/
 # ├── flippy
 # │   ├── boot-5.4.63-flippy-43+o.tar.gz
 # │   ├── dtb-amlogic-5.4.63-flippy-43+o.tar.gz
@@ -18,7 +18,7 @@
 # Usage: Use Ubuntu 18 LTS 64-bit
 # 01. Log in to the home directory of the local Ubuntu system
 # 02. git clone https://github.com/ophub/op.git
-# 03. cd ~/op/router/phicomm_n1/build-n1-kernel/
+# 03. cd ~/op/router/phicomm_n1/build_kernel/
 # 04. Put Flippy's ${build_boot}, ${build_dtb} & ${build_modules} three files into ${flippy_folder}
 # 05. Run: sudo ./make_use_kernel.sh
 # 06. The generated files path: ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
