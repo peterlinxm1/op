@@ -55,8 +55,8 @@ jobs:
       run: |
         wget -q -P ${{ env.OPENWRT_PATH }}/flippy ${{ env.DOWNLOAD_URL }}
         cd ${{ env.OPENWRT_PATH }}/flippy && unzip *.zip
-        echo "USE_KERNEL=$( (ls -d */) | head -n 1 )" >> $GITHUB_ENV
-        cd $( (ls -d */) | head -n 1 ) && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
+        echo "USE_KERNEL=$( ls -d */ | head -n 1  | head -c-2 )" >> $GITHUB_ENV
+        cd $( ls -d */ | head -n 1 ) && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f ! -name "*.img" )
         [ -f *.img ] && echo $(ls *.img) file exist || echo *.img file does not exist
