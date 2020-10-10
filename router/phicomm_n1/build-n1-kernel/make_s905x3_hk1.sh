@@ -2,12 +2,12 @@
 
 #===============================================================================================================
 # https://github.com/ophub/op
-# Description: Use Phicomm N1 firmware to build s905x3 related firmware(n1-thresh x96-100m x96-1000m hk1)
+# Description: Use Phicomm N1 firmware to build s905x3 related firmware (s905x3 hk1)
 # Function: Use Phicomm N1 firmware to build s905x3 related firmware
 # Copyright (C) 2020 https://github.com/ophub/op
 #===============================================================================================================
 #
-# example: ~/op/router/phicomm_n1/build-n1-kernel/
+# example: ~/op/router/phicomm_n1/build_kernel/
 # ├── flippy
 # │   └── phicomm.img
 # └── make_s905x3.sh
@@ -15,10 +15,10 @@
 # Usage: Use Ubuntu 18 LTS 64-bit
 # 01. Log in to the home directory of the local Ubuntu system
 # 02. git clone https://github.com/ophub/op.git
-# 03. cd ~/op/router/phicomm_n1/build-n1-kernel/
+# 03. cd ~/op/router/phicomm_n1/build_kernel/
 # 04. Put Phicomm N1 firmware ${flippy_file} file into ${flippy_folder}
 # 05. Run: sudo ./make_s905x3.sh
-# 06. The generated files path: ~/op/router/phicomm_n1/build-n1-kernel/openwrt_${convert_firmware}.img
+# 06. The generated files path: ~/op/router/phicomm_n1/build_kernel/openwrt_${convert_firmware}.img
 # 07. git push to your github
 # 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-s905x3.yml
 #
@@ -59,7 +59,7 @@ flippy_file="phicomm.img"
 
 # Default setting ( Don't modify )
 #build_Workdir=${PWD}
-build_Workdir="router/phicomm_n1/build-n1-kernel"
+build_Workdir="router/phicomm_n1/build_kernel"
 build_tmp_folder="tmp"
 build_save_folder="out"
 boot_tmp=${build_tmp_folder}/boot
