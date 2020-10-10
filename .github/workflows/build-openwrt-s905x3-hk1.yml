@@ -4,7 +4,7 @@
 # Function: Workflows for Build s905x3
 # Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
 #
-# Warning:❗❗❗
+# ❗❗❗ Warning:
 # According to Flippy’s introduction, the difference between s905x3 and Phicomm-N1 firmware is the difference 
 # in the dtb file specified in boot/uEnv.txt, and the contents of other firmware are common. 
 # This script downloads the N1 firmware that has been built, and modifies the path to the dtb file. 
@@ -12,22 +12,20 @@
 # and the script has just been online, there may be unknown bugs. 
 # You can also test other N1 dtb paths according to the introduction.
 #
-# firmware_list="n1-thresh x96-100m x96-1000m hk1"
-#
-# /boot/uEnv.txt: ✅ 
+# ✅ /boot/uEnv.txt:  
 #    #Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. E.g
 #
-#    #Phicomm N1 
+#    #Phicomm N1
 #    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1.dtb
 #    #Phicomm N1 (thresh)
 #    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1-thresh.dtb
 #
 #    #X96 Max+ (S905X3 for 100m)
 #    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus-100m.dtb
-#    #X96 Max+ (S905X3 for 1000M)
+#    #X96 Max+ (S905X3 for 1000M) [tag: s905x3]
 #    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
 #
-#    #HK1 BoX (S905X3 for 1000M)
+#    #HK1 BoX (S905X3 for 1000M) [tag: hk1]
 #    FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 #============================================================================================================================
 
@@ -42,22 +40,22 @@ on:
       - main
     paths:
       - '.github/workflows/build-openwrt-s905x3-hk1.yml'
-      - 'router/phicomm_n1/build-n1-kernel/make_s905x3_hk1.sh'
+      - 'router/phicomm_n1/build_kernel/make_s905x3_hk1.sh'
   #schedule:
     #- cron: '0 0 * * 5'
   #watch:
     #types: started
 
 env:
-  OPENWRT_PATH: router/phicomm_n1/build-n1-kernel/flippy
-  MAKE_FILE: router/phicomm_n1/build-n1-kernel/make_s905x3_hk1.sh
+  OPENWRT_PATH: router/phicomm_n1/build_kernel/flippy
+  MAKE_FILE: router/phicomm_n1/build_kernel/make_s905x3_hk1.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
   RELEASE_DATE: '2020.10.08'
   USE_KERNEL: '5.4.69'
-  MAKE_FIRMWARE: 'x96-1000m'
+  MAKE_FIRMWARE: 's905x3'
 
 jobs:
   build:
