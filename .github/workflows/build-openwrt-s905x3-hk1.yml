@@ -29,7 +29,6 @@ env:
   UPLOAD_RELEASE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
-  USE_KERNEL: '5.4.69'
 
 jobs:
   build:
@@ -56,6 +55,7 @@ jobs:
       run: |
         wget -q -P ${{ env.OPENWRT_PATH }}/flippy ${{ env.DOWNLOAD_URL }}
         cd ${{ env.OPENWRT_PATH }}/flippy && unzip *.zip
+        echo "USE_KERNEL=$( (ls -d */) | head -n 1 )" >> $GITHUB_ENV
         cd $( (ls -d */) | head -n 1 ) && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f ! -name "*.img" )
@@ -80,7 +80,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.build.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: openWrt_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}
+        name: openwrt_${{ env.USE_KERNEL }}_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}
         path: ${{ steps.build.outputs.firmware }}
 
     - name: Upload firmware to WeTransfer
@@ -96,7 +96,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ steps.build.outputs.firmware }}
-        tag: openWrt_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}
+        tag: openwrt_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}
         overwrite: true
         file_glob: true
         body: |
