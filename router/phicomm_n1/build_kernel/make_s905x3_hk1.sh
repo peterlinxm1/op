@@ -17,14 +17,14 @@
 # 02. git clone https://github.com/ophub/op.git
 # 03. cd ~/op/router/phicomm_n1/build_kernel/
 # 04. Put Phicomm N1 firmware ${flippy_file} file into ${flippy_folder}
-# 05. Run: sudo ./make_s905x3.sh
+# 05. Run: sudo ./make_s905x3_hk1.sh
 # 06. The generated files path: ~/op/router/phicomm_n1/build_kernel/openwrt_${convert_firmware}.img
 # 07. git push to your github
 # 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-s905x3.yml
 #
-# Tips: If run 'sudo ./make_s905x3.sh' is 'Command not found'
-# 01. chmod +x make_s905x3.sh
-# 02. vi make_s905x3.sh
+# Tips: If run 'sudo ./make_s905x3_hk1.sh ${firmware_key}' is 'Command not found'
+# 01. chmod +x make_s905x3_hk1.sh
+# 02. vi make_s905x3_hk1.sh
 # 03. :set ff=unix
 # 04. :wq
 #
@@ -109,7 +109,7 @@ echo_situation() {
 # Check files
 check_build_files() {
 
-  cd ${build_Workdir}
+  #cd ${build_Workdir}
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
         echo_color "red" "(1/4) Error: Files does not exist"  "\n \
         Please check if the following one files exist: \n \

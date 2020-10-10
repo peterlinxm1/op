@@ -3,30 +3,7 @@
 # Description: Automatically Build OpenWrt for s905x3
 # Function: Workflows for Build s905x3
 # Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
-#
-# ❗❗❗ Warning:
-# According to Flippy’s introduction, the difference between s905x3 and Phicomm-N1 firmware is the difference 
-# in the dtb file specified in boot/uEnv.txt, and the contents of other firmware are common. 
-# This script downloads the N1 firmware that has been built, and modifies the path to the dtb file. 
-# Since the s905x3 device has not been purchased, the firmware has not been personally tested, 
-# and the script has just been online, there may be unknown bugs. 
-# You can also test other N1 dtb paths according to the introduction.
-#
-# ✅ /boot/uEnv.txt:  
-#    #Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. E.g
-#
-#    #Phicomm N1
-#    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1.dtb
-#    #Phicomm N1 (thresh)
-#    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1-thresh.dtb
-#
-#    #X96 Max+ (S905X3 for 100m)
-#    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus-100m.dtb
-#    #X96 Max+ (S905X3 for 1000M) [tag: s905x3]
-#    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
-#
-#    #HK1 BoX (S905X3 for 1000M) [tag: hk1]
-#    FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
+# ${{ env.MAKE_FIRMWARE }}: all s905x3 hk1
 #============================================================================================================================
 
 name: Build OpenWrt for s905x3
@@ -48,14 +25,13 @@ on:
 
 env:
   OPENWRT_PATH: router/phicomm_n1/build_kernel/flippy
-  MAKE_FILE: router/phicomm_n1/build_kernel/make_s905x3_hk1.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
   RELEASE_DATE: '2020.10.08'
   USE_KERNEL: '5.4.69'
-  MAKE_FIRMWARE: 's905x3'
+  MAKE_FIRMWARE: 'all'
 
 jobs:
   build:
@@ -74,8 +50,8 @@ jobs:
       id: download
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        wget -q -P $OPENWRT_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_${{ env.RELEASE_DATE }}/openwrt_phicomm_n1_${{ env.RELEASE_DATE }}.zip
-        cd ${{ env.OPENWRT_PATH }} && unzip *.zip
+        wget -q -P ${{ env.OPENWRT_PATH }}/flippy https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_${{ env.RELEASE_DATE }}/openwrt_phicomm_n1_${{ env.RELEASE_DATE }}.zip
+        cd ${{ env.OPENWRT_PATH }}/flippy && unzip *.zip
         cd ${{ env.USE_KERNEL }} && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f ! -name "*.img" )
@@ -86,9 +62,10 @@ jobs:
       id: build
       if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        chmod +x ${{ env.MAKE_FILE }}
-        sudo ${{ env.MAKE_FILE }} ${{ env.MAKE_FIRMWARE }}
-        cd ${{ env.OPENWRT_PATH }} && cd ../out/
+        cd ${{ env.OPENWRT_PATH }}
+        chmod +x ${{ env.OPENWRT_PATH }}/make_s905x3_hk1.sh
+        sudo ${{ env.OPENWRT_PATH }}/make_s905x3_hk1.sh ${{ env.MAKE_FIRMWARE }}
+        cd out/
         [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && zip -r openwrt_s905x3_hk1.zip * || zip -r $(ls *.img | sed -e 's/.img//g').zip *.img
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
         echo "::set-output name=tag::$(ls *.zip | sed -e 's/.zip//g')_$(date +"%Y.%m.%d")"
