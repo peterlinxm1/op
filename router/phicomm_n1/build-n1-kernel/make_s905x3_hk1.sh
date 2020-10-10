@@ -28,7 +28,7 @@
 # 03. :set ff=unix
 # 04. :wq
 #
-# Warning:❗❗❗
+# ❗❗❗ Warning:
 # According to Flippy’s introduction, the difference between s905x3 and Phicomm-N1 firmware is the difference 
 # in the dtb file specified in boot/uEnv.txt, and the contents of other firmware are common. 
 # This script downloads the N1 firmware that has been built, and modifies the path to the dtb file. 
@@ -36,20 +36,20 @@
 # and the script has just been online, there may be unknown bugs. 
 # You can also test other N1 dtb paths according to the introduction.
 #
-# /boot/uEnv.txt: ✅ 
+# ✅ /boot/uEnv.txt:  
 #    #Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. E.g
 #
-#    #Phicomm N1 
+#    #Phicomm N1
 #    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1.dtb
 #    #Phicomm N1 (thresh)
 #    #FDT=/dtb/amlogic/meson-gxl-s905d-phicomm-n1-thresh.dtb
 #
 #    #X96 Max+ (S905X3 for 100m)
 #    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus-100m.dtb
-#    #X96 Max+ (S905X3 for 1000M)
+#    #X96 Max+ (S905X3 for 1000M) [tag: s905x3]
 #    #FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
 #
-#    #HK1 BoX (S905X3 for 1000M)
+#    #HK1 BoX (S905X3 for 1000M) [tag: hk1]
 #    FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 #=============================================================================================================
 
@@ -66,12 +66,13 @@ boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
 rm -rf ${build_tmp_folder}
 
-firmware_list="n1-thresh x96-100m x96-1000m hk1"
+firmware_list="s905x3 hk1"
 convert_firmware=${1}
 if  [ ! -n "${convert_firmware}" ]; then
   echo "You did not specify the parameters of the conversion firmware!"
   exit 1
 fi
+echo ${firmware_list} | grep -iq ${convert_firmware} && echo "Parameters are valid" || echo "(0/4) Parameter error"
 
 # echo color codes
 echo_color() {
@@ -162,28 +163,16 @@ edit_uenv() {
         
         no_firmware=false
         case "${convert_firmware}" in
-        n1-thresh)
-            old_phicomm_str="#FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1-thresh.dtb"
-            new_phicomm_str="FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1-thresh.dtb"
-            sed -i "s/${old_phicomm_str}/${new_phicomm_str}/g" uEnv.txt
-            echo_color "yellow" "phicomm-n1-thresh: convert completed" "..."
-            ;;
-        x96-100m)
-            old_x96100m_str="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus-100m.dtb"
-            new_x96100m_str="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus-100m.dtb"
-            sed -i "s/${old_x96100m_str}/${new_x96100m_str}/g" uEnv.txt
-            echo_color "yellow" "x96-max-plus-100m: convert completed" "..."
-            ;;
-        x96-1000m)
-            old_x961000m_str="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
-            new_x961000m_str="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
-            sed -i "s/${old_x961000m_str}/${new_x961000m_str}/g" uEnv.txt
+        s905x3)
+            old_s905x3_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
+            new_s905x3_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
+            sed -i "s/${old_s905x3_dtb}/${new_s905x3_dtb}/g" uEnv.txt
             echo_color "yellow" "x96-max-plus-1000m: convert completed" "..."
             ;;
         hk1)
-            old_hk1_str="#FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
-            new_hk1_str="FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
-            sed -i "s/${old_hk1_str}/${new_hk1_str}/g" uEnv.txt
+            old_hk1_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
+            new_hk1_dtb="FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
+            sed -i "s/${old_hk1_dtb}/${new_hk1_dtb}/g" uEnv.txt
             echo_color "yellow" "hk1box-vontar-x3: convert completed" "..."
             ;;
         *)
@@ -193,9 +182,9 @@ edit_uenv() {
         esac
 
         if [ ${no_firmware} = false ]; then
-            old_str="FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
-            new_str="#FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
-            sed -i "s/${old_str}/${new_str}/g" uEnv.txt
+            old_n1_dtb="FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
+            new_n1_dtb="#FDT=\/dtb\/amlogic\/meson-gxl-s905d-phicomm-n1.dtb"
+            sed -i "s/${old_n1_dtb}/${new_n1_dtb}/g" uEnv.txt
             echo_color "yellow" "old-phicomm-n1: dtb have close" "..."
         else
             echo_color "red" "Error: Did not match the appropriate type" "..."
