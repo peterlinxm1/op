@@ -63,8 +63,8 @@ jobs:
       if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd ${{ env.OPENWRT_PATH }}
-        chmod +x ${{ env.OPENWRT_PATH }}/make_s905x3_hk1.sh
-        sudo ${{ env.OPENWRT_PATH }}/make_s905x3_hk1.sh ${{ env.MAKE_FIRMWARE }}
+        chmod +x make_s905x3_hk1.sh
+        sudo ./make_s905x3_hk1.sh ${{ env.MAKE_FIRMWARE }}
         cd out/
         [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && zip -r openwrt_s905x3_hk1.zip * || zip -r $(ls *.img | sed -e 's/.img//g').zip *.img
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
