@@ -31,7 +31,6 @@ env:
   TZ: Asia/Shanghai
   RELEASE_DATE: '2020.10.08'
   USE_KERNEL: '5.4.69'
-  MAKE_FIRMWARE: 'all'
 
 jobs:
   build:
@@ -64,18 +63,18 @@ jobs:
       run: |
         cd ${{ env.OPENWRT_PATH }}
         chmod +x make_s905x3_hk1.sh
-        sudo ./make_s905x3_hk1.sh ${{ env.MAKE_FIRMWARE }}
+        sudo ./make_s905x3_hk1.sh all
         cd out/
-        [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && zip -r openwrt_s905x3_hk1.zip * || zip -r $(ls *.img | sed -e 's/.img//g').zip *.img
+        [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && echo "OP_TAG=s905x3_hk1" >> $GITHUB_ENV || echo "OP_TAG=$(ls *.img | sed -e 's/.img//g')" >> $GITHUB_ENV
+        zip -r openwrt_${{ env.OP_TAG }}_$(date +"%Y.%m.%d").zip *
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
-        echo "::set-output name=tag::$(ls *.zip | sed -e 's/.zip//g')_$(date +"%Y.%m.%d")"
         echo "::set-output name=status::success"
 
     - name: Upload firmware to Actions
       uses: actions/upload-artifact@master
       if: steps.build.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ steps.build.outputs.tag }}
+        name: openWrt_${{ env.OP_TAG }}_$(date +"%Y.%m.%d")
         path: ${{ steps.build.outputs.firmware }}
 
     - name: Upload firmware to WeTransfer
@@ -91,11 +90,11 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ steps.build.outputs.firmware }}
-        tag: ${{ steps.build.outputs.tag }}
+        tag: openWrt_${{ env.OP_TAG }}_$(date +"%Y.%m.%d")
         overwrite: true
         file_glob: true
         body: |
-          This is OpenWrt firmware for ${{ env.MAKE_FIRMWARE }}
+          This is OpenWrt firmware for ${{ env.OP_TAG }}
           * Firmware information
           Default IP: 192.168.1.1
           Default username: root
