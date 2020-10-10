@@ -58,12 +58,10 @@ flippy_folder="flippy"
 flippy_file="phicomm.img"
 
 # Default setting ( Don't modify )
-#build_Workdir=${PWD}
-build_Workdir="router/phicomm_n1/build_kernel"
 build_tmp_folder="tmp"
-build_save_folder="out"
 boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
+build_save_folder="out"
 [ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder} 2>/dev/null
 firmware_list="all s905x3 hk1"
 convert_firmware=${1}
