@@ -24,7 +24,7 @@ on:
     #types: started
 
 env:
-  OPENWRT_PATH: router/phicomm_n1/build_kernel/flippy
+  OPENWRT_PATH: router/phicomm_n1/build_kernel
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_WETRANSFER: true
