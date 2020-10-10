@@ -191,9 +191,9 @@ umount_ulosetup() {
      [ $? = 0 ] || ( echo_color "red" "(4/4) umount ${lodev} failed!" "..." )
      
      [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
-     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/openwrt_${firmware_dtb}.img
+     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/${firmware_dtb}.img
      chmod -R 777 ${build_save_folder}
-     echo_color "yellow" "(4/4) convert to ${build_save_folder}/openwrt_${firmware_dtb}.img" "..."
+     echo_color "yellow" "(4/4) convert to ${build_save_folder}/${firmware_dtb}.img" "..."
      
      sync
 
