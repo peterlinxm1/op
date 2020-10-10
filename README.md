@@ -127,9 +127,10 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       │       │
  │       │       └── root                              # Add your custom files(ROOTFS Partition)
  │       │    
- │       ├── build-n1-kernel                           # Build kernel for Phicomm-N1
+ │       ├── build_kernel                           # Build kernel for Phicomm-N1
  │       │   ├── make_use_img.sh                       # Use Flippy's *.img files build
  │       │   ├── make_use_kernel.sh                    # Use Flippy's kernel files build
+ │       │   ├── make_s905x3_hk1.sh                    # Use Phicomm N1 to build s905x3/hk1
  │       │   ├── README.md
  │       │   └── flippy
  │       │       ├── boot-${flippy_version}.tar.gz
