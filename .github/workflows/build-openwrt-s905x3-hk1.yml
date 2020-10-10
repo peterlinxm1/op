@@ -67,7 +67,7 @@ jobs:
         cd out/
         [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && echo "OP_TAG=s905x3_hk1" >> $GITHUB_ENV || echo "OP_TAG=$(ls *.img | sed -e 's/.img//g')" >> $GITHUB_ENV
         echo "MAKE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
-        zip -r openwrt_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}.zip *
+        zip -r openwrt.zip *.img
         echo "::set-output name=firmware::$PWD/$(ls *.zip)"
         echo "::set-output name=status::success"
 
