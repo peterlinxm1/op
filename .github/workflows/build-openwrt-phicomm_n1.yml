@@ -112,7 +112,7 @@ jobs:
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "::set-output name=firmware::openwrt_original_armvirt_$(date +"%Y.%m.%d")"
-        echo "::set-output name=n1firmware::openwrt_phicomm_n1_$(date +"%Y.%m.%d")"
+        echo "::set-output name=n1tag::openwrt_phicomm_n1_$(date +"%Y.%m.%d")"
         echo "::set-output name=status::success"
 
     - name: Check space usage
@@ -156,15 +156,15 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r ${{ steps.compile.outputs.n1firmware }}.zip *
-        echo "::set-output name=n1filepath::$PWD/${{ steps.compile.outputs.n1firmware }}.zip"
+        zip -r ${{ steps.compile.outputs.n1tag }}.zip *
+        echo "::set-output name=n1filepath::$PWD/${{ steps.compile.outputs.n1tag }}.zip"
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
       uses: actions/upload-artifact@v2
       if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ steps.compile.outputs.n1firmware }}
+        name: ${{ steps.compile.outputs.n1tag }}
         path: ${{ steps.buildn1.outputs.n1filepath }}
 
     - name: Upload firmware to cowtransfer
@@ -187,7 +187,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ steps.buildn1.outputs.n1filepath }}
-        tag: ${{ steps.compile.outputs.n1firmware }}
+        tag: ${{ steps.compile.outputs.n1tag }}
         overwrite: true
         file_glob: true
         body: |
