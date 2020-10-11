@@ -96,7 +96,7 @@ check_build_files() {
 #losetup & mount ${flippy_file} boot:kernel.tar.xz root:modules.tar.xz
 losetup_mount_img() {
 
-   [ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder}
+   [ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder} 2>/dev/null
    mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
 
    lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
