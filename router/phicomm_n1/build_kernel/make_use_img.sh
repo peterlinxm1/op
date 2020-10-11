@@ -41,7 +41,6 @@ boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
 kernel_tmp=${build_tmp_folder}/kernel_tmp
 modules_tmp=${build_tmp_folder}/modules_tmp/lib
-rm -rf ${build_tmp_folder}
 
 get_tree_status=$(dpkg --get-selections | grep tree)
 [ $? = 0 ] || sudo apt install tree
@@ -83,7 +82,7 @@ echo_color() {
 check_build_files() {
 
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
-        echo_color "red" "Error: Files does not exist"  "\n \
+        echo_color "red" "(1/7) Error: Files does not exist"  "\n \
         Please check if the following files exist: \n \
         ${flippy_folder}/${flippy_file} "
       else
@@ -97,14 +96,15 @@ check_build_files() {
 #losetup & mount ${flippy_file} boot:kernel.tar.xz root:modules.tar.xz
 losetup_mount_img() {
 
-     mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
+   [ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder}
+   mkdir -p ${boot_tmp} ${root_tmp} ${kernel_tmp} ${modules_tmp}
 
-     lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
-     [ $? = 0 ] || echo_color "red" "losetup ${flippy_file} failed!" "..."
-     mount ${lodev}p1 ${boot_tmp}
-     [ $? = 0 ] || echo_color "red" "mount ${lodev}p1 failed!" "..."
-     mount ${lodev}p2 ${root_tmp}
-     [ $? = 0 ] || echo_color "red" "mount ${lodev}p2 failed!""..."
+   lodev=$(losetup -P -f --show ${flippy_folder}/${flippy_file})
+   [ $? = 0 ] || echo_color "red" "(2/7) losetup ${flippy_file} failed!" "..."
+   mount ${lodev}p1 ${boot_tmp}
+   [ $? = 0 ] || echo_color "red" "(2/7) mount ${lodev}p1 failed!" "..."
+   mount ${lodev}p2 ${root_tmp}
+   [ $? = 0 ] || echo_color "red" "(2/7) mount ${lodev}p2 failed!""..."
 
    echo_color "green" "(2/7) End losetup_mount_img"  "Use: ${lodev} ..."
 
@@ -113,11 +113,11 @@ losetup_mount_img() {
 #copy ${boot_tmp} & ${root_tmp} Related files to ${kernel_tmp} & ${modules_tmp}
 copy_boot_root() {
 
-     cp -rf ${boot_tmp}/{dtb,config*,initrd.img*,System.map*,uInitrd,zImage} ${kernel_tmp}
-     cp -rf ${root_tmp}/lib/modules ${modules_tmp}
-     sync
+   cp -rf ${boot_tmp}/{dtb,config*,initrd.img*,System.map*,uInitrd,zImage} ${kernel_tmp}
+   cp -rf ${root_tmp}/lib/modules ${modules_tmp}
+   sync
 
-  echo_color "green" "(3/7) End copy_kernel_modules"  "..."
+   echo_color "green" "(3/7) End copy_kernel_modules"  "..."
 
 }
 
@@ -130,7 +130,7 @@ get_flippy_version() {
      cd ../../../../
      mkdir -p ${build_save_folder}
 
-   echo_color "green" "(4/7) End get_flippy_version"  "${build_save_folder} ..."
+     echo_color "green" "(4/7) End get_flippy_version"  "${build_save_folder} ..."
 
 }
 
@@ -153,9 +153,9 @@ build_kernel_modules() {
          fi
      done
      if [ $x -eq 0 ]; then
-        echo_color "red" "Error *.KO Files not found"  "..."
+        echo_color "red" "(5/7) Error *.KO Files not found"  "..."
      else
-        echo_color "yellow" "Have [ ${x} ] files make ko link"  "..."
+        echo_color "yellow" "(5/7) Have [ ${x} ] files make ko link"  "..."
      fi
 
   cd ../../../
@@ -164,31 +164,29 @@ build_kernel_modules() {
      mv -f modules.tar.xz ../../${build_save_folder} && cd ../../
      sync
 
-   echo_color "green" "(5/7) End build_kernel_modules"  "..."
+     echo_color "green" "(5/7) End build_kernel_modules"  "..."
 
 }
 
 # copy kernel.tar.xz & modules.tar.xz to ~/op/router/phicomm_n1/armbian/phicomm-n1/kernel/${build_save_folder}
 copy_kernel_modules() {
 
-     cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
-     rm -rf ${build_save_folder}
+   cp -rf ${build_save_folder} ../armbian/phicomm-n1/kernel/ && sync
 
-  echo_color "green" "(6/7) End copy_kernel_modules"  "Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ..."
+   echo_color "green" "(6/7) End copy_kernel_modules"  "Copy /${build_save_folder}/kernel.tar.xz & modules.tar.xz to ../armbian/phicomm-n1/kernel/ ..."
 
 }
 
 #umount& del losetup
 umount_ulosetup() {
 
-     umount -f ${boot_tmp} 2>/dev/null
-     umount -f ${root_tmp} 2>/dev/null
-     losetup -d ${lodev} 2>/dev/null
+   umount -f ${boot_tmp} 2>/dev/null
+   umount -f ${root_tmp} 2>/dev/null
+   losetup -d ${lodev} 2>/dev/null
 
-     rm -rf ${build_tmp_folder}
-     rm -rf ${flippy_folder}/*
+   rm -rf ${build_tmp_folder} ${build_save_folder} ${flippy_folder}/* 2>/dev/null
 
-  echo_color "green" "(7/7) End umount_ulosetup"  "..."
+   echo_color "green" "(7/7) End umount_ulosetup"  "..."
 
 }
 
