@@ -30,18 +30,13 @@ env:
   DIY_P2_SH: router/phicomm_n1/diy-part2.sh
   TMP_PATH: router/phicomm_n1/tmp
   OUT_PATH: router/phicomm_n1/out
-  OPENWRT_ORGANIZE_PATH: router/phicomm_n1/openwrt
-  MAKE_FILE: router/phicomm_n1/make
+  OPENWRT_PATH: router/phicomm_n1
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
-  UPLOAD_ORIGINALFIRMWARE: true
-  UPLOAD_N1FIRMWARE: true
+  UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
-  UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
-  MAKE_RELEASE_DATE: '2020.10.08'
-
 
 jobs:
   build:
@@ -56,54 +51,62 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    - name: download firmware for N1
-      id: downloadfirmware
-      if: env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+    - name: Get the latest download url of Phicomm-N1 release
+      if: (!cancelled())
       run: |
-        wget -q -P $OPENWRT_ORGANIZE_PATH https://github.com/ophub/op/releases/download/openwrt_phicomm_n1_${{ env.MAKE_RELEASE_DATE }}/openwrt_phicomm_n1_${{ env.MAKE_RELEASE_DATE }}.zip
-        cd $OPENWRT_ORGANIZE_PATH && unzip *.zip
+        curl -s "https://api.github.com/repos/ophub/op/releases" | grep -o "openwrt_.*/openwrt_phicomm_.*\.zip" | head -n 1 > DOWNLOAD_URL
+        [ -s DOWNLOAD_URL ] && echo "DOWNLOAD_URL=https://github.com/ophub/op/releases/download/$(cat DOWNLOAD_URL)" >> $GITHUB_ENV
+
+    - name: download firmware for N1
+      id: download
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      run: |
+        wget -q -P ${{ env.OPENWRT_PATH }}/openwrt ${{ env.DOWNLOAD_URL }}
+        cd ${{ env.OPENWRT_PATH }}/openwrt && unzip *.zip
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f -name "*.zip" )
         [ -f *.tar.gz ] && echo $(ls *.tar.gz) file exist || echo *.tar.gz file does not exist
+        echo "FILE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Build firmware for N1
-      id: buildn1firmware
-      if: steps.downloadfirmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      id: build
+      if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        chmod +x $MAKE_FILE
+        chmod +x ${{ env.OPENWRT_PATH }}/make
         sudo rm -rf $OUT_PATH
-        sudo $MAKE_FILE -d
+        sudo ${{ env.OPENWRT_PATH }}/make -d
         cd $OUT_PATH
         for x in $(ls .); do
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r openwrt_phicomm_n1_test_${{ env.MAKE_RELEASE_DATE }}.zip *
-        echo "::set-output name=n1testfirmware::$PWD/openwrt_phicomm_n1_test_${{ env.MAKE_RELEASE_DATE }}.zip"
+        zip -r openwrt_phicomm_n1_test_${{ env.FILE_DATE }}.zip *
+        echo "FILEPATH=$PWD/$(ls *.zip)" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory for Phicomm N1
       uses: actions/upload-artifact@master
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: OpenWrt_Phicomm_N1_test_${{ env.MAKE_RELEASE_DATE }}
-        path: ${{ steps.buildn1firmware.outputs.n1testfirmware }}
+        name: openwrt_phicomm_n1_test_${{ env.FILE_DATE }}
+        path: ${{ env.FILEPATH }}
 
     - name: Upload firmware to WeTransfer
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ steps.buildn1firmware.outputs.n1testfirmware }} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${{ env.FILEPATH }} 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        echo "WET_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
 
     - name: Upload Phicomm N1 firmware to release
       uses: svenstaro/upload-release-action@v2
-      if: steps.buildn1firmware.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ steps.buildn1firmware.outputs.n1testfirmware }}
-        tag: OpenWrt_Phicomm_N1_test_${{ env.MAKE_RELEASE_DATE }}
+        file: ${{ env.FILEPATH }}
+        tag: openwrt_phicomm_n1_test_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
         body: |
@@ -114,4 +117,5 @@ jobs:
           Default password: password
           Default WIFI name: OpenWrt
           Default WIFI password: none
+          [WETRANSFER](${{ env.WET_URL }})
      
