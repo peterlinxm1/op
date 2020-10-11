@@ -10,7 +10,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Monda
 - [Linksys WRT32X](https://github.com/ophub/op/tree/master/router/linksys_wrt32x)
 - [NanoPi R2S](https://github.com/ophub/op/tree/master/router/nanopi_r2s)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
-- [S905X3 (X96 Max Plus, HK1 Box)](https://github.com/ophub/op/tree/master/router/s905x3)
+- [S905X3](https://github.com/ophub/op/tree/master/router/s905x3)
 - [x64](https://github.com/ophub/op/tree/master/router/x64)
 
 ## Usage
@@ -104,11 +104,17 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │   │   ├── diy-part2.sh
  │   │   └── README.md
  │   │
+ │   ├── s905x3                                        # s905x3 related (X96 Max Plus, HK1 Box) 
+ │   │   ├── flippy
+ │   │   │   └── phicomm-n1.img                        # Use Phicomm N1 firmware to build s905x3
+ │   │   ├── make                                      # Build script for 905x3           
+ │   │   └── README.md
+ │   │
  │   ├── x64                                           # x64 related code files
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
  │   │   ├── diy-part2.sh
- │   │   └── README.md
+ │   │   └── README.md (X96 Max Plus, HK1 Box)
  │   │
  │   └── phicomm_n1                                    # PHICOMM N1 related code files
  │       ├── .config            
@@ -131,7 +137,6 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │       ├── build_kernel                              # Build kernel for Phicomm-N1
  │       │   ├── make_use_img.sh                       # Use Flippy's *.img files build
  │       │   ├── make_use_kernel.sh                    # Use Flippy's kernel files build
- │       │   ├── make_s905x3_hk1.sh                    # Use Phicomm N1 to build s905x3/hk1
  │       │   ├── README.md
  │       │   └── flippy
  │       │       ├── boot-${flippy_version}.tar.gz
