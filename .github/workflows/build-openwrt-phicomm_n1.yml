@@ -123,7 +123,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: Bin_openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        name: Bin_openwrt_armvirt_64_${{ env.FILE_DATE }}
         path: openwrt/bin
 
     - name: Organize files
@@ -132,7 +132,7 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        zip -r openwrt_armvirt_64_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip *
+        zip -r openwrt_armvirt_64_${{ env.FILE_DATE }}.zip *
         echo "TMPFILEPATH=$PWD/$(ls *.zip)" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -140,7 +140,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        name: openwrt_armvirt_64_${{ env.FILE_DATE }}
         path: ${{ env.TMPFILEPATH }}
         
     - name: Build firmware for N1
@@ -187,7 +187,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ env.FILEPATH }}
-        tag: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        tag: openwrt_phicomm_n1_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
         body: |
