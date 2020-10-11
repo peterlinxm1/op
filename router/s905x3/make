@@ -5,6 +5,7 @@
 # Description: Use Phicomm N1 firmware to build s905x3 related firmware (s905x3 hk1)
 # Function: Use Phicomm N1 firmware to build s905x3 related firmware
 # Copyright (C) 2020 https://github.com/ophub/op
+# make parameter: all / x96 / hk1
 #===============================================================================================================
 
 # Modify Phicomm N1 firmware's folder & *.img file name
@@ -17,7 +18,7 @@ boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
 build_save_folder="out"
 [ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder} 2>/dev/null
-firmware_list=("s905x3" "hk1")
+firmware_list=("x96" "hk1")
 convert_firmware=${1}
 
 # echo color codes
@@ -101,7 +102,7 @@ edit_uenv() {
         no_firmware=false
         firmware_dtb=${1}
         case "${firmware_dtb}" in
-        s905x3)
+        x96)
             old_s905x3_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
             new_s905x3_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
             sed -i "s/${old_s905x3_dtb}/${new_s905x3_dtb}/g" uEnv.txt
