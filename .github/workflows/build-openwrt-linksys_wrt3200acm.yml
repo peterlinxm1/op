@@ -144,14 +144,14 @@ jobs:
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ env.FILEPATH }} 2>&1 | tee cowtransfer.log
-        [ -s cowtransfer.log ] && echo "COW_PATH=$(cat cowtransfer.log)" >> $GITHUB_ENV
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${{ env.FILEPATH }} 2>&1 | tee wetransfer.log
-        [ -s wetransfer.log ] && echo "WET_PATH=$(cat wetransfer.log)" >> $GITHUB_ENV
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
 
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
@@ -170,5 +170,4 @@ jobs:
           Default password: password
           Default WIFI name: OpenWrt
           Default WIFI password: none
-          [WETRANSFER](${{ env.WET_PATH }})
 
