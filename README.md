@@ -10,6 +10,7 @@ The latest version of the OpenWrt firmware is automatically compiled every Monda
 - [Linksys WRT32X](https://github.com/ophub/op/tree/master/router/linksys_wrt32x)
 - [NanoPi R2S](https://github.com/ophub/op/tree/master/router/nanopi_r2s)
 - [Phicomm N1](https://github.com/ophub/op/tree/master/router/phicomm_n1)
+- [S905X3 (X96 Max Plus, HK1 Box)](https://github.com/ophub/op/tree/master/router/s905x3)
 - [x64](https://github.com/ophub/op/tree/master/router/x64)
 
 ## Usage
