@@ -77,7 +77,7 @@ echo_color() {
             echo -e "Current path -PWD-: [ ${PWD} ]"
             echo -e "Situation -lsblk-: [ $(lsblk) ]"
             echo -e "Directory file list -ls-: [ $(ls .) ]"
-            echo -e "-------------------${1}---------------------"
+            echo -e "--------------------------------------------"
             exit 1
             ;;
         green)
