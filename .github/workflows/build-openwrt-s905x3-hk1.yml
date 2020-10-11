@@ -18,8 +18,8 @@ on:
     paths:
       - '.github/workflows/build-openwrt-s905x3-hk1.yml'
       - 'router/phicomm_n1/build_kernel/make_s905x3_hk1.sh'
-  #schedule:
-    #- cron: '0 0 * * 5'
+  schedule:
+    - cron: '0 20 * * 0'
   #watch:
     #types: started
 
@@ -27,6 +27,7 @@ env:
   OPENWRT_PATH: router/phicomm_n1/build_kernel
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
+  UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
 
@@ -56,6 +57,7 @@ jobs:
         wget -q -P ${{ env.OPENWRT_PATH }}/flippy ${{ env.DOWNLOAD_URL }}
         cd ${{ env.OPENWRT_PATH }}/flippy && unzip *.zip
         echo "USE_KERNEL=$( ls -d */ | head -n 1  | head -c-2 )" >> $GITHUB_ENV
+        echo "FILE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
         cd $( ls -d */ | head -n 1 ) && gzip -d *.img.gz && mv *.img ../phicomm.img && cd ../
         rm -rf $( find ${PWD}/* -type d )
         rm -rf $( find ${PWD}/* -type f ! -name "*.img" )
@@ -71,24 +73,30 @@ jobs:
         sudo ./make_s905x3_hk1.sh all
         cd out/
         [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && echo "OP_TAG=s905x3_hk1" >> $GITHUB_ENV || echo "OP_TAG=$(ls *.img | sed -e 's/.img//g')" >> $GITHUB_ENV
-        echo "MAKE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
-        zip -r openwrt.zip *.img
-        echo "::set-output name=firmware::$PWD/$(ls *.zip)"
+        zip -r openwrt_${{ env.FILE_DATE }}.zip *.img
+        echo "FILEPATH=$PWD/$(ls *.zip).zip" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Upload firmware to Actions
       uses: actions/upload-artifact@master
       if: steps.build.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: openwrt_${{ env.USE_KERNEL }}_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}
-        path: ${{ steps.build.outputs.firmware }}
+        name: openwrt_${{ env.USE_KERNEL }}_${{ env.OP_TAG }}_${{ env.FILE_DATE }}
+        path: ${{ env.FILEPATH }}
 
-    - name: Upload firmware to WeTransfer
-      if: steps.build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+    - name: Upload firmware to cowtransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ steps.build.outputs.firmware }} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ env.FILEPATH }} 2>&1 | tee cowtransfer.log
+        [ -s cowtransfer.log ] && echo "COW_PATH=$(cat cowtransfer.log)" >> $GITHUB_ENV
+
+    - name: Upload firmware to WeTransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${{ env.FILEPATH }} 2>&1 | tee wetransfer.log
+        [ -s wetransfer.log ] && echo "WET_PATH=$(cat wetransfer.log)" >> $GITHUB_ENV
 
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
@@ -96,7 +104,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ steps.build.outputs.firmware }}
-        tag: openwrt_${{ env.OP_TAG }}_${{ env.MAKE_DATE }}
+        tag: openwrt_${{ env.OP_TAG }}_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
         body: |
@@ -107,4 +115,5 @@ jobs:
           Default password: password
           Default WIFI name: OpenWrt
           Default WIFI password: none
+          [WETRANSFER](${{ env.WET_PATH }})
      

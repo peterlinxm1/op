@@ -18,7 +18,7 @@ on:
       - 'router/nanopi_r2s/.config'
       - '.github/workflows/build-openwrt-nanopi_r2s.yml'
   schedule:
-    - cron: '0 20 * * 0,3'
+    - cron: '0 20 * * 0'
   #watch:
     #types: started
 
@@ -107,7 +107,9 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
-        echo "::set-output name=firmware::openwrt_nanopi_r2s_$(date +"%Y.%m.%d")"
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "FILE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Check space usage
@@ -118,7 +120,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: Bin_${{ steps.compile.outputs.firmware }}
+        name: Bin_openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         path: openwrt/bin
 
     - name: Organize files
@@ -127,46 +129,47 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        zip -r ${{ steps.compile.outputs.firmware }}.zip *
-        echo "::set-output name=filepath::$PWD/${{ steps.compile.outputs.firmware }}.zip"
+        zip -r openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip *
+        echo "FILEPATH=$PWD/$(ls *.zip).zip" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@v2
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ steps.compile.outputs.firmware }}
-        path: ${{ steps.organize.outputs.filepath }}
+        name: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        path: ${{ env.FILEPATH }}
 
     - name: Upload firmware to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ steps.organize.outputs.filepath }} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ env.FILEPATH }} 2>&1 | tee cowtransfer.log
+        [ -s cowtransfer.log ] && echo "COW_PATH=$(cat cowtransfer.log)" >> $GITHUB_ENV
 
     - name: Upload firmware to WeTransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ steps.organize.outputs.filepath }} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        ./transfer wet -s -p 16 --no-progress ${{ env.FILEPATH }} 2>&1 | tee wetransfer.log
+        [ -s wetransfer.log ] && echo "WET_PATH=$(cat wetransfer.log)" >> $GITHUB_ENV
 
     - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ steps.organize.outputs.filepath }}
-        tag: ${{ steps.compile.outputs.firmware }}
+        file: ${{ env.FILEPATH }}
+        tag: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
         body: |
-          This is OpenWrt firmware for NanoPi R2S
+          This is OpenWrt firmware for ${{ env.DEVICE_NAME }}
           * Firmware information
           Default IP: 192.168.1.1
           Default username: root
           Default password: password
           Default WIFI name: OpenWrt
           Default WIFI password: none
+          [WETRANSFER](${{ env.WET_PATH }})
 

@@ -18,7 +18,7 @@ on:
       - 'router/phicomm_n1/.config'
       - '.github/workflows/build-openwrt-phicomm_n1.yml'
   schedule:
-    - cron: '0 20 * * 0,3'
+    - cron: '0 20 * * 0'
   #watch:
     #types: started
 
@@ -35,8 +35,7 @@ env:
   MAKE_FILE: router/phicomm_n1/make
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
-  UPLOAD_ORIGINALFIRMWARE: true
-  UPLOAD_N1FIRMWARE: true
+  UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
@@ -111,41 +110,42 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
-        echo "::set-output name=firmware::openwrt_original_armvirt_$(date +"%Y.%m.%d")"
-        echo "::set-output name=n1tag::openwrt_phicomm_n1_$(date +"%Y.%m.%d")"
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "FILE_DATE=$(date +"%Y.%m.%d")" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
 
-    - name: Upload original bin directory
+    - name: Upload bin directory
       uses: actions/upload-artifact@v2
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: Bin_${{ steps.compile.outputs.firmware }}
+        name: Bin_openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         path: openwrt/bin
 
     - name: Organize files
       id: organize
-      if: env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
-        zip -r ${{ steps.compile.outputs.firmware }}.zip *
-        echo "::set-output name=filepath::$PWD/${{ steps.compile.outputs.firmware }}.zip"
+        zip -r openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.zip *
+        echo "TMPFILEPATH=$PWD/$(ls *.zip).zip" >> $GITHUB_ENV
         echo "::set-output name=status::success"
- 
-    - name: Upload firmware directory for Original_Armvirt
+
+    - name: Upload firmware directory
       uses: actions/upload-artifact@v2
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_ORIGINALFIRMWARE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ steps.compile.outputs.firmware }}
-        path: ${{ steps.organize.outputs.filepath }}
+        name: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
+        path: ${{ env.TMPFILEPATH }}
         
     - name: Build firmware for N1
       id: buildn1
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         sudo rm -rf $OUT_PATH
         mkdir -p $OPENWRT_ORGANIZE_PATH
@@ -156,38 +156,38 @@ jobs:
           cd $x && gzip *.img && cd ../
         done
         cp -rf ../openwrt/* .
-        zip -r ${{ steps.compile.outputs.n1tag }}.zip *
-        echo "::set-output name=n1filepath::$PWD/${{ steps.compile.outputs.n1tag }}.zip"
+        zip -r openwrt_phicomm_n1_${{ env.FILE_DATE }}.zip *
+        echo "FILEPATH=$PWD/$(ls *.zip).zip" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
-    - name: Upload firmware directory for Phicomm N1
+    - name: Upload firmware directory for N1
       uses: actions/upload-artifact@v2
-      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_N1FIRMWARE == 'true' && !cancelled()
+      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       with:
-        name: ${{ steps.compile.outputs.n1tag }}
-        path: ${{ steps.buildn1.outputs.n1filepath }}
+        name: openwrt_phicomm_n1_${{ env.FILE_DATE }}
+        path: ${{ env.FILEPATH }}
 
     - name: Upload firmware to cowtransfer
-      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ steps.buildn1.outputs.n1filepath }} 2>&1 | tee cowtransfer.log
-        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-        
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ env.FILEPATH }} 2>&1 | tee cowtransfer.log
+        [ -s cowtransfer.log ] && echo "COW_PATH=$(cat cowtransfer.log)" >> $GITHUB_ENV
+
     - name: Upload firmware to WeTransfer
-      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ steps.buildn1.outputs.n1filepath }} 2>&1 | tee wetransfer.log
-        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-        
-    - name: Upload Phicomm N1 firmware to release
+        ./transfer wet -s -p 16 --no-progress ${{ env.FILEPATH }} 2>&1 | tee wetransfer.log
+        [ -s wetransfer.log ] && echo "WET_PATH=$(cat wetransfer.log)" >> $GITHUB_ENV
+
+    - name: Upload firmware to release
       uses: svenstaro/upload-release-action@v2
-      if: steps.buildn1.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ steps.buildn1.outputs.n1filepath }}
-        tag: ${{ steps.compile.outputs.n1tag }}
+        file: ${{ env.FILEPATH }}
+        tag: openwrt_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}
         overwrite: true
         file_glob: true
         body: |
@@ -198,4 +198,5 @@ jobs:
           Default password: password
           Default WIFI name: OpenWrt
           Default WIFI password: none
+          [WETRANSFER](${{ env.WET_PATH }})
 
