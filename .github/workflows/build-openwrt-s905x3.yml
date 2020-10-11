@@ -69,8 +69,8 @@ jobs:
       if: steps.download.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd ${{ env.OPENWRT_PATH }}
-        chmod +x make_s905x3_hk1.sh
-        sudo ./make_s905x3_hk1.sh all
+        chmod +x make
+        sudo ./make all
         cd out/
         [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && echo "OP_TAG=s905x3_hk1" >> $GITHUB_ENV || echo "OP_TAG=$(ls *.img | sed -e 's/.img//g')" >> $GITHUB_ENV
         zip -r openwrt_${{ env.FILE_DATE }}.zip *.img
