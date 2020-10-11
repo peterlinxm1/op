@@ -7,24 +7,24 @@
 # Copyright (C) 2020 https://github.com/ophub/op
 #===============================================================================================================
 #
-# example: ~/op/router/phicomm_n1/build_kernel/
+# example: ~/op/router/s905x3
 # ├── flippy
 # │   └── phicomm.img
-# └── make_s905x3_hk1.sh
+# └── make
 #
 # Usage: Use Ubuntu 18 LTS 64-bit
 # 01. Log in to the home directory of the local Ubuntu system
 # 02. git clone https://github.com/ophub/op.git
-# 03. cd ~/op/router/phicomm_n1/build_kernel/
+# 03. cd ~/op/router/s905x3
 # 04. Put Phicomm N1 firmware ${flippy_file} file into ${flippy_folder}
-# 05. Run: sudo ./make_s905x3_hk1.sh
-# 06. The generated files path: ~/op/router/phicomm_n1/build_kernel/out/openwrt_${convert_firmware}.img
+# 05. Run: sudo ./make ${firmware_key}
+# 06. The generated files path: ~/op/router/s905x3/out/openwrt_${convert_firmware}.img
 # 07. git push to your github
-# 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-s905x3-hk1.yml
+# 08. Github.com Build openwrt: ~/op/.github/workflows/build-openwrt-s905x3.yml
 #
-# Tips: If run 'sudo ./make_s905x3_hk1.sh ${firmware_key}' is 'Command not found'
-# 01. chmod +x make_s905x3_hk1.sh
-# 02. vi make_s905x3_hk1.sh
+# Tips: If run 'sudo ./make ${firmware_key}' is 'Command not found'
+# 01. chmod +x make
+# 02. vi make
 # 03. :set ff=unix
 # 04. :wq
 #
