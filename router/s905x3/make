@@ -2,7 +2,7 @@
 
 #===============================================================================================================
 # https://github.com/ophub/op
-# Description: Use Phicomm N1 firmware to build s905x3 related firmware (s905x3 hk1)
+# Description: Use Phicomm N1 firmware to build s905x3 related firmware (x96 hk1)
 # Function: Use Phicomm N1 firmware to build s905x3 related firmware
 # Copyright (C) 2020 https://github.com/ophub/op
 # make parameter: all / x96 / hk1
@@ -103,10 +103,10 @@ edit_uenv() {
         firmware_dtb=${1}
         case "${firmware_dtb}" in
         x96)
-            old_s905x3_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
-            new_s905x3_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
-            sed -i "s/${old_s905x3_dtb}/${new_s905x3_dtb}/g" uEnv.txt
-            echo_color "yellow" "(3/4) s905x3: convert completed" "..."
+            old_x96_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
+            new_x96_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
+            sed -i "s/${old_x96_dtb}/${new_x96_dtb}/g" uEnv.txt
+            echo_color "yellow" "(3/4) x96: convert completed" "..."
             ;;
         hk1)
             old_hk1_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-hk1box-vontar-x3.dtb"
@@ -163,7 +163,7 @@ umount_ulosetup() {
 if [[ ! -n "${convert_firmware}" ]]; then echo_color "red" "(0/4) Parameter is empty!" "..."; fi
 if [[ ! "${firmware_list[@]}"  =~ "${convert_firmware}" ]] &&  [[ ! "${convert_firmware}" = "all" ]]; then echo_color "red" "(0/4) Parameter error" "..."; fi
 
-# Use Phicomm N1 firmware to build s905x3 related firmware (s905x3 hk1)
+# Use Phicomm N1 firmware to build s905x3 related firmware (x96 hk1)
 if [ ${convert_firmware} = "all" ];then
           for x in ${firmware_list[@]}; do
                check_build_files
