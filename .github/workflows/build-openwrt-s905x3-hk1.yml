@@ -74,7 +74,7 @@ jobs:
         cd out/
         [ $( ls -l | grep "^-" | wc -l ) -gt 1 ] && echo "OP_TAG=s905x3_hk1" >> $GITHUB_ENV || echo "OP_TAG=$(ls *.img | sed -e 's/.img//g')" >> $GITHUB_ENV
         zip -r openwrt_${{ env.FILE_DATE }}.zip *.img
-        echo "FILEPATH=$PWD/$(ls *.zip).zip" >> $GITHUB_ENV
+        echo "FILEPATH=$PWD/$(ls *.zip)" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
     - name: Upload firmware to Actions
