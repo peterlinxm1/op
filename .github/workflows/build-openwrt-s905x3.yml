@@ -16,15 +16,15 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/build-openwrt-s905x3-hk1.yml'
-      - 'router/phicomm_n1/build_kernel/make_s905x3_hk1.sh'
+      - '.github/workflows/build-openwrt-s905x3.yml'
+      - 'router/s905x3/make'
   schedule:
     - cron: '0 23 * * 0'
   #watch:
     #types: started
 
 env:
-  OPENWRT_PATH: router/phicomm_n1/build_kernel
+  OPENWRT_PATH: router/s905x3
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_COWTRANSFER: false
