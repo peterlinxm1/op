@@ -114,7 +114,7 @@ Set `SSH_ACTIONS: true` to use tmate to connect to the `GitHub Actions` virtual 
  │   │   ├── .config            
  │   │   ├── diy-part1.sh            
  │   │   ├── diy-part2.sh
- │   │   └── README.md (X96 Max Plus, HK1 Box)
+ │   │   └── README.md
  │   │
  │   └── phicomm_n1                                    # PHICOMM N1 related code files
  │       ├── .config            
