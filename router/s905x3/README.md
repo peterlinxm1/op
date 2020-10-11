@@ -1,6 +1,8 @@
 # OpenWrt for s905x3 ( X96 Max Plus, HK1 Box )
 
-Compilation instructions
+You can download the OpwnWrt for s905x3 firmware from [Actions](https://github.com/ophub/op/actions). From the ` Build OpenWrt for s905x3 `, Such as `openwrt_s905x3_${date}` Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `openwrt_s905x3_${date}`. Then write the IMG file to the MicroSD card/TF card through software such as [balenaEtcher](https://www.balena.io/etcher/).
+
+## Compilation instructions
 1. Online automatic compilation: The script will regularly use the latest phicomm-n1 firmware and modify `/boot/uEnv.txt` to build a compatible s905x3 series router.
 2. Local manual compilation: First put the phicomm-n1 firmware into the `flippy` folder, and then run `sudo ./make ${firmware_key}`, the generated file is in the `out` directory.
 
