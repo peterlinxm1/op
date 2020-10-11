@@ -17,7 +17,6 @@ build_tmp_folder="tmp"
 boot_tmp=${build_tmp_folder}/boot
 root_tmp=${build_tmp_folder}/root
 build_save_folder="out"
-[ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder} 2>/dev/null
 firmware_list=("x96" "hk1")
 convert_firmware=${1}
 
@@ -72,17 +71,18 @@ check_build_files() {
 #losetup & mount ${flippy_file}
 losetup_mount_img() {
 
+     [ -d ${build_tmp_folder} ] && rm -rf ${build_tmp_folder} 2>/dev/null
      mkdir -p ${boot_tmp} ${root_tmp}
 
      cp -f ${flippy_folder}/${flippy_file}  ${flippy_folder}/make_${flippy_file} && sync
      chmod -R 777 ${flippy_folder} ${build_tmp_folder}
 
      lodev=$(losetup -P -f --show ${flippy_folder}/make_${flippy_file})
-     [ $lodev ] || ( echo_color "red" "(2/4) losetup make_${flippy_file} failed!" "..." )
+     [ $lodev ] || echo_color "red" "(2/4) losetup make_${flippy_file} failed!" "..."
      mount ${lodev}p1 ${boot_tmp}
-     [ $lodev ] || ( echo_color "red" "(2/4) mount ${lodev}p1 failed!" "..." )
+     [ $lodev ] || echo_color "red" "(2/4) mount ${lodev}p1 failed!" "..."
      mount ${lodev}p2 ${root_tmp}
-     [ $lodev ] || ( echo_color "red" "(2/4) mount ${lodev}p2 failed!" "..." )
+     [ $lodev ] || echo_color "red" "(2/4) mount ${lodev}p2 failed!" "..."
 
      echo_color "green" "(2/4) End losetup_mount_img" "Use: ${lodev} ..."
 
@@ -143,7 +143,7 @@ umount_ulosetup() {
      umount -f ${boot_tmp} 2>/dev/null
      umount -f ${root_tmp} 2>/dev/null
      losetup -d ${lodev} 2>/dev/null
-     [ $? = 0 ] || ( echo_color "red" "(4/4) umount ${lodev} failed!" "..." )
+     [ $? = 0 ] || echo_color "red" "(4/4) umount ${lodev} failed!" "..."
      
      [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
      cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/${firmware_dtb}.img
@@ -152,8 +152,7 @@ umount_ulosetup() {
      
      sync
 
-     rm -rf ${build_tmp_folder}
-     rm -rf ${flippy_folder}/make_${flippy_file}
+     rm -rf  ${build_tmp_folder}  ${flippy_folder}/make_${flippy_file}  2>/dev/null
 
   echo_color "green" "(4/4) End umount_ulosetup"  "Del: ${lodev} ..."
 
