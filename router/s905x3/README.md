@@ -34,7 +34,8 @@ reboot          #Enter the reboot command to restart.
 ```
 If the partition fails and cannot be written, you can restore the bootloader, restart it, and run the relevant command again.
 ```shell script
-dd if=/root/hk1box-bootloader.img of=/dev/mmcblk1
+dd if=/root/hk1box-bootloader.img of=/dev/mmcblk1 bs=1M
+sync
 reboot
 ```
 
