@@ -1,7 +1,7 @@
 ![OPhub logo](/logo.png)
 
 
-# Automatically Build OpenWrt
+# OpenWrt Firmware
 
 The latest version of the OpenWrt firmware is automatically compiled every Monday, which can be downloaded in [Action](https://github.com/ophub/op/actions). Will be updated to latest in every Monday [Releases](https://github.com/ophub/op/releases). For detailed information about each firmware, please refer to the README.md file of each model. The currently supported router models are: 
 
