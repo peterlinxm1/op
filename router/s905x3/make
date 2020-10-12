@@ -103,8 +103,8 @@ edit_uenv() {
         firmware_dtb=${1}
         case "${firmware_dtb}" in
         x96)
-            old_x96_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
-            new_x96_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus.dtb"
+            old_x96_dtb="#FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus-100m.dtb"
+            new_x96_dtb="FDT=\/dtb\/amlogic\/meson-sm1-x96-max-plus-100m.dtb"
             sed -i "s/${old_x96_dtb}/${new_x96_dtb}/g" uEnv.txt
             echo_color "yellow" "(3/4) x96: convert completed" "..."
             ;;
