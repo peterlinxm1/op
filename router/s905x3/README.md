@@ -1,6 +1,6 @@
-# OpenWrt for s905x3 ( X96 Max Plus, HK1 Box )
+# OpenWrt for S905x3 ( X96 Max Plus, HK1 Box )
 
-You can download the OpwnWrt for s905x3 firmware from [Actions](https://github.com/ophub/op/actions). From the ` Build OpenWrt for s905x3 `, Such as `openwrt_s905x3_${date}` Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `openwrt_s905x3_${date}`. Then write the IMG file to the MicroSD card/TF card through software such as [balenaEtcher](https://www.balena.io/etcher/).
+You can download the OpwnWrt for s905x3 firmware from [Actions](https://github.com/ophub/op/actions). From the ` Build OpenWrt for S905x3 `, Such as `openwrt_s905x3_${date}` Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `openwrt_S905x3_${date}`. Then write the IMG file to the USB card/TF card  through software such as [balenaEtcher](https://www.balena.io/etcher/).
 
 ## Compilation instructions
 1. Online automatic compilation: The script will regularly use the latest phicomm-n1 firmware and modify `/boot/uEnv.txt` to build a compatible s905x3 series router.
@@ -16,8 +16,33 @@ adb shell
 su
 reboot update
 ````
-Then quickly insert the prepared MicroSD card/TF card to start the openwrt for s905x3 firmware
+Then quickly insert the prepared USB card/TF card to start the openwrt for s905x3 firmware
 
+
+The firmware supports USB hard disk booting. You can also Install the OpenWrt firmware in the USB hard disk into the EMMC partition of S905x3, and start using it from EMMC.
+
+Install OpenWrt: `Login in to openwrt` → `system menu` → `TTYD terminal` → input command: 
+```shell script
+n1-install.sh
+# Wait for the installation to complete. remove the USB hard disk, unplug/plug in the power again, reboot into EMMC.
+```
+
+Upgrading OpenWrt: `Login in to openwrt` → `system menu` → `file transfer` → upload to `/tmp/upgrade/xxx.img`, enter the `system menu` → `TTYD terminal` → input command: 
+```shell script
+n1-update.sh
+reboot          #Enter the reboot command to restart.
+```
+If the partition fails and cannot be written, you can restore the bootloader, restart it, and run the relevant command again.
+```shell script
+dd if=/root/hk1box-bootloader.img of=/dev/mmcblk1
+reboot
+```
+
+Note: If used as a bypass gateway, you can add custom firewall rules as needed (Network → Firewall → Custom Rules):
+```shell script
+iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE        #If the interface is eth0.
+iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is br-lan bridged.
+```
 
 ## /boot/uEnv.txt:
 
@@ -36,7 +61,7 @@ Then quickly insert the prepared MicroSD card/TF card to start the openwrt for s
 FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 ````
 
-Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. E.g
+Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. Start from usb is to use ***` meson-sm1-x96-max-plus-100m.dtb ***`, and change to ***'meson-sm1-x96-max-plus.dtb'*** after writing emmc
 
 ## Detailed make compile command
 - `sudo ./make all`: All S905x3 (X96 Max Plus, HK1 Box) OpenWrt firmware according to the default configuration firmware. This command is recommended.
