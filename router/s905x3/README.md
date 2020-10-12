@@ -55,10 +55,10 @@ iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is
 #X96 Max+ (S905X3 for 100m)
 #FDT=/dtb/amlogic/meson-sm1-x96-max-plus-100m.dtb
 #X96 Max+ (S905X3 for 1000M) [tag: s905x3]
-#FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
+FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
 #
 #HK1 BoX (S905X3 for 1000M) [tag: hk1]
-FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
+#FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 ````
 
 Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. Start from usb is to use ***` meson-sm1-x96-max-plus-100m.dtb `***, and change to ***` meson-sm1-x96-max-plus.dtb `*** after writing emmc
