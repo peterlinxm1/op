@@ -1,10 +1,10 @@
 # OpenWrt for S905x3 ( X96 Max Plus, HK1 Box )
 
-You can download the OpwnWrt for s905x3 firmware from [Actions](https://github.com/ophub/op/actions). From the ` Build OpenWrt for S905x3 `, Such as `openwrt_s905x3_${date}` Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `openwrt_S905x3_${date}`. Then write the IMG file to the USB card/TF card  through software such as [balenaEtcher](https://www.balena.io/etcher/).
+You can download the OpwnWrt for S905x3 firmware from [Actions](https://github.com/ophub/op/actions). From the ` Build OpenWrt for S905x3 `, Such as `openwrt_s905x3_${date}` Unzip to get the `***.img` file. Or download from [Releases](https://github.com/ophub/op/releases). Such as `openwrt_S905x3_${date}`. Then write the IMG file to the USB card/TF card  through software such as [balenaEtcher](https://www.balena.io/etcher/).
 
 ## Compilation instructions
-1. Online automatic compilation: The script will regularly use the latest phicomm-n1 firmware and modify `/boot/uEnv.txt` to build a compatible s905x3 series router.
-2. Local manual compilation: First put the phicomm-n1 firmware into the `flippy` folder, and then run `sudo ./make ${firmware_key}`, the generated file is in the `out` directory.
+1. Online automatic compilation: The script will regularly use the latest OpenWrt for phicomm-n1 firmware and modify ***` /boot/uEnv.txt `*** to build a compatible S905x3 series router.
+2. Local manual compilation: First put the phicomm-n1 firmware into the ***` flippy `*** folder, and then run `sudo ./make ${firmware_key}`, the generated file is in the ***` out `*** directory.
 
 
 ## Firmware instructions
@@ -61,7 +61,7 @@ iptables -t nat -I POSTROUTING -o br-lan -j MASQUERADE      #If the interface is
 FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 ````
 
-Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. Start from usb is to use ***` meson-sm1-x96-max-plus-100m.dtb ***`, and change to ***'meson-sm1-x96-max-plus.dtb'*** after writing emmc
+Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. Start from usb is to use ***` meson-sm1-x96-max-plus-100m.dtb `***, and change to ***` meson-sm1-x96-max-plus.dtb `*** after writing emmc
 
 ## Detailed make compile command
 - `sudo ./make all`: All S905x3 (X96 Max Plus, HK1 Box) OpenWrt firmware according to the default configuration firmware. This command is recommended.
@@ -83,7 +83,7 @@ Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in f
 | install-program | Script to flash firmware to emmc. |
 
 
-## .github/workflow/build-openwrt-phicomm_n1.yml related environment variable description
+## .github/workflow/build-openwrt-s905x3.yml related environment variable description
 
 | Environment variable | Features |
 | ---- | ---- |
