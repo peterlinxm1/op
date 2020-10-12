@@ -61,7 +61,7 @@ FDT=/dtb/amlogic/meson-sm1-x96-max-plus.dtb
 #FDT=/dtb/amlogic/meson-sm1-hk1box-vontar-x3.dtb
 ````
 
-Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. Start from usb is to use ***` meson-sm1-x96-max-plus-100m.dtb `***, and change to ***` meson-sm1-x96-max-plus.dtb `*** after writing emmc
+Method: Add # in front of the dtb file path of Phicomm N1, and remove the # in front of the firmware you need. Start from usb is to use ***` meson-sm1-x96-max-plus-100m.dtb `***, and change to ***` meson-sm1-x96-max-plus.dtb `*** after writing emmc.
 
 ## Detailed make compile command
 - `sudo ./make all`: All S905x3 (X96 Max Plus, HK1 Box) OpenWrt firmware according to the default configuration firmware. This command is recommended.
