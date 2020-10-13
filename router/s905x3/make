@@ -10,7 +10,7 @@
 
 # Modify Phicomm N1 firmware's folder & *.img file name
 flippy_folder="flippy"
-flippy_file="phicomm.img"
+#flippy_file="phicomm.img"
 
 # Default setting ( Don't modify )
 build_tmp_folder="tmp"
@@ -56,6 +56,7 @@ echo_color() {
 # Check files
 check_build_files() {
 
+      flippy_file=${kernel#*/}
       if  [  ! -f ${flippy_folder}/${flippy_file} ]; then
         echo_color "red" "(1/4) Error: Files does not exist"  "\n \
         Please check if the following one files exist: \n \
@@ -146,9 +147,9 @@ umount_ulosetup() {
      [ $? = 0 ] || echo_color "red" "(4/4) umount ${lodev} failed!" "..."
      
      [ -d ${build_save_folder} ] || mkdir -p ${build_save_folder}
-     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/${firmware_dtb}.img
+     cp -f ${flippy_folder}/make_${flippy_file} ${build_save_folder}/${firmware_dtb}_${flippy_file%.*}.img
      chmod -R 777 ${build_save_folder}
-     echo_color "yellow" "(4/4) convert to ${build_save_folder}/${firmware_dtb}.img" "..."
+     echo_color "yellow" "(4/4) convert to ${build_save_folder}/${firmware_dtb}_${flippy_file%.*}.img" "..."
      
      sync
 
@@ -157,12 +158,38 @@ umount_ulosetup() {
   echo_color "green" "(4/4) End umount_ulosetup"  "Del: ${lodev} ..."
 
 }
-
+${flippy_file%%.*}
 #Parameter validity check
 if [[ ! -n "${convert_firmware}" ]]; then echo_color "red" "(0/4) Parameter is empty!" "..."; fi
 if [[ ! "${firmware_list[@]}"  =~ "${convert_firmware}" ]] &&  [[ ! "${convert_firmware}" = "all" ]]; then echo_color "red" "(0/4) Parameter error" "..."; fi
 
 # Use Phicomm N1 firmware to build s905x3 related firmware (x96 hk1)
+[ $( ls $flippy_folder/*.img  | wc -l ) -eq 0 ] && echo_color "red" "(0/4) Error: *.img Files does not exist!" || {
+    for kernel in $( ls $flippy_folder/*.img ); do
+        #echo ${kernel}
+        #echo ${kernel#*/} && aaa=${kernel#*/}
+        #echo ${aaa%.*}
+        if [ ${convert_firmware} = "all" ];then
+              for x in ${firmware_list[@]}; do
+                   check_build_files ${kernel#*/}
+                   losetup_mount_img
+                   edit_uenv ${x}
+                   umount_ulosetup
+              done
+        else
+                   check_build_files ${kernel#*/}
+                   losetup_mount_img
+                   edit_uenv ${convert_firmware}
+                   umount_ulosetup
+        fi
+
+    done
+}
+exit 1
+
+
+
+
 if [ ${convert_firmware} = "all" ];then
           for x in ${firmware_list[@]}; do
                check_build_files
